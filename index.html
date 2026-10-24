@@ -85,7 +85,7 @@
   </section>
 
   <!-- CLIENT INQUIRY & BOOKING FORM -->
-  <section class="px-4 py-2 max-w-md mx-auto mb-4">
+  <section id="inquiry-section" class="px-4 py-2 max-w-md mx-auto mb-4">
     <div class="glass p-4 rounded-2xl border border-brand-accent/30 space-y-3">
       <h4 class="font-bold text-sm text-brand-accent uppercase tracking-wider">Book Your Date / Inquire</h4>
       <p class="text-[11px] text-brand-muted">Fill in your details below. This saves your booking request and opens WhatsApp instantly.</p>
@@ -276,7 +276,9 @@
     function selectPackage(name, price) {
       selectedPackage = `${name} (${price})`;
       document.getElementById('selected-pkg-name').innerText = name;
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      
+      // Smooth scroll directly to the inquiry form section
+      document.getElementById('inquiry-section').scrollIntoView({ behavior: 'smooth' });
     }
 
     function submitInquiry() {
