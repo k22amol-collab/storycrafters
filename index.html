@@ -20,10 +20,10 @@
     .no-scrollbar::-webkit-scrollbar { display: none; }
   </style>
 </head>
-<body class="min-h-screen pb-36">
+<body class="min-h-screen pb-44">
 
   <!-- HEADER -->
-  <header class="sticky top-0 z-50 glass px-4 py-3 flex justify-between items-center shadow-lg">
+  <header class="sticky top-0 z-40 glass px-4 py-3 flex justify-between items-center shadow-lg">
     <div>
       <h1 class="text-lg font-bold tracking-wider text-brand-accent uppercase">Story Crafter</h1>
       <p class="text-[10px] text-brand-muted">Goa • Luxury Wedding Photography</p>
@@ -108,7 +108,11 @@
             <label class="flex items-center gap-2 cursor-pointer text-neutral-300">
               <input type="checkbox" id="cfg-wedding-groom" onchange="calculateCustomPrice()" class="accent-amber-500 w-3.5 h-3.5">
               <span>Home to Venue Coverage (Groom Side)</span>
+              <button onclick="toggleTooltip('tt-wedding-side')" type="button" class="text-brand-accent text-[10px] font-bold">ⓘ</button>
             </label>
+            <div id="tt-wedding-side" class="hidden text-[10px] text-brand-muted bg-neutral-950 p-2 rounded border border-neutral-800">
+              Captures preparation, morning rituals, and venue arrival ceremonies prior to the main mandap event.
+            </div>
             <label class="flex items-center gap-2 cursor-pointer text-neutral-300">
               <input type="checkbox" id="cfg-wedding-bride" onchange="calculateCustomPrice()" class="accent-amber-500 w-3.5 h-3.5">
               <span>Home to Venue Coverage (Bride Side)</span>
@@ -118,7 +122,11 @@
             <label class="flex items-center gap-2 cursor-pointer text-brand-accent">
               <input type="checkbox" id="cfg-wedding-album-active" onchange="calculateCustomPrice()" class="accent-amber-500 w-3.5 h-3.5">
               <span class="font-semibold">Add Wedding Album</span>
+              <button onclick="toggleTooltip('tt-album-info')" type="button" class="text-brand-accent text-[10px] font-bold">ⓘ</button>
             </label>
+            <div id="tt-album-info" class="hidden text-[10px] text-brand-muted bg-neutral-950 p-2 rounded border border-neutral-800">
+              1 Spread = 2 pages (12"x18" flush mount, non-tearable HD print). Each sheet holds approx 4-6 curated images.
+            </div>
             <div id="cfg-wedding-album-opts" class="flex items-center justify-between text-neutral-300 pl-5 hidden">
               <span>Album Sheets/Spreads:</span>
               <input type="number" id="cfg-wedding-album-sheets" value="30" min="1" oninput="calculateCustomPrice()" class="bg-neutral-800 text-white w-16 rounded px-2 py-1 text-xs border border-neutral-700 text-center">
@@ -266,7 +274,6 @@
           <p class="text-[10px] text-neutral-400 mt-0.5">Select your film duration and optional aerial/teaser add-ons:</p>
         </div>
 
-        <!-- Video Edit Length (DEFAULT NONE / OPTIONAL) -->
         <div class="space-y-1">
           <label class="block text-[10px] font-semibold text-neutral-300 uppercase">Film Duration:</label>
           <select id="cfg-video-duration" onchange="calculateCustomPrice()" class="w-full bg-neutral-800 text-white rounded-xl px-3 py-2 text-xs border border-neutral-700 focus:outline-none focus:border-red-500">
@@ -277,11 +284,9 @@
           </select>
         </div>
 
-        <!-- ADD-ONS: DRONE & TRAILER (DEFAULTS NONE) -->
         <div class="pt-2 border-t border-neutral-800 space-y-2.5">
           <span class="text-[10px] font-bold uppercase text-amber-400 tracking-wider block">Cinematography Add-Ons:</span>
           
-          <!-- Drone Option (DEFAULT UNCHECKED / NONE) -->
           <div class="space-y-1 bg-neutral-950 p-2.5 rounded-xl border border-neutral-800">
             <label class="flex items-center justify-between cursor-pointer text-xs font-semibold text-white">
               <span class="flex items-center gap-1.5">
@@ -291,11 +296,10 @@
               <span class="text-amber-400 font-bold">+₹10,000 / Session</span>
             </label>
             <p class="text-[9px] text-neutral-400 pl-5 leading-tight">
-              <strong>Drone Permission Note:</strong> Drones are subject to DGCA & government regulations. The client has the responsibility of obtaining permissions to fly drone from the event venue and local authorities[cite: 5].
+              <strong>Drone Permission Note:</strong> Drones are subject to DGCA & government regulations. The client has the responsibility of obtaining permissions to fly drone from the event venue and local authorities.
             </p>
           </div>
 
-          <!-- Trailer Option (DEFAULT NONE) -->
           <div class="space-y-1 bg-neutral-950 p-2.5 rounded-xl border border-neutral-800">
             <div class="flex items-center justify-between">
               <span class="text-xs font-semibold text-white flex items-center gap-1.5">
@@ -310,7 +314,6 @@
           </div>
         </div>
 
-        <!-- NOTE & DELIVERABLE TERMS FROM IMAGE -->
         <div class="bg-neutral-950 p-2.5 rounded-lg border border-neutral-800/80 text-[10px] text-neutral-300 space-y-1">
           <div class="text-red-400 font-bold uppercase tracking-wider text-[9px] mb-1">Film Specifications & Terms:</div>
           <ul class="list-disc pl-3.5 space-y-0.5 text-neutral-400">
@@ -322,15 +325,22 @@
         </div>
       </div>
 
-      <!-- ESTIMATED CUSTOM TOTAL DISPLAY -->
-      <div class="bg-brand-accent/10 border border-brand-accent/40 p-3 rounded-xl flex items-center justify-between">
-        <div>
-          <div class="text-[10px] uppercase text-brand-muted font-bold">Estimated Custom Quote:</div>
-          <div id="custom-total-price" class="text-lg font-extrabold text-brand-accent">₹0</div>
+      <!-- ESTIMATED CUSTOM TOTAL DISPLAY CARD -->
+      <div class="bg-brand-accent/10 border border-brand-accent/40 p-3.5 rounded-xl space-y-2">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="text-[10px] uppercase text-brand-muted font-bold">Estimated Custom Quote:</div>
+            <div id="custom-total-price" class="text-lg font-extrabold text-brand-accent">₹0</div>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="openBreakdownModal()" class="bg-neutral-800 text-neutral-300 border border-neutral-700 px-2.5 py-1.5 rounded-lg text-xs font-semibold">
+              View Breakdown
+            </button>
+            <button onclick="applyCustomPackage()" class="bg-brand-accent text-brand-dark px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider shadow">
+              Apply Quote
+            </button>
+          </div>
         </div>
-        <button onclick="applyCustomPackage()" class="bg-brand-accent text-brand-dark px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider shadow">
-          Apply Quote
-        </button>
       </div>
     </div>
   </section>
@@ -415,7 +425,25 @@
     </a>
   </section>
 
-  <!-- ACTION BAR -->
+  <!-- STICKY MOBILE FLOATING LIVE PRICE BAR -->
+  <div id="floating-custom-bar" class="fixed bottom-14 left-0 right-0 glass border-t border-brand-accent/30 p-2.5 max-w-md mx-auto hidden z-40 shadow-2xl">
+    <div class="flex items-center justify-between px-1">
+      <div>
+        <div class="text-[9px] uppercase text-brand-muted font-bold">Custom Quote Live Total:</div>
+        <div id="sticky-total-price" class="text-sm font-extrabold text-brand-accent">₹0</div>
+      </div>
+      <div class="flex gap-2">
+        <button onclick="openBreakdownModal()" class="bg-neutral-800 text-neutral-300 border border-neutral-700 px-2 py-1 rounded text-[11px] font-semibold">
+          Breakdown
+        </button>
+        <button onclick="applyCustomPackage()" class="bg-brand-accent text-brand-dark px-3 py-1 rounded text-xs font-bold uppercase tracking-wider">
+          Apply
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FIXED BOTTOM ACTION BAR -->
   <div class="fixed bottom-0 left-0 right-0 glass border-t border-brand-accent/20 p-3 max-w-md mx-auto flex items-center justify-between shadow-2xl z-50">
     <div>
       <div class="text-[9px] uppercase text-brand-muted font-semibold">Selected Package:</div>
@@ -426,6 +454,32 @@
     </button>
   </div>
 
+  <!-- LIGHTBOX / FULLSCREEN PHOTO MODAL -->
+  <div id="lightbox-modal" class="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-2 hidden">
+    <button onclick="closeLightbox()" class="absolute top-4 right-4 text-white text-2xl font-bold bg-neutral-800/80 w-10 h-10 rounded-full flex items-center justify-center z-50">&times;</button>
+    <button onclick="prevPhoto()" class="absolute left-2 text-white text-2xl font-bold bg-neutral-800/80 w-10 h-10 rounded-full flex items-center justify-center z-50">&lsaquo;</button>
+    <img id="lightbox-img" src="" class="max-h-[85vh] max-w-full object-contain rounded-lg">
+    <button onclick="nextPhoto()" class="absolute right-2 text-white text-2xl font-bold bg-neutral-800/80 w-10 h-10 rounded-full flex items-center justify-center z-50">&rsaquo;</button>
+  </div>
+
+  <!-- ITEMIZED BREAKDOWN MODAL -->
+  <div id="breakdown-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="glass w-full max-w-sm rounded-2xl p-4 border border-brand-accent/40 space-y-3">
+      <div class="flex items-center justify-between border-b border-neutral-800 pb-2">
+        <h4 class="text-sm font-bold text-brand-accent uppercase tracking-wider">Itemized Quote Breakdown</h4>
+        <button onclick="closeBreakdownModal()" class="text-neutral-400 hover:text-white font-bold text-lg">&times;</button>
+      </div>
+      <div id="breakdown-list" class="space-y-2 text-xs text-neutral-300 max-h-60 overflow-y-auto pr-1"></div>
+      <div class="border-t border-neutral-800 pt-2 flex items-center justify-between">
+        <span class="font-bold text-xs text-white">Estimated Total:</span>
+        <span id="breakdown-modal-total" class="font-extrabold text-sm text-brand-accent">₹0</span>
+      </div>
+      <button onclick="closeBreakdownModal(); applyCustomPackage();" class="w-full bg-brand-accent text-brand-dark py-2 rounded-xl text-xs font-bold uppercase tracking-wider">
+        Apply Quote & Proceed
+      </button>
+    </div>
+  </div>
+
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwk5uxnDR-J0CkC9cr6C1xOvjaWp7EeEqS6qoL1bPzigQCAgnY7qg3sp0JfB_kkv7kd/exec";
 
@@ -434,8 +488,9 @@
     let selectedPackage = "";
     let currentCategory = 'wedding';
     let isExpanded = false;
+    let currentLightboxIdx = 0;
+    let lineItemsBreakdown = [];
 
-    // Default rates fallback matching your sheet key patterns
     const defaultCustomRates = {
       "Wedding one photographer": 25000,
       "Wedding two photographer": 50000,
@@ -538,21 +593,20 @@
 
       const displayPhotos = isExpanded ? photos : photos.slice(0, 4);
 
-      displayPhotos.forEach(url => {
+      displayPhotos.forEach((url, idx) => {
+        // Optimizing Drive URLs for fast loading
+        const thumbUrl = url.replace(/=w\d+-h\d+/, '=w800-no');
         grid.innerHTML += `
-          <div class="relative rounded-xl overflow-hidden bg-neutral-900 border border-neutral-800 aspect-[4/5]">
-            <img src="${url}" class="w-full h-full object-cover" loading="lazy">
+          <div onclick="openLightbox(${idx})" class="relative rounded-xl overflow-hidden bg-neutral-900 border border-neutral-800 aspect-[4/5] cursor-pointer group">
+            <img src="${thumbUrl}" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300" loading="lazy">
+            <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center text-white text-xs font-bold">🔍 Expand</div>
           </div>
         `;
       });
 
       if (photos.length > 4) {
         viewMoreContainer.classList.remove('hidden');
-        if (isExpanded) {
-          viewMoreBtn.innerText = "Show Less";
-        } else {
-          viewMoreBtn.innerText = "View More Photos";
-        }
+        viewMoreBtn.innerText = isExpanded ? "Show Less" : "View More Photos";
       } else {
         viewMoreContainer.classList.add('hidden');
       }
@@ -561,6 +615,39 @@
     function toggleExpandPhotos() {
       isExpanded = !isExpanded;
       renderCategoryGrid();
+    }
+
+    // --- LIGHTBOX CONTROLS ---
+    function openLightbox(idx) {
+      currentLightboxIdx = idx;
+      const photos = allPhotos[currentCategory] || [];
+      if(photos.length > 0) {
+        document.getElementById('lightbox-img').src = photos[currentLightboxIdx];
+        document.getElementById('lightbox-modal').classList.remove('hidden');
+      }
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox-modal').classList.add('hidden');
+    }
+
+    function prevPhoto() {
+      const photos = allPhotos[currentCategory] || [];
+      if(photos.length === 0) return;
+      currentLightboxIdx = (currentLightboxIdx - 1 + photos.length) % photos.length;
+      document.getElementById('lightbox-img').src = photos[currentLightboxIdx];
+    }
+
+    function nextPhoto() {
+      const photos = allPhotos[currentCategory] || [];
+      if(photos.length === 0) return;
+      currentLightboxIdx = (currentLightboxIdx + 1) % photos.length;
+      document.getElementById('lightbox-img').src = photos[currentLightboxIdx];
+    }
+
+    function toggleTooltip(id) {
+      const el = document.getElementById(id);
+      if(el) el.classList.toggle('hidden');
     }
 
     function renderPackages(packages) {
@@ -591,12 +678,13 @@
       document.getElementById('inquiry-section').scrollIntoView({ behavior: 'smooth' });
     }
 
-    // --- CUSTOM CALCULATION LOGIC ---
+    // --- CUSTOM CALCULATION LOGIC & BREAKDOWN ---
     function calculateCustomPrice() {
       const rates = Object.keys(sheetCustomRates).length > 0 ? sheetCustomRates : defaultCustomRates;
       const albumRate = rates["Album"] || 250;
       let total = 0;
       let summaryParts = [];
+      lineItemsBreakdown = [];
       let hasCinematography = false;
 
       // 1. Wedding Day
@@ -611,23 +699,25 @@
         
         document.getElementById('cfg-wedding-album-opts').classList.toggle('hidden', !albumAct);
 
-        if(photo === '1') total += (rates["Wedding one photographer"] || 25000);
-        if(photo === '2') total += (rates["Wedding two photographer"] || 50000);
+        if(photo === '1') { const p = (rates["Wedding one photographer"] || 25000); total += p; lineItemsBreakdown.push({ item: "Wedding Photography (1 Photog)", cost: p }); }
+        if(photo === '2') { const p = (rates["Wedding two photographer"] || 50000); total += p; lineItemsBreakdown.push({ item: "Wedding Photography (2 Photog)", cost: p }); }
 
         if(cine !== 'none') {
           hasCinematography = true;
-          if(cine === '1') total += (rates["Wedding one cinematographer"] || 25000);
-          if(cine === '2') total += (rates["Wedding two cinematographer"] || 55000);
+          if(cine === '1') { const p = (rates["Wedding one cinematographer"] || 25000); total += p; lineItemsBreakdown.push({ item: "Wedding Cinematography (1 Cine)", cost: p }); }
+          if(cine === '2') { const p = (rates["Wedding two cinematographer"] || 55000); total += p; lineItemsBreakdown.push({ item: "Wedding Cinematography (2 Cine)", cost: p }); }
         }
 
-        if(groom) total += (rates["Wedding home to venue groom side"] || 5000);
-        if(bride) total += (rates["Wedding home to venue bride side"] || 5000);
+        if(groom) { const p = (rates["Wedding home to venue groom side"] || 5000); total += p; lineItemsBreakdown.push({ item: "Groom Home to Venue Coverage", cost: p }); }
+        if(bride) { const p = (rates["Wedding home to venue bride side"] || 5000); total += p; lineItemsBreakdown.push({ item: "Bride Home to Venue Coverage", cost: p }); }
 
         let albumText = "";
         if(albumAct) {
           const sheets = parseInt(document.getElementById('cfg-wedding-album-sheets').value) || 0;
-          total += (sheets * albumRate);
+          const p = (sheets * albumRate);
+          total += p;
           albumText = ` + ${sheets}s Album`;
+          lineItemsBreakdown.push({ item: `Wedding Album (${sheets} spreads)`, cost: p });
         }
 
         summaryParts.push(`Wedding (${photo !== 'none' ? photo + ' Photog' : ''}${cine !== 'none' ? ', ' + cine + ' Cine' : ''}${albumText})`);
@@ -655,8 +745,10 @@
           const key8 = "Haldi photography 8 hrs";
           let baseCost = (pHrs === '5') ? (rates[key5] || 10000) : (rates[key8] || 20000);
           if(pCount === '2') baseCost *= 1.8;
-          total += (baseCost * sidesCount);
+          const finalCost = baseCost * sidesCount;
+          total += finalCost;
           haldiParts.push(`${pCount} Photog (${pHrs}h)`);
+          lineItemsBreakdown.push({ item: `Haldi Photo (${pCount} Photog, ${pHrs}h, ${sidesCount} side/s)`, cost: finalCost });
         }
 
         if(cineVal !== 'none') {
@@ -666,15 +758,19 @@
           const key8 = "Haldi cinematography 8 hrs";
           let baseCost = (cHrs === '5') ? (rates[key5] || 10000) : (rates[key8] || 20000);
           if(cCount === '2') baseCost *= 1.8;
-          total += (baseCost * sidesCount);
+          const finalCost = baseCost * sidesCount;
+          total += finalCost;
           haldiParts.push(`${cCount} Cine (${cHrs}h)`);
+          lineItemsBreakdown.push({ item: `Haldi Cine (${cCount} Cine, ${cHrs}h, ${sidesCount} side/s)`, cost: finalCost });
         }
 
         let albumText = "";
         if(albumAct) {
           const sheets = parseInt(document.getElementById('cfg-haldi-album-sheets').value) || 0;
-          total += (sheets * albumRate);
+          const p = (sheets * albumRate);
+          total += p;
           albumText = ` + ${sheets}s Album`;
+          lineItemsBreakdown.push({ item: `Haldi Album (${sheets} spreads)`, cost: p });
         }
 
         if(haldiParts.length > 0) {
@@ -692,20 +788,22 @@
 
         document.getElementById('cfg-eng-album-opts').classList.toggle('hidden', !albumAct);
 
-        if(photo === '1') total += (rates["Engagement one photographer"] || 15000);
-        if(photo === '2') total += (rates["Engagement two photographer"] || 20000);
+        if(photo === '1') { const p = (rates["Engagement one photographer"] || 15000); total += p; lineItemsBreakdown.push({ item: "Engagement Photo (1 Photog)", cost: p }); }
+        if(photo === '2') { const p = (rates["Engagement two photographer"] || 20000); total += p; lineItemsBreakdown.push({ item: "Engagement Photo (2 Photog)", cost: p }); }
 
         if(cine !== 'none') {
           hasCinematography = true;
-          if(cine === '1') total += (rates["Engagement one cinematographer"] || 15000);
-          if(cine === '2') total += (rates["Engagement two cinematographer"] || 25000);
+          if(cine === '1') { const p = (rates["Engagement one cinematographer"] || 15000); total += p; lineItemsBreakdown.push({ item: "Engagement Cine (1 Cine)", cost: p }); }
+          if(cine === '2') { const p = (rates["Engagement two cinematographer"] || 25000); total += p; lineItemsBreakdown.push({ item: "Engagement Cine (2 Cine)", cost: p }); }
         }
 
         let albumText = "";
         if(albumAct) {
           const sheets = parseInt(document.getElementById('cfg-eng-album-sheets').value) || 0;
-          total += (sheets * albumRate);
+          const p = (sheets * albumRate);
+          total += p;
           albumText = ` + ${sheets}s Album`;
+          lineItemsBreakdown.push({ item: `Engagement Album (${sheets} spreads)`, cost: p });
         }
 
         summaryParts.push(`Engagement (${photo !== 'none' ? photo + ' Photog' : ''}${cine !== 'none' ? ', ' + cine + ' Cine' : ''}${albumText})`);
@@ -721,52 +819,50 @@
 
         document.getElementById('cfg-rec-album-opts').classList.toggle('hidden', !albumAct);
 
-        if(photo === '1') total += (rates["Reception one photographer"] || 15000);
-        if(photo === '2') total += (rates["Reception two photographer"] || 20000);
+        if(photo === '1') { const p = (rates["Reception one photographer"] || 15000); total += p; lineItemsBreakdown.push({ item: "Reception Photo (1 Photog)", cost: p }); }
+        if(photo === '2') { const p = (rates["Reception two photographer"] || 20000); total += p; lineItemsBreakdown.push({ item: "Reception Photo (2 Photog)", cost: p }); }
 
         if(cine !== 'none') {
           hasCinematography = true;
-          if(cine === '1') total += (rates["Reception one cinematographer"] || 15000);
-          if(cine === '2') total += (rates["Reception two cinematographer"] || 25000);
+          if(cine === '1') { const p = (rates["Reception one cinematographer"] || 15000); total += p; lineItemsBreakdown.push({ item: "Reception Cine (1 Cine)", cost: p }); }
+          if(cine === '2') { const p = (rates["Reception two cinematographer"] || 25000); total += p; lineItemsBreakdown.push({ item: "Reception Cine (2 Cine)", cost: p }); }
         }
 
         let albumText = "";
         if(albumAct) {
           const sheets = parseInt(document.getElementById('cfg-rec-album-sheets').value) || 0;
-          total += (sheets * albumRate);
+          const p = (sheets * albumRate);
+          total += p;
           albumText = ` + ${sheets}s Album`;
+          lineItemsBreakdown.push({ item: `Reception Album (${sheets} spreads)`, cost: p });
         }
 
         summaryParts.push(`Reception (${photo !== 'none' ? photo + ' Photog' : ''}${cine !== 'none' ? ', ' + cine + ' Cine' : ''}${albumText})`);
       }
 
-      // 5. CINEMATIC VIDEO DURATION & ADD-ONS (SHOWS ONLY IF CINEMATOGRAPHY IS SELECTED)
+      // 5. CINEMATIC VIDEO DURATION & ADD-ONS
       const videoSection = document.getElementById('cfg-video-duration-section');
       if(hasCinematography) {
         videoSection.classList.remove('hidden');
         const videoCost = parseInt(document.getElementById('cfg-video-duration').value) || 0;
-        total += videoCost;
-
-        let cineAddons = [];
-        if(videoCost === 10000) cineAddons.push("6-8m Film");
-        if(videoCost === 8000) cineAddons.push("3-5m Film");
-        if(videoCost === 5000) cineAddons.push("2-3m Film");
+        if(videoCost > 0) {
+          total += videoCost;
+          let durationLabel = videoCost === 10000 ? "6-8 Min Film" : (videoCost === 8000 ? "3-5 Min Film" : "2-3 Min Film");
+          lineItemsBreakdown.push({ item: `Cinematic Film Edit (${durationLabel})`, cost: videoCost });
+        }
 
         // Check Drone
         if(document.getElementById('cfg-add-drone').checked) {
-          total += (rates["Drone coverage per session"] || 10000);
-          cineAddons.push("Drone");
+          const p = (rates["Drone coverage per session"] || 10000);
+          total += p;
+          lineItemsBreakdown.push({ item: "Drone Aerial Coverage", cost: p });
         }
 
         // Check Trailer
         const trailerVal = parseInt(document.getElementById('cfg-add-trailer').value) || 0;
         if(trailerVal > 0) {
           total += trailerVal;
-          cineAddons.push(trailerVal === 4000 ? "1-2m Trailer" : "2-3m Trailer");
-        }
-
-        if(cineAddons.length > 0) {
-          summaryParts.push(`Video Add-ons (${cineAddons.join(', ')})`);
+          lineItemsBreakdown.push({ item: `Teaser Trailer (${trailerVal === 4000 ? '1-2m' : '2-3m'})`, cost: trailerVal });
         }
       } else {
         videoSection.classList.add('hidden');
@@ -774,11 +870,43 @@
 
       const formattedTotal = "₹" + total.toLocaleString('en-IN');
       document.getElementById('custom-total-price').innerText = formattedTotal;
+      document.getElementById('sticky-total-price').innerText = formattedTotal;
+
+      // Show/Hide Floating Mobile Quote Bar
+      const floatingBar = document.getElementById('floating-custom-bar');
+      if(total > 0) {
+        floatingBar.classList.remove('hidden');
+      } else {
+        floatingBar.classList.add('hidden');
+      }
 
       return {
         totalStr: formattedTotal,
         summary: summaryParts.length > 0 ? "Custom: " + summaryParts.join(" + ") : "Custom Package"
       };
+    }
+
+    function openBreakdownModal() {
+      const listEl = document.getElementById('breakdown-list');
+      listEl.innerHTML = '';
+      if(lineItemsBreakdown.length === 0) {
+        listEl.innerHTML = `<div class="text-neutral-400 py-4 text-center">No coverage options selected yet.</div>`;
+      } else {
+        lineItemsBreakdown.forEach(item => {
+          listEl.innerHTML += `
+            <div class="flex items-center justify-between border-b border-neutral-800/60 pb-1.5">
+              <span>✓ ${item.item}</span>
+              <span class="font-bold text-brand-accent">₹${item.cost.toLocaleString('en-IN')}</span>
+            </div>
+          `;
+        });
+      }
+      document.getElementById('breakdown-modal-total').innerText = document.getElementById('custom-total-price').innerText;
+      document.getElementById('breakdown-modal').classList.remove('hidden');
+    }
+
+    function closeBreakdownModal() {
+      document.getElementById('breakdown-modal').classList.add('hidden');
     }
 
     function applyCustomPackage() {
