@@ -256,6 +256,36 @@
         </div>
       </div>
 
+      <!-- 5. DYNAMIC CINEMATIC VIDEO DURATION SECTION (Shows ONLY if Cinematography is selected) -->
+      <div id="cfg-video-duration-section" class="bg-brand-card/90 p-3.5 rounded-xl border border-red-500/40 space-y-3 hidden">
+        <div>
+          <div class="flex items-center gap-1.5">
+            <span class="text-red-500 text-sm">🎬</span>
+            <h4 class="text-xs font-bold text-red-400 uppercase tracking-wider">Video Duration & Deliverable</h4>
+          </div>
+          <p class="text-[10px] text-neutral-400 mt-0.5">Select your preferred cinematic film edit length:</p>
+        </div>
+
+        <div class="space-y-2">
+          <select id="cfg-video-duration" onchange="calculateCustomPrice()" class="w-full bg-neutral-900 text-white rounded-xl px-3 py-2 text-xs border border-neutral-700 focus:outline-none focus:border-red-500">
+            <option value="8000">3-5 Min Cinematic Film (+₹8,000)</option>
+            <option value="10000" selected>6-8 Min Cinematic Film (+₹10,000)</option>
+            <option value="5000">2-3 Min Cinematic Film (+₹5,000)</option>
+          </select>
+        </div>
+
+        <!-- NOTE & DELIVERABLE TERMS FROM IMAGE -->
+        <div class="bg-neutral-950 p-2.5 rounded-lg border border-neutral-800/80 text-[10px] text-neutral-300 space-y-1">
+          <div class="text-red-400 font-bold uppercase tracking-wider text-[9px] mb-1">Film Specifications & Terms:</div>
+          <ul class="list-disc pl-3.5 space-y-0.5 text-neutral-400">
+            <li><strong>Video Resolution:</strong> Full HD (1920 × 1080p)</li>
+            <li>One round of revisions permittance after first draft.</li>
+            <li><strong>Timelines:</strong> 6-8 & 3-5 min within 2 months | 2-3 min within 1 month</li>
+            <li>Mutual song selection. Once songs are locked, no changes permitted.</li>
+          </ul>
+        </div>
+      </div>
+
       <!-- ESTIMATED CUSTOM TOTAL DISPLAY -->
       <div class="bg-brand-accent/10 border border-brand-accent/40 p-3 rounded-xl flex items-center justify-between">
         <div>
@@ -274,7 +304,7 @@
     <div class="glass p-4 rounded-2xl border border-neutral-800 text-xs text-neutral-300 space-y-3">
       <h4 class="font-bold text-sm text-brand-accent uppercase tracking-wider">Good to Know & Terms</h4>
       <div>
-        <span class="font-semibold text-white">Albums:</span> ₹250/spread (12"x18" non-tearable, includes Goa delivery). Delivered in 30-40 working days post-selection.
+        <span class="font-semibold text-white">Albums:</span> ₹250/spread (12"x18" non-tearable, includes Goa delivery). Delivered in 30-40 working days post-selection[cite: 4].
       </div>
       <div>
         <span class="font-semibold text-white">Booking Policy:</span> 20% advance required to lock your date. Balance 80% due on shoot day. Advance is non-refundable.
@@ -313,7 +343,7 @@
   <section class="px-4 py-3 max-w-md mx-auto space-y-4 mb-2">
     <div class="text-center">
       <h3 class="text-sm font-bold text-brand-accent uppercase tracking-wider">Meet the Founders</h3>
-      <p class="text-[11px] text-brand-muted mt-1">Founded in 2021 by Pranav and Amol with over 5 years of experience each.</p>
+      <p class="text-[11px] text-brand-muted mt-1">Founded in 2021 by Pranav and Amol with over 5 years of experience each[cite: 2].</p>
     </div>
 
     <!-- Pranav Card -->
@@ -323,8 +353,8 @@
       </div>
       <div>
         <h4 class="font-bold text-xs text-white">Pranav Morajkar</h4>
-        <div class="text-[9px] text-brand-accent uppercase font-semibold mb-1">Lead Photographer & Cinematographer</div>
-        <p class="text-[11px] text-neutral-300 leading-relaxed">Pranav, our Lead Photographer & Cinematographer, has over 5 years of experience capturing weddings. He loves finding the perfect shot, even from the ground! His focus is on capturing real, candid moments that make every wedding unique. He turns your big day into a blockbuster, one shot at a time.</p>
+        <div class="text-[9px] text-brand-accent uppercase font-semibold mb-1">Lead Photographer & Cinematographer[cite: 2]</div>
+        <p class="text-[11px] text-neutral-300 leading-relaxed">Pranav, our Lead Photographer & Cinematographer, has over 5 years of experience capturing weddings[cite: 2]. He loves finding the perfect shot, even from the ground! His focus is on capturing real, candid moments that make every wedding unique[cite: 2]. He turns your big day into a blockbuster, one shot at a time[cite: 2].</p>
       </div>
     </div>
 
@@ -335,8 +365,8 @@
       </div>
       <div>
         <h4 class="font-bold text-xs text-white">Amol Kamat</h4>
-        <div class="text-[9px] text-brand-accent uppercase font-semibold mb-1">Lead Photographer</div>
-        <p class="text-[11px] text-neutral-300 leading-relaxed">Amol, our Lead Photographer, has over 5 years of experience turning ordinary moments into beautiful memories. With a creative eye for detail, he captures every special moment perfectly. If you want wedding photos filled with love and creativity, Amol is your guy!</p>
+        <div class="text-[9px] text-brand-accent uppercase font-semibold mb-1">Lead Photographer[cite: 2]</div>
+        <p class="text-[11px] text-neutral-300 leading-relaxed">Amol, our Lead Photographer, has over 5 years of experience turning ordinary moments into beautiful memories[cite: 2]. With a creative eye for detail, he captures every special moment perfectly[cite: 2]. If you want wedding photos filled with love and creativity, Amol is your guy![cite: 2]</p>
       </div>
     </div>
   </section>
@@ -389,6 +419,9 @@
       "Reception two photographer": 20000,
       "Reception one cinematographer": 15000,
       "Reception two cinematographer": 25000,
+      "Video 6-8 Min Film": 10000,
+      "Video 3-5 Min Film": 8000,
+      "Video 2-3 Min Film": 5000,
       "Album": 250
     };
 
@@ -525,6 +558,7 @@
       const albumRate = rates["Album"] || 250;
       let total = 0;
       let summaryParts = [];
+      let hasCinematography = false;
 
       // 1. Wedding Day
       const wActive = document.getElementById('cfg-wedding-active').checked;
@@ -541,8 +575,11 @@
         if(photo === '1') total += (rates["Wedding one photographer"] || 25000);
         if(photo === '2') total += (rates["Wedding two photographer"] || 50000);
 
-        if(cine === '1') total += (rates["Wedding one cinematographer"] || 25000);
-        if(cine === '2') total += (rates["Wedding two cinematographer"] || 55000);
+        if(cine !== 'none') {
+          hasCinematography = true;
+          if(cine === '1') total += (rates["Wedding one cinematographer"] || 25000);
+          if(cine === '2') total += (rates["Wedding two cinematographer"] || 55000);
+        }
 
         if(groom) total += (rates["Wedding home to venue groom side"] || 5000);
         if(bride) total += (rates["Wedding home to venue bride side"] || 5000);
@@ -584,6 +621,7 @@
         }
 
         if(cineVal !== 'none') {
+          hasCinematography = true;
           const [cCount, cHrs] = cineVal.split('-');
           const key5 = "Haldi cinematography 5 hrs";
           const key8 = "Haldi cinematography 8 hrs";
@@ -618,8 +656,11 @@
         if(photo === '1') total += (rates["Engagement one photographer"] || 15000);
         if(photo === '2') total += (rates["Engagement two photographer"] || 20000);
 
-        if(cine === '1') total += (rates["Engagement one cinematographer"] || 15000);
-        if(cine === '2') total += (rates["Engagement two cinematographer"] || 25000);
+        if(cine !== 'none') {
+          hasCinematography = true;
+          if(cine === '1') total += (rates["Engagement one cinematographer"] || 15000);
+          if(cine === '2') total += (rates["Engagement two cinematographer"] || 25000);
+        }
 
         let albumText = "";
         if(albumAct) {
@@ -644,8 +685,11 @@
         if(photo === '1') total += (rates["Reception one photographer"] || 15000);
         if(photo === '2') total += (rates["Reception two photographer"] || 20000);
 
-        if(cine === '1') total += (rates["Reception one cinematographer"] || 15000);
-        if(cine === '2') total += (rates["Reception two cinematographer"] || 25000);
+        if(cine !== 'none') {
+          hasCinematography = true;
+          if(cine === '1') total += (rates["Reception one cinematographer"] || 15000);
+          if(cine === '2') total += (rates["Reception two cinematographer"] || 25000);
+        }
 
         let albumText = "";
         if(albumAct) {
@@ -655,6 +699,22 @@
         }
 
         summaryParts.push(`Reception (${photo !== 'none' ? photo + ' Photog' : ''}${cine !== 'none' ? ', ' + cine + ' Cine' : ''}${albumText})`);
+      }
+
+      // 5. CINEMATIC VIDEO DURATION SECTION (SHOWS ONLY IF CINEMATOGRAPHY IS SELECTED)
+      const videoSection = document.getElementById('cfg-video-duration-section');
+      if(hasCinematography) {
+        videoSection.classList.remove('hidden');
+        const videoCost = parseInt(document.getElementById('cfg-video-duration').value) || 10000;
+        total += videoCost;
+
+        let durationText = "6-8 Min Film";
+        if(videoCost === 8000) durationText = "3-5 Min Film";
+        if(videoCost === 5000) durationText = "2-3 Min Film";
+
+        summaryParts.push(`Video Edit (${durationText})`);
+      } else {
+        videoSection.classList.add('hidden');
       }
 
       const formattedTotal = "₹" + total.toLocaleString('en-IN');
