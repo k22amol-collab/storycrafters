@@ -16,11 +16,11 @@
   </script>
   <style>
     body { background-color: #0f0f0f; color: #f3f4f6; font-family: system-ui, -apple-system, sans-serif; }
-    .glass { background: rgba(26, 26, 26, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(212, 175, 55, 0.2); }
+    .glass { background: rgba(26, 26, 26, 0.92); backdrop-filter: blur(12px); border: 1px solid rgba(212, 175, 55, 0.2); }
     .no-scrollbar::-webkit-scrollbar { display: none; }
   </style>
 </head>
-<body class="min-h-screen pb-44">
+<body class="min-h-screen pb-48">
 
   <!-- HEADER -->
   <header class="sticky top-0 z-40 glass px-4 py-3 flex justify-between items-center shadow-lg">
@@ -264,7 +264,7 @@
         </div>
       </div>
 
-      <!-- 5. CINEMATIC VIDEO & ADD-ONS SECTION (Shows ONLY if Cinematography is selected) -->
+      <!-- 5. CINEMATIC VIDEO & ADD-ONS SECTION -->
       <div id="cfg-video-duration-section" class="bg-neutral-900/90 p-3.5 rounded-xl border border-red-500/40 space-y-3.5 hidden">
         <div>
           <div class="flex items-center gap-1.5">
@@ -425,31 +425,32 @@
     </a>
   </section>
 
-  <!-- STICKY MOBILE FLOATING LIVE PRICE BAR -->
-  <div id="floating-custom-bar" class="fixed bottom-14 left-0 right-0 glass border-t border-brand-accent/30 p-2.5 max-w-md mx-auto hidden z-40 shadow-2xl">
-    <div class="flex items-center justify-between px-1">
+  <!-- FIXED STACKED BOTTOM FLOATING BARS -->
+  <!-- 1. STICKY MOBILE FLOATING LIVE CUSTOM QUOTE BAR (POSITIONED DIRECTLY ABOVE ACTION BAR) -->
+  <div id="floating-custom-bar" class="fixed bottom-[68px] left-0 right-0 glass border-t border-brand-accent/40 py-2 px-3.5 max-w-md mx-auto hidden z-40 shadow-2xl">
+    <div class="flex items-center justify-between">
       <div>
-        <div class="text-[9px] uppercase text-brand-muted font-bold">Custom Quote Live Total:</div>
-        <div id="sticky-total-price" class="text-sm font-extrabold text-brand-accent">₹0</div>
+        <div class="text-[9px] uppercase text-brand-muted font-bold tracking-tight">Custom Quote Live Total:</div>
+        <div id="sticky-total-price" class="text-xs font-extrabold text-brand-accent leading-none">₹0</div>
       </div>
-      <div class="flex gap-2">
-        <button onclick="openBreakdownModal()" class="bg-neutral-800 text-neutral-300 border border-neutral-700 px-2 py-1 rounded text-[11px] font-semibold">
+      <div class="flex gap-1.5">
+        <button onclick="openBreakdownModal()" class="bg-neutral-800 text-neutral-300 border border-neutral-700 px-2 py-1 rounded text-[10px] font-semibold">
           Breakdown
         </button>
-        <button onclick="applyCustomPackage()" class="bg-brand-accent text-brand-dark px-3 py-1 rounded text-xs font-bold uppercase tracking-wider">
+        <button onclick="applyCustomPackage()" class="bg-brand-accent text-brand-dark px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider">
           Apply
         </button>
       </div>
     </div>
   </div>
 
-  <!-- FIXED BOTTOM ACTION BAR -->
+  <!-- 2. FIXED BOTTOM MAIN ACTION BAR -->
   <div class="fixed bottom-0 left-0 right-0 glass border-t border-brand-accent/20 p-3 max-w-md mx-auto flex items-center justify-between shadow-2xl z-50">
-    <div>
+    <div class="max-w-[55%]">
       <div class="text-[9px] uppercase text-brand-muted font-semibold">Selected Package:</div>
-      <div id="selected-pkg-name" class="text-xs font-bold text-brand-accent">Select a Package</div>
+      <div id="selected-pkg-name" class="text-xs font-bold text-brand-accent truncate">Select a Package</div>
     </div>
-    <button onclick="submitInquiry()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2.5 rounded-xl text-xs font-bold shadow-lg transition-all">
+    <button onclick="submitInquiry()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3.5 py-2 rounded-xl text-xs font-bold shadow-lg transition-all shrink-0">
       Save & WhatsApp Us
     </button>
   </div>
@@ -594,7 +595,6 @@
       const displayPhotos = isExpanded ? photos : photos.slice(0, 4);
 
       displayPhotos.forEach((url, idx) => {
-        // Optimizing Drive URLs for fast loading
         const thumbUrl = url.replace(/=w\d+-h\d+/, '=w800-no');
         grid.innerHTML += `
           <div onclick="openLightbox(${idx})" class="relative rounded-xl overflow-hidden bg-neutral-900 border border-neutral-800 aspect-[4/5] cursor-pointer group">
