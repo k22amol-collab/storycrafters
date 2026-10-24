@@ -492,14 +492,14 @@
           <h4 class="text-sm font-bold text-brand-accent uppercase tracking-wider">Story Crafters</h4>
           <p class="text-[9px] text-neutral-400">Custom Package Proposal</p>
         </div>
-        <button onclick="closeBreakdownModal()" class="text-neutral-400 hover:text-white font-bold text-lg no-print">&times;</button>
+        <button onclick="closeBreakdownModal()" class="text-neutral-400 hover:text-white font-bold text-lg">&times;</button>
       </div>
       <div id="breakdown-list" class="space-y-2 text-xs text-neutral-300 max-h-60 overflow-y-auto pr-1"></div>
       <div class="border-t border-neutral-800 pt-2 flex items-center justify-between">
         <span class="font-bold text-xs text-white">Estimated Total:</span>
         <span id="breakdown-modal-total" class="font-extrabold text-sm text-brand-accent">₹0</span>
       </div>
-      <div class="flex gap-2 pt-1 no-print">
+      <div class="flex gap-2 pt-1">
         <button onclick="downloadPDFQuote()" class="w-1/2 bg-neutral-800 hover:bg-neutral-700 text-brand-accent border border-brand-accent/40 py-2 rounded-xl text-xs font-bold uppercase tracking-wider">
           📄 Download PDF
         </button>
@@ -550,7 +550,7 @@
     };
 
     window.onload = function() {
-      window.scrollTo(0, 0); // Ensures page opens at the very top
+      window.scrollTo(0, 0); // Lock window at top on initial launch
       fetchPhotos();
       fetchPackages();
       fetchCustomRates();
@@ -694,7 +694,6 @@
       const container = document.getElementById('packages-list');
       container.innerHTML = '';
       if(packages.length > 0) {
-        // Pre-select first package on load WITHOUT forcing page scroll
         selectPackageWithoutScroll(packages[0].name, packages[0].price);
       }
 
@@ -712,7 +711,6 @@
       });
     }
 
-    // Helper for silent pre-selection on load without scrolling down
     function selectPackageWithoutScroll(name, price) {
       selectedPackage = `${name} (${price})`;
       document.getElementById('selected-pkg-name').innerHTML = `
@@ -970,7 +968,7 @@
         margin:       10,
         filename:     'Story-Crafters-Quote.pdf',
         image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true },
+        html2canvas:  { scale: 2, useCORS: true, logging: true, letterRendering: true },
         jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
       };
       html2pdf().from(element).set(opt).save();
