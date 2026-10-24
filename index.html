@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Story Crafter | Portfolio & Rates</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { brand: { dark: '#0f0f0f', card: '#1a1a1a', accent: '#d4af37', muted: '#888888' } }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background-color: #0f0f0f; color: #f3f4f6; font-family: system-ui, -apple-system, sans-serif; }
+    .glass { background: rgba(26, 26, 26, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(212, 175, 55, 0.2); }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+  </style>
+</head>
+<body class="min-h-screen pb-36">
+
+  <!-- HEADER -->
+  <header class="sticky top-0 z-50 glass px-4 py-3 flex justify-between items-center shadow-lg">
+    <div>
+      <h1 class="text-lg font-bold tracking-wider text-brand-accent uppercase">Story Crafter</h1>
+      <p class="text-[10px] text-brand-muted">Goa • Luxury Wedding Photography</p>
+    </div>
+    <a href="#packages" class="bg-brand-accent text-brand-dark px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider shadow">Rates</a>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="px-4 py-5 text-center max-w-md mx-auto">
+    <span class="text-[10px] uppercase tracking-widest text-brand-accent bg-brand-accent/10 px-3 py-1 rounded-full border border-brand-accent/30">Official Portfolio & Rates</span>
+    <h2 class="text-2xl font-extrabold mt-3 mb-2 tracking-tight">Timeless Wedding Stories</h2>
+    <p class="text-xs text-brand-muted">Browse our work by category, check rates, and send us an inquiry directly.</p>
+  </section>
+
+  <!-- CATEGORY FILTER BUTTONS -->
+  <section class="px-4 py-2 max-w-md mx-auto">
+    <div class="flex gap-2 overflow-x-auto no-scrollbar mb-4 py-1">
+      <button onclick="switchCategory('wedding')" id="btn-wedding" class="cat-btn bg-brand-accent text-brand-dark px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap">Wedding</button>
+      <button onclick="switchCategory('prewedding')" id="btn-prewedding" class="cat-btn bg-brand-card text-neutral-300 border border-neutral-800 px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap">Prewedding</button>
+      <button onclick="switchCategory('haldi')" id="btn-haldi" class="cat-btn bg-brand-card text-neutral-300 border border-neutral-800 px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap">Haldi</button>
+      <button onclick="switchCategory('bridalportraits')" id="btn-bridalportraits" class="cat-btn bg-brand-card text-neutral-300 border border-neutral-800 px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap">Bridal Portraits</button>
+    </div>
+
+    <!-- LOADING SPINNER -->
+    <div id="loader" class="text-center py-10 text-brand-accent text-xs">Loading photos from Google Drive...</div>
+
+    <!-- PHOTO GRID -->
+    <div class="grid grid-cols-2 gap-2.5 hidden" id="photo-grid"></div>
+
+    <!-- VIEW MORE BUTTON CONTAINER -->
+    <div id="view-more-container" class="mt-4 text-center hidden">
+      <button id="view-more-btn" onclick="toggleExpandPhotos()" class="bg-brand-card text-brand-accent border border-brand-accent/40 px-5 py-2 rounded-full text-xs font-semibold shadow hover:bg-brand-accent hover:text-brand-dark transition-all">
+        View More Photos
+      </button>
+    </div>
+  </section>
+
+  <hr class="border-neutral-800 my-6 max-w-md mx-auto">
+
+  <!-- PACKAGES & PRICING SECTION -->
+  <section id="packages" class="px-4 py-2 max-w-md mx-auto">
+    <h3 class="text-lg font-bold text-brand-accent mb-2">Packages & Rates</h3>
+    <div id="packages-list" class="space-y-3">
+      <div class="text-xs text-brand-muted">Loading rate card...</div>
+    </div>
+  </section>
+
+  <!-- TERMS & ALBUM INFO BOX -->
+  <section class="px-4 py-4 max-w-md mx-auto">
+    <div class="glass p-4 rounded-2xl border border-neutral-800 text-xs text-neutral-300 space-y-3">
+      <h4 class="font-bold text-sm text-brand-accent uppercase tracking-wider">Good to Know & Terms</h4>
+      <div>
+        <span class="font-semibold text-white">Albums:</span> ₹250/spread (12"x18" non-tearable, includes Goa delivery). Delivered in 30-40 working days post-selection.
+      </div>
+      <div>
+        <span class="font-semibold text-white">Booking Policy:</span> 20% advance required to lock your date. Balance 80% due on shoot day. Advance is non-refundable.
+      </div>
+    </div>
+  </section>
+
+  <!-- CLIENT INQUIRY & BOOKING FORM -->
+  <section class="px-4 py-2 max-w-md mx-auto mb-4">
+    <div class="glass p-4 rounded-2xl border border-brand-accent/30 space-y-3">
+      <h4 class="font-bold text-sm text-brand-accent uppercase tracking-wider">Book Your Date / Inquire</h4>
+      <p class="text-[11px] text-brand-muted">Fill in your details below. This saves your booking request and opens WhatsApp instantly.</p>
+      
+      <div class="space-y-2.5">
+        <div>
+          <label class="block text-[10px] uppercase tracking-wider text-neutral-400 mb-1">Your Full Name</label>
+          <input type="text" id="client-name" placeholder="e.g. Rahul & Sneha" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-accent">
+        </div>
+        <div>
+          <label class="block text-[10px] uppercase tracking-wider text-neutral-400 mb-1">Event Date</label>
+          <input type="date" id="client-date" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-accent">
+        </div>
+        <div>
+          <label class="block text-[10px] uppercase tracking-wider text-neutral-400 mb-1">Venue / Location</label>
+          <input type="text" id="client-venue" placeholder="e.g. Cidade de Goa, Panaji" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-accent">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT THE FOUNDERS (PRANAV & AMOL) -->
+  <section class="px-4 py-3 max-w-md mx-auto space-y-4 mb-2">
+    <div class="text-center">
+      <h3 class="text-sm font-bold text-brand-accent uppercase tracking-wider">Meet the Founders</h3>
+      <p class="text-[11px] text-brand-muted mt-1">Founded in 2021 by Pranav and Amol with over 5 years of experience each.</p>
+    </div>
+
+    <!-- Pranav Card -->
+    <div class="glass p-4 rounded-2xl border border-neutral-800 flex gap-3 items-center">
+      <div class="w-20 h-20 rounded-full overflow-hidden bg-neutral-900 border border-brand-accent/30 shrink-0">
+        <div class="w-full h-full flex items-center justify-center text-[10px] text-brand-muted bg-neutral-800">Pranav Photo</div>
+      </div>
+      <div>
+        <h4 class="font-bold text-xs text-white">Pranav Morajkar</h4>
+        <div class="text-[9px] text-brand-accent uppercase font-semibold mb-1">The Visionary Storyteller</div>
+        <p class="text-[11px] text-neutral-300 leading-relaxed">Lead Photographer & Cinematographer who crafts epic sagas and turns your big day into a blockbuster.</p>
+      </div>
+    </div>
+
+    <!-- Amol Card -->
+    <div class="glass p-4 rounded-2xl border border-neutral-800 flex gap-3 items-center">
+      <div class="w-20 h-20 rounded-full overflow-hidden bg-neutral-900 border border-brand-accent/30 shrink-0">
+        <div class="w-full h-full flex items-center justify-center text-[10px] text-brand-muted bg-neutral-800">Amol Photo</div>
+      </div>
+      <div>
+        <h4 class="font-bold text-xs text-white">Amol Kamat</h4>
+        <div class="text-[9px] text-brand-accent uppercase font-semibold mb-1">The Creative Soul</div>
+        <p class="text-[11px] text-neutral-300 leading-relaxed">Amol, our Lead Photographer, is the artist who finds beauty in everything—yes, even in that one relative who always photobombs the perfect shot. With over 5 years of experience, he has a knack for turning ordinary moments into extraordinary memories. Amol’s creative eye ensures that every photograph is a piece of art, even if it means he’ll spend an extra 10 minutes adjusting that one stray flower petal. If you want someone who’s as passionate about your wedding photos as you are, Amol’s your guy.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL ROW (INSTAGRAM) -->
+  <section class="px-4 py-3 max-w-md mx-auto text-center mb-4">
+    <p class="text-[11px] text-brand-muted mb-2">Explore our latest work & reels</p>
+    <a href="https://www.instagram.com/story.crafters" target="_blank" class="inline-flex items-center justify-center gap-2 w-full bg-brand-card border border-brand-accent/40 text-brand-accent py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider shadow hover:bg-brand-accent hover:text-brand-dark transition-all">
+      <span>📷 Follow on Instagram (@story.crafters)</span>
+    </a>
+  </section>
+
+  <!-- ACTION BAR -->
+  <div class="fixed bottom-0 left-0 right-0 glass border-t border-brand-accent/20 p-3 max-w-md mx-auto flex items-center justify-between shadow-2xl z-50">
+    <div>
+      <div class="text-[9px] uppercase text-brand-muted font-semibold">Selected Package:</div>
+      <div id="selected-pkg-name" class="text-xs font-bold text-brand-accent">Select a Package</div>
+    </div>
+    <button onclick="submitInquiry()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2.5 rounded-xl text-xs font-bold shadow-lg transition-all">
+      Save & WhatsApp Us
+    </button>
+  </div>
+
+  <script>
+    // APPS SCRIPT API ENDPOINT
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwk5uxnDR-J0CkC9cr6C1xOvjaWp7EeEqS6qoL1bPzigQCAgnY7qg3sp0JfB_kkv7kd/exec";
+
+    let allPhotos = {};
+    let selectedPackage = "";
+    let currentCategory = 'wedding';
+    let isExpanded = false;
+
+    window.onload = function() {
+      fetchPhotos();
+      fetchPackages();
+    };
+
+    function fetchPhotos() {
+      fetch(`${SCRIPT_URL}?action=getPhotos`)
+        .then(res => res.json())
+        .then(data => renderPhotos(data))
+        .catch(err => console.error("Error fetching photos:", err));
+    }
+
+    function fetchPackages() {
+      fetch(`${SCRIPT_URL}?action=getPackages`)
+        .then(res => res.json())
+        .then(data => renderPackages(data))
+        .catch(err => console.error("Error fetching packages:", err));
+    }
+
+    function renderPhotos(data) {
+      allPhotos = data;
+      document.getElementById('loader').classList.add('hidden');
+      document.getElementById('photo-grid').classList.remove('hidden');
+      switchCategory('wedding');
+    }
+
+    function switchCategory(cat) {
+      currentCategory = cat;
+      isExpanded = false; 
+      
+      document.querySelectorAll('.cat-btn').forEach(btn => {
+        btn.classList.remove('bg-brand-accent', 'text-brand-dark');
+        btn.classList.add('bg-brand-card', 'text-neutral-300');
+      });
+      const activeBtn = document.getElementById(`btn-${cat}`);
+      if(activeBtn) {
+        activeBtn.classList.remove('bg-brand-card', 'text-neutral-300');
+        activeBtn.classList.add('bg-brand-accent', 'text-brand-dark');
+      }
+
+      renderCategoryGrid();
+    }
+
+    function renderCategoryGrid() {
+      const grid = document.getElementById('photo-grid');
+      const viewMoreContainer = document.getElementById('view-more-container');
+      const viewMoreBtn = document.getElementById('view-more-btn');
+      
+      grid.innerHTML = '';
+      const photos = allPhotos[currentCategory] || [];
+
+      if(photos.length === 0) {
+        grid.innerHTML = `<div class="col-span-2 text-center text-xs text-brand-muted py-6">No photos found in this folder yet.</div>`;
+        viewMoreContainer.classList.add('hidden');
+        return;
+      }
+
+      const displayPhotos = isExpanded ? photos : photos.slice(0, 4);
+
+      displayPhotos.forEach(url => {
+        grid.innerHTML += `
+          <div class="relative rounded-xl overflow-hidden bg-neutral-900 border border-neutral-800 aspect-[4/5]">
+            <img src="${url}" class="w-full h-full object-cover" loading="lazy">
+          </div>
+        `;
+      });
+
+      if (photos.length > 4) {
+        viewMoreContainer.classList.remove('hidden');
+        if (isExpanded) {
+          viewMoreBtn.innerText = "Show Less";
+        } else {
+          viewMoreBtn.innerText = "View More Photos";
+        }
+      } else {
+        viewMoreContainer.classList.add('hidden');
+      }
+    }
+
+    function toggleExpandPhotos() {
+      isExpanded = !isExpanded;
+      renderCategoryGrid();
+    }
+
+    function renderPackages(packages) {
+      const container = document.getElementById('packages-list');
+      container.innerHTML = '';
+      if(packages.length > 0) {
+        selectedPackage = `${packages[0].name} (${packages[0].price})`;
+        document.getElementById('selected-pkg-name').innerText = packages[0].name;
+      }
+
+      packages.forEach(pkg => {
+        const detailsList = pkg.details.map(d => `<li>✓ ${d.trim()}</li>`).join('');
+        container.innerHTML += `
+          <div class="glass p-4 rounded-2xl border ${pkg.badge ? 'border-brand-accent/40' : 'border-neutral-800'} relative">
+            ${pkg.badge ? `<div class="absolute top-3 right-3 bg-brand-accent/20 text-brand-accent text-[9px] px-2 py-0.5 rounded-full font-bold uppercase">${pkg.badge}</div>` : ''}
+            <h4 class="font-bold text-sm text-white">${pkg.name}</h4>
+            <div class="text-lg font-extrabold text-brand-accent my-1">${pkg.price}</div>
+            <ul class="text-xs text-neutral-300 space-y-1 my-2">${detailsList}</ul>
+            <button onclick="selectPackage('${pkg.name}', '${pkg.price}')" class="w-full bg-brand-accent text-brand-dark py-2 rounded-xl text-xs font-bold uppercase tracking-wider">Select Package</button>
+          </div>
+        `;
+      });
+    }
+
+    function selectPackage(name, price) {
+      selectedPackage = `${name} (${price})`;
+      document.getElementById('selected-pkg-name').innerText = name;
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+
+    function submitInquiry() {
+      const name = document.getElementById('client-name').value.trim();
+      const date = document.getElementById('client-date').value;
+      const venue = document.getElementById('client-venue').value.trim();
+      const pkg = selectedPackage || "No package selected yet";
+
+      if(!name || !date) {
+        alert("Please enter your name and event date before sending!");
+        return;
+      }
+
+      // 1. Save data to Google Sheet via Apps Script API
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name, date: date, venue: venue, package: pkg })
+      }).then(() => console.log("Saved inquiry to Sheet!"))
+        .catch(err => console.error("Error saving inquiry:", err));
+
+      // 2. Open WhatsApp with pre-filled message
+      const phoneNumber = "919822000000"; // Replace with your actual WhatsApp phone number
+      const msg = encodeURIComponent(`Hi Story Crafter!\n\n*New Inquiry Details:*\n👤 Name: ${name}\n📅 Date: ${date}\n📍 Venue: ${venue || 'Not specified'}\n📦 Package: ${pkg}\n\nIs this date available?`);
+      
+      window.open(`https://wa.me/${phoneNumber}?text=${msg}`, '_blank');
+    }
+  </script>
+</body>
+</html>
