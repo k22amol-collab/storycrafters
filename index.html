@@ -294,6 +294,10 @@
           <input type="text" id="client-name" placeholder="e.g. Rahul & Sneha" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-accent">
         </div>
         <div>
+          <label class="block text-[10px] uppercase tracking-wider text-neutral-400 mb-1">Mobile / WhatsApp Number</label>
+          <input type="tel" id="client-phone" placeholder="e.g. +91 98220 00000" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-accent">
+        </div>
+        <div>
           <label class="block text-[10px] uppercase tracking-wider text-neutral-400 mb-1">Event Date</label>
           <input type="date" id="client-date" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-accent">
         </div>
@@ -559,7 +563,7 @@
       if(hActive) {
         const groomSide = document.getElementById('cfg-haldi-groom').checked;
         const brideSide = document.getElementById('cfg-haldi-bride').checked;
-        const photoVal = document.getElementById('cfg-haldi-photo').value; // e.g. "1-5" or "2-8"
+        const photoVal = document.getElementById('cfg-haldi-photo').value;
         const cineVal = document.getElementById('cfg-haldi-cine').value;
         const albumAct = document.getElementById('cfg-haldi-album-active').checked;
 
@@ -567,14 +571,14 @@
 
         let haldiParts = [];
         let sidesCount = (groomSide ? 1 : 0) + (brideSide ? 1 : 0);
-        if(sidesCount === 0) sidesCount = 1; // Default to at least 1 side calculation
+        if(sidesCount === 0) sidesCount = 1;
 
         if(photoVal !== 'none') {
           const [pCount, pHrs] = photoVal.split('-');
           const key5 = "Haldi photography 5 hrs";
           const key8 = "Haldi photography 8 hrs";
           let baseCost = (pHrs === '5') ? (rates[key5] || 10000) : (rates[key8] || 20000);
-          if(pCount === '2') baseCost *= 1.8; // Multiplier for 2 photographers
+          if(pCount === '2') baseCost *= 1.8;
           total += (baseCost * sidesCount);
           haldiParts.push(`${pCount} Photog (${pHrs}h)`);
         }
@@ -584,7 +588,7 @@
           const key5 = "Haldi cinematography 5 hrs";
           const key8 = "Haldi cinematography 8 hrs";
           let baseCost = (cHrs === '5') ? (rates[key5] || 10000) : (rates[key8] || 20000);
-          if(cCount === '2') baseCost *= 1.8; // Multiplier for 2 cinematographers
+          if(cCount === '2') baseCost *= 1.8;
           total += (baseCost * sidesCount);
           haldiParts.push(`${cCount} Cine (${cHrs}h)`);
         }
@@ -673,32 +677,4 @@
       document.getElementById('inquiry-section').scrollIntoView({ behavior: 'smooth' });
     }
 
-    function submitInquiry() {
-      const name = document.getElementById('client-name').value.trim();
-      const date = document.getElementById('client-date').value;
-      const venue = document.getElementById('client-venue').value.trim();
-      const pkg = selectedPackage || "No package selected yet";
-
-      if(!name || !date) {
-        alert("Please enter your name and event date before sending!");
-        return;
-      }
-
-      // Save inquiry to Google Sheet
-      fetch(SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: name, date: date, venue: venue, package: pkg })
-      }).then(() => console.log("Saved inquiry to Sheet!"))
-        .catch(err => console.error("Error saving inquiry:", err));
-
-      // Open WhatsApp with pre-filled details
-      const phoneNumber = "919822000000"; // Replace with your actual WhatsApp phone number
-      const msg = encodeURIComponent(`Hi Story Crafter!\n\n*New Inquiry Details:*\n👤 Name: ${name}\n📅 Date: ${date}\n📍 Venue: ${venue || 'Not specified'}\n📦 Package: ${pkg}\n\nIs this date available?`);
-      
-      window.open(`https://wa.me/${phoneNumber}?text=${msg}`, '_blank');
-    }
-  </script>
-</body>
-</html>
+    function submit
