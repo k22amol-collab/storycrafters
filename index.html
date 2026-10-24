@@ -296,7 +296,7 @@
               <span class="text-amber-400 font-bold">+₹10,000 / Session</span>
             </label>
             <p class="text-[9px] text-neutral-400 pl-5 leading-tight">
-              <strong>Drone Permission Note:</strong> Drones are subject to DGCA & government regulations. The client has the responsibility of obtaining permissions to fly drone from the event venue and local authorities[cite: 5].
+              <strong>Drone Permission Note:</strong> Drones are subject to DGCA & government regulations. The client has the responsibility of obtaining permissions to fly drone from the event venue and local authorities.
             </p>
           </div>
 
@@ -426,7 +426,7 @@
   </section>
 
   <!-- FIXED STACKED BOTTOM FLOATING BARS -->
-  <!-- 1. STICKY MOBILE FLOATING LIVE CUSTOM QUOTE BAR (POSITIONED DIRECTLY ABOVE ACTION BAR) -->
+  <!-- 1. STICKY MOBILE FLOATING LIVE CUSTOM QUOTE BAR -->
   <div id="floating-custom-bar" class="fixed bottom-[68px] left-0 right-0 glass border-t border-brand-accent/40 py-2 px-3.5 max-w-md mx-auto hidden z-40 shadow-2xl">
     <div class="flex items-center justify-between">
       <div>
@@ -446,9 +446,9 @@
 
   <!-- 2. FIXED BOTTOM MAIN ACTION BAR -->
   <div class="fixed bottom-0 left-0 right-0 glass border-t border-brand-accent/20 p-3 max-w-md mx-auto flex items-center justify-between shadow-2xl z-50">
-    <div class="max-w-[55%]">
+    <div class="max-w-[58%]">
       <div class="text-[9px] uppercase text-brand-muted font-semibold">Selected Package:</div>
-      <div id="selected-pkg-name" class="text-xs font-bold text-brand-accent truncate">Select a Package</div>
+      <div id="selected-pkg-name" class="text-xs font-bold text-white truncate">Select a Package</div>
     </div>
     <button onclick="submitInquiry()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3.5 py-2 rounded-xl text-xs font-bold shadow-lg transition-all shrink-0">
       Save & WhatsApp Us
@@ -654,8 +654,7 @@
       const container = document.getElementById('packages-list');
       container.innerHTML = '';
       if(packages.length > 0) {
-        selectedPackage = `${packages[0].name} (${packages[0].price})`;
-        document.getElementById('selected-pkg-name').innerText = packages[0].name;
+        selectPackage(packages[0].name, packages[0].price);
       }
 
       packages.forEach(pkg => {
@@ -674,7 +673,11 @@
 
     function selectPackage(name, price) {
       selectedPackage = `${name} (${price})`;
-      document.getElementById('selected-pkg-name').innerText = name;
+      // Display both package name and price in the bottom action bar
+      document.getElementById('selected-pkg-name').innerHTML = `
+        <span class="text-white">${name}</span>
+        <span class="text-brand-accent font-extrabold ml-1">(${price})</span>
+      `;
       
       // Reset custom builder checkboxes so standard package selection takes priority cleanly
       document.getElementById('cfg-wedding-active').checked = false;
@@ -924,7 +927,11 @@
         return;
       }
       selectedPackage = `${calc.summary} (${calc.totalStr})`;
-      document.getElementById('selected-pkg-name').innerText = "Custom Quote " + calc.totalStr;
+      // Display both "Custom Quote" title and calculated price in bottom bar
+      document.getElementById('selected-pkg-name').innerHTML = `
+        <span class="text-white font-bold">Custom Package</span>
+        <span class="text-brand-accent font-extrabold ml-1">(${calc.totalStr})</span>
+      `;
       document.getElementById('inquiry-section').scrollIntoView({ behavior: 'smooth' });
     }
 
