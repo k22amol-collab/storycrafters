@@ -242,7 +242,7 @@
     <div class="glass p-4 rounded-2xl border border-neutral-800 text-xs text-neutral-300 space-y-3">
       <h4 class="font-bold text-sm text-brand-accent uppercase tracking-wider">Good to Know & Terms</h4>
       <div>
-        <span class="font-semibold text-white">Albums:</span> ₹250/spread (12"x18" non-tearable, includes Goa delivery). Delivered in 30-40 working days post-selection.
+        <span class="font-semibold text-white">Albums:</span> ₹250/spread (12"x18" non-tearable, includes Goa delivery). Delivered in 30-40 working days post-selection[cite: 4].
       </div>
       <div>
         <span class="font-semibold text-white">Booking Policy:</span> 20% advance required to lock your date. Balance 80% due on shoot day. Advance is non-refundable.
@@ -277,7 +277,7 @@
   <section class="px-4 py-3 max-w-md mx-auto space-y-4 mb-2">
     <div class="text-center">
       <h3 class="text-sm font-bold text-brand-accent uppercase tracking-wider">Meet the Founders</h3>
-      <p class="text-[11px] text-brand-muted mt-1">Founded in 2021 by Pranav and Amol with over 5 years of experience each.</p>
+      <p class="text-[11px] text-brand-muted mt-1">Founded in 2021 by Pranav and Amol with over 5 years of experience each[cite: 2].</p>
     </div>
 
     <!-- Pranav Card -->
@@ -287,8 +287,8 @@
       </div>
       <div>
         <h4 class="font-bold text-xs text-white">Pranav Morajkar</h4>
-        <div class="text-[9px] text-brand-accent uppercase font-semibold mb-1">The Visionary Storyteller</div>
-        <p class="text-[11px] text-neutral-300 leading-relaxed">Lead Photographer & Cinematographer who crafts epic sagas and turns your big day into a blockbuster.</p>
+        <div class="text-[9px] text-brand-accent uppercase font-semibold mb-1">The Visionary Storyteller[cite: 2]</div>
+        <p class="text-[11px] text-neutral-300 leading-relaxed">Lead Photographer & Cinematographer who crafts epic sagas and turns your big day into a blockbuster[cite: 2].</p>
       </div>
     </div>
 
@@ -299,8 +299,8 @@
       </div>
       <div>
         <h4 class="font-bold text-xs text-white">Amol Kamat</h4>
-        <div class="text-[9px] text-brand-accent uppercase font-semibold mb-1">The Creative Soul</div>
-        <p class="text-[11px] text-neutral-300 leading-relaxed">Amol, our Lead Photographer, is the artist who finds beauty in everything—yes, even in that one relative who always photobombs the perfect shot. With over 5 years of experience, he has a knack for turning ordinary moments into extraordinary memories. Amol’s creative eye ensures that every photograph is a piece of art, even if it means he’ll spend an extra 10 minutes adjusting that one stray flower petal. If you want someone who’s as passionate about your wedding photos as you are, Amol’s your guy.</p>
+        <div class="text-[9px] text-brand-accent uppercase font-semibold mb-1">The Creative Soul[cite: 2]</div>
+        <p class="text-[11px] text-neutral-300 leading-relaxed">Amol, our Lead Photographer, is the artist who finds beauty in everything—yes, even in that one relative who always photobombs the perfect shot[cite: 2]. With over 5 years of experience, he has a knack for turning ordinary moments into extraordinary memories[cite: 2]. Amol’s creative eye ensures that every photograph is a piece of art, even if it means he’ll spend an extra 10 minutes adjusting that one stray flower petal[cite: 2]. If you want someone who’s as passionate about your wedding photos as you are, Amol’s your guy.</p>
       </div>
     </div>
   </section>
@@ -490,3 +490,149 @@
       const wActive = document.getElementById('cfg-wedding-active').checked;
       document.getElementById('cfg-wedding-options').classList.toggle('hidden', !wActive);
       if(wActive) {
+        const photo = document.getElementById('cfg-wedding-photo').value;
+        const cine = document.getElementById('cfg-wedding-cine').value;
+        const groom = document.getElementById('cfg-wedding-groom').checked;
+        const bride = document.getElementById('cfg-wedding-bride').checked;
+        const albumAct = document.getElementById('cfg-wedding-album-active').checked;
+        
+        document.getElementById('cfg-wedding-album-opts').classList.toggle('hidden', !albumAct);
+
+        if(photo === '1') total += (rates["Wedding one photographer"] || 25000);
+        if(photo === '2') total += (rates["Wedding two photographer"] || 50000);
+
+        if(cine === '1') total += (rates["Wedding one cinematographer"] || 25000);
+        if(cine === '2') total += (rates["Wedding two cinematographer"] || 55000);
+
+        if(groom) total += (rates["Wedding home to venue groom side"] || 5000);
+        if(bride) total += (rates["Wedding home to venue bride side"] || 5000);
+
+        let albumText = "";
+        if(albumAct) {
+          const sheets = parseInt(document.getElementById('cfg-wedding-album-sheets').value) || 0;
+          total += (sheets * albumRate);
+          albumText = ` + ${sheets}s Album`;
+        }
+
+        summaryParts.push(`Wedding (${photo !== 'none' ? photo + ' Photog' : ''}${cine !== 'none' ? ', ' + cine + ' Cine' : ''}${albumText})`);
+      }
+
+      // 2. Haldi
+      const hActive = document.getElementById('cfg-haldi-active').checked;
+      document.getElementById('cfg-haldi-options').classList.toggle('hidden', !hActive);
+      if(hActive) {
+        const photoHrs = document.getElementById('cfg-haldi-photo').value;
+        const cineHrs = document.getElementById('cfg-haldi-cine').value;
+        const albumAct = document.getElementById('cfg-haldi-album-active').checked;
+
+        document.getElementById('cfg-haldi-album-opts').classList.toggle('hidden', !albumAct);
+
+        if(photoHrs === '5') total += (rates["Haldi photography 5 hrs"] || 10000);
+        if(photoHrs === '8') total += (rates["Haldi photography 8 hrs"] || 20000);
+
+        if(cineHrs === '5') total += (rates["Haldi cinematography 5 hrs"] || 10000);
+        if(cineHrs === '8') total += (rates["Haldi cinematography 8 hrs"] || 20000);
+
+        let albumText = "";
+        if(albumAct) {
+          const sheets = parseInt(document.getElementById('cfg-haldi-album-sheets').value) || 0;
+          total += (sheets * albumRate);
+          albumText = ` + ${sheets}s Album`;
+        }
+
+        summaryParts.push(`Haldi${albumText}`);
+      }
+
+      // 3. Engagement
+      const eActive = document.getElementById('cfg-eng-active').checked;
+      document.getElementById('cfg-eng-options').classList.toggle('hidden', !eActive);
+      if(eActive) {
+        const photo = document.getElementById('cfg-eng-photo').value;
+        const albumAct = document.getElementById('cfg-eng-album-active').checked;
+
+        document.getElementById('cfg-eng-album-opts').classList.toggle('hidden', !albumAct);
+
+        if(photo === '1') total += (rates["Engagement one photographer"] || 15000);
+        if(photo === '2') total += (rates["Engagement two photographer"] || 20000);
+
+        let albumText = "";
+        if(albumAct) {
+          const sheets = parseInt(document.getElementById('cfg-eng-album-sheets').value) || 0;
+          total += (sheets * albumRate);
+          albumText = ` + ${sheets}s Album`;
+        }
+
+        summaryParts.push(`Engagement (${photo} Photog${albumText})`);
+      }
+
+      // 4. Reception
+      const rActive = document.getElementById('cfg-rec-active').checked;
+      document.getElementById('cfg-rec-options').classList.toggle('hidden', !rActive);
+      if(rActive) {
+        const photo = document.getElementById('cfg-rec-photo').value;
+        const albumAct = document.getElementById('cfg-rec-album-active').checked;
+
+        document.getElementById('cfg-rec-album-opts').classList.toggle('hidden', !albumAct);
+
+        if(photo === '1') total += (rates["Reception one photographer"] || 15000);
+        if(photo === '2') total += (rates["Reception two photographer"] || 20000);
+
+        let albumText = "";
+        if(albumAct) {
+          const sheets = parseInt(document.getElementById('cfg-rec-album-sheets').value) || 0;
+          total += (sheets * albumRate);
+          albumText = ` + ${sheets}s Album`;
+        }
+
+        summaryParts.push(`Reception (${photo} Photog${albumText})`);
+      }
+
+      const formattedTotal = "₹" + total.toLocaleString('en-IN');
+      document.getElementById('custom-total-price').innerText = formattedTotal;
+
+      return {
+        totalStr: formattedTotal,
+        summary: summaryParts.length > 0 ? "Custom: " + summaryParts.join(" + ") : "Custom Package"
+      };
+    }
+
+    function applyCustomPackage() {
+      const calc = calculateCustomPrice();
+      if(calc.totalStr === "₹0") {
+        alert("Please select at least one ceremony to build your custom package.");
+        return;
+      }
+      selectedPackage = `${calc.summary} (${calc.totalStr})`;
+      document.getElementById('selected-pkg-name').innerText = "Custom Quote " + calc.totalStr;
+      document.getElementById('inquiry-section').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function submitInquiry() {
+      const name = document.getElementById('client-name').value.trim();
+      const date = document.getElementById('client-date').value;
+      const venue = document.getElementById('client-venue').value.trim();
+      const pkg = selectedPackage || "No package selected yet";
+
+      if(!name || !date) {
+        alert("Please enter your name and event date before sending!");
+        return;
+      }
+
+      // Save inquiry to Google Sheet
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name, date: date, venue: venue, package: pkg })
+      }).then(() => console.log("Saved inquiry to Sheet!"))
+        .catch(err => console.error("Error saving inquiry:", err));
+
+      // Open WhatsApp with pre-filled details
+      const phoneNumber = "919822000000"; // Replace with your actual WhatsApp phone number
+      const msg = encodeURIComponent(`Hi Story Crafter!\n\n*New Inquiry Details:*\n👤 Name: ${name}\n📅 Date: ${date}\n📍 Venue: ${venue || 'Not specified'}\n📦 Package: ${pkg}\n\nIs this date available?`);
+      
+      window.open(`https://wa.me/${phoneNumber}?text=${msg}`, '_blank');
+    }
+  </script>
+</body>
+</html>
