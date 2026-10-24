@@ -135,8 +135,22 @@
         </label>
         
         <div id="cfg-haldi-options" class="pl-6 space-y-2 text-xs hidden">
+          <div class="space-y-1 bg-neutral-950 p-2 rounded-lg border border-neutral-800">
+            <span class="text-brand-accent font-semibold block text-[11px]">Side / Location Coverage:</span>
+            <div class="flex gap-4">
+              <label class="flex items-center gap-1.5 cursor-pointer text-neutral-300">
+                <input type="checkbox" id="cfg-haldi-groom" onchange="calculateCustomPrice()" class="accent-amber-500 w-3.5 h-3.5" checked>
+                <span>Groom Side</span>
+              </label>
+              <label class="flex items-center gap-1.5 cursor-pointer text-neutral-300">
+                <input type="checkbox" id="cfg-haldi-bride" onchange="calculateCustomPrice()" class="accent-amber-500 w-3.5 h-3.5">
+                <span>Bride Side</span>
+              </label>
+            </div>
+          </div>
+
           <div class="flex items-center justify-between">
-            <span class="text-neutral-300">Photography Team:</span>
+            <span class="text-neutral-300">Photography:</span>
             <select id="cfg-haldi-photo" onchange="calculateCustomPrice()" class="bg-neutral-800 text-white rounded px-2 py-1 text-xs border border-neutral-700">
               <option value="none">None</option>
               <option value="1-5">1 Photographer (5 hrs)</option>
@@ -146,7 +160,7 @@
             </select>
           </div>
           <div class="flex items-center justify-between">
-            <span class="text-neutral-300">Cinematography Team:</span>
+            <span class="text-neutral-300">Cinematography:</span>
             <select id="cfg-haldi-cine" onchange="calculateCustomPrice()" class="bg-neutral-800 text-white rounded px-2 py-1 text-xs border border-neutral-700">
               <option value="none">None</option>
               <option value="1-5">1 Cinematographer (5 hrs)</option>
@@ -260,7 +274,7 @@
     <div class="glass p-4 rounded-2xl border border-neutral-800 text-xs text-neutral-300 space-y-3">
       <h4 class="font-bold text-sm text-brand-accent uppercase tracking-wider">Good to Know & Terms</h4>
       <div>
-        <span class="font-semibold text-white">Albums:</span> ₹250/spread (12"x18" non-tearable, includes Goa delivery). Delivered in 30-40 working days post-selection[cite: 4].
+        <span class="font-semibold text-white">Albums:</span> ₹250/spread (12"x18" non-tearable, includes Goa delivery). Delivered in 30-40 working days post-selection.
       </div>
       <div>
         <span class="font-semibold text-white">Booking Policy:</span> 20% advance required to lock your date. Balance 80% due on shoot day. Advance is non-refundable.
@@ -318,7 +332,7 @@
       <div>
         <h4 class="font-bold text-xs text-white">Amol Kamat</h4>
         <div class="text-[9px] text-brand-accent uppercase font-semibold mb-1">The Creative Soul[cite: 2]</div>
-        <p class="text-[11px] text-neutral-300 leading-relaxed">Amol, our Lead Photographer[cite: 2], is the artist who finds beauty in everything—yes, even in that one relative who always photobombs the perfect shot[cite: 2]. With over 5 years of experience[cite: 2], he has a knack for turning ordinary moments into extraordinary memories[cite: 2]. Amol’s creative eye ensures that every photograph is a piece of art[cite: 2], even if it means he’ll spend an extra 10 minutes adjusting that one stray flower petal[cite: 2]. If you want someone who’s as passionate about your wedding photos as you are, Amol’s your guy.</p>
+        <p class="text-[11px] text-neutral-300 leading-relaxed">Amol, our Lead Photographer[cite: 2], is the artist who finds beauty in everything—yes, even in that one relative who always photobombs the perfect shot[cite: 2]. With over 5 years of experience[cite: 2], he has a knack for turning ordinary moments into extraordinary memories[cite: 2]. Amol’s creative eye ensures that every photograph is a piece of art, even if it means he’ll spend an extra 10 minutes adjusting that one stray flower petal[cite: 2]. If you want someone who’s as passionate about your wedding photos as you are, Amol’s your guy.</p>
       </div>
     </div>
   </section>
@@ -351,7 +365,7 @@
     let currentCategory = 'wedding';
     let isExpanded = false;
 
-    // Fallback default rates matching your rate card sheet structure
+    // Default rates fallback matching your sheet key patterns
     const defaultCustomRates = {
       "Wedding one photographer": 25000,
       "Wedding two photographer": 50000,
@@ -359,14 +373,10 @@
       "Wedding two cinematographer": 55000,
       "Wedding home to venue groom side": 5000,
       "Wedding home to venue bride side": 5000,
-      "Haldi photography 1 photog 5 hrs": 10000,
-      "Haldi photography 1 photog 8 hrs": 15000,
-      "Haldi photography 2 photog 5 hrs": 20000,
-      "Haldi photography 2 photog 8 hrs": 25000,
-      "Haldi cinematography 1 cine 5 hrs": 10000,
-      "Haldi cinematography 1 cine 8 hrs": 15000,
-      "Haldi cinematography 2 cine 5 hrs": 20000,
-      "Haldi cinematography 2 cine 8 hrs": 25000,
+      "Haldi photography 5 hrs": 10000,
+      "Haldi photography 8 hrs": 20000,
+      "Haldi cinematography 5 hrs": 10000,
+      "Haldi cinematography 8 hrs": 20000,
       "Engagement one photographer": 15000,
       "Engagement two photographer": 20000,
       "Engagement one cinematographer": 15000,
@@ -547,6 +557,8 @@
       const hActive = document.getElementById('cfg-haldi-active').checked;
       document.getElementById('cfg-haldi-options').classList.toggle('hidden', !hActive);
       if(hActive) {
+        const groomSide = document.getElementById('cfg-haldi-groom').checked;
+        const brideSide = document.getElementById('cfg-haldi-bride').checked;
         const photoVal = document.getElementById('cfg-haldi-photo').value; // e.g. "1-5" or "2-8"
         const cineVal = document.getElementById('cfg-haldi-cine').value;
         const albumAct = document.getElementById('cfg-haldi-album-active').checked;
@@ -554,16 +566,26 @@
         document.getElementById('cfg-haldi-album-opts').classList.toggle('hidden', !albumAct);
 
         let haldiParts = [];
+        let sidesCount = (groomSide ? 1 : 0) + (brideSide ? 1 : 0);
+        if(sidesCount === 0) sidesCount = 1; // Default to at least 1 side calculation
+
         if(photoVal !== 'none') {
           const [pCount, pHrs] = photoVal.split('-');
-          const key = `Haldi photography ${pCount} photog ${pHrs} hrs`;
-          total += (rates[key] || (pCount === '1' ? 10000 : 20000));
+          const key5 = "Haldi photography 5 hrs";
+          const key8 = "Haldi photography 8 hrs";
+          let baseCost = (pHrs === '5') ? (rates[key5] || 10000) : (rates[key8] || 20000);
+          if(pCount === '2') baseCost *= 1.8; // Multiplier for 2 photographers
+          total += (baseCost * sidesCount);
           haldiParts.push(`${pCount} Photog (${pHrs}h)`);
         }
+
         if(cineVal !== 'none') {
           const [cCount, cHrs] = cineVal.split('-');
-          const key = `Haldi cinematography ${cCount} cine ${cHrs} hrs`;
-          total += (rates[key] || (cCount === '1' ? 10000 : 20000));
+          const key5 = "Haldi cinematography 5 hrs";
+          const key8 = "Haldi cinematography 8 hrs";
+          let baseCost = (cHrs === '5') ? (rates[key5] || 10000) : (rates[key8] || 20000);
+          if(cCount === '2') baseCost *= 1.8; // Multiplier for 2 cinematographers
+          total += (baseCost * sidesCount);
           haldiParts.push(`${cCount} Cine (${cHrs}h)`);
         }
 
