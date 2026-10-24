@@ -18,26 +18,6 @@
     body { background-color: #0f0f0f; color: #f3f4f6; font-family: system-ui, -apple-system, sans-serif; }
     .glass { background: rgba(26, 26, 26, 0.92); backdrop-filter: blur(12px); border: 1px solid rgba(212, 175, 55, 0.2); }
     .no-scrollbar::-webkit-scrollbar { display: none; }
-
-    /* Print styling: Hides everything on the page except the printable quote container when printing/saving as PDF */
-    @media print {
-      body * {
-        visibility: hidden;
-      }
-      #pdf-printable-area, #pdf-printable-area * {
-        visibility: visible;
-      }
-      #pdf-printable-area {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        display: block !important;
-        background: #ffffff !important;
-        color: #111111 !important;
-        padding: 20px;
-      }
-    }
   </style>
 </head>
 <body class="min-h-screen pb-48">
@@ -528,34 +508,6 @@
     </div>
   </div>
 
-  <!-- NATIVE PRINTABLE PDF TEMPLATE (Triggers clean browser Save-as-PDF dialog) -->
-  <div id="pdf-printable-area" style="display: none;">
-    <div style="border-bottom: 2px solid #b8860b; padding-bottom: 15px; margin-bottom: 20px; display: flex; justify-content: space-between;">
-      <div>
-        <h2 style="font-size: 22px; font-weight: bold; color: #111; text-transform: uppercase; margin: 0;">Story Crafters</h2>
-        <p style="font-size: 11px; color: #555; margin: 4px 0 0 0;">Goa • Luxury Wedding Photography Proposal</p>
-      </div>
-      <div style="text-align: right;">
-        <p style="font-size: 11px; color: #555; margin: 0;">Date: <span id="pdf-date-span"></span></p>
-      </div>
-    </div>
-    
-    <div style="margin-bottom: 20px;">
-      <h3 style="font-size: 13px; font-weight: bold; text-transform: uppercase; color: #333; margin-bottom: 10px; border-bottom: 1px solid #ddd; padding-bottom: 5px;">Selected Custom Services:</h3>
-      <div id="pdf-items-list" style="font-size: 12px; color: #222;"></div>
-    </div>
-
-    <div style="border-top: 2px solid #333; padding-top: 15px; margin-top: 25px; display: flex; justify-content: space-between; align-items: center;">
-      <span style="font-size: 15px; font-weight: bold; color: #111;">Estimated Total Quote:</span>
-      <span id="pdf-total-span" style="font-size: 18px; font-weight: bold; color: #b8860b;">₹0</span>
-    </div>
-
-    <div style="margin-top: 40px; font-size: 10px; color: #555; border-top: 1px solid #eee; padding-top: 10px;">
-      <p style="margin: 3px 0;"><strong>Booking Terms:</strong> 20% advance required to lock your date. Balance due on shoot day. Advance is non-refundable.</p>
-      <p style="margin: 3px 0;">Contact: WhatsApp +91 98220 00000 | Instagram @story.crafters</p>
-    </div>
-  </div>
-
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwk5uxnDR-J0CkC9cr6C1xOvjaWp7EeEqS6qoL1bPzigQCAgnY7qg3sp0JfB_kkv7kd/exec";
 
@@ -717,7 +669,7 @@
     function nextPhoto() {
       const photos = allPhotos[currentCategory] || [];
       if(photos.length === 0) return;
-      currentLightboxIdx = (currentLightboxIdx + 1) % photos.length;
+      currentLightboxIdx = (currentLightboxIdx + 1 + photos.length) % photos.length;
       document.getElementById('lightbox-img').src = photos[currentLightboxIdx];
     }
 
@@ -1009,25 +961,73 @@
     }
 
     function downloadPDFQuote() {
-      const pdfList = document.getElementById('pdf-items-list');
-      pdfList.innerHTML = '';
+      // Build clean HTML rows for the new print window
+      let rowsHTML = '';
       if(lineItemsBreakdown.length === 0) {
-        pdfList.innerHTML = '<div style="color: #666;">No items selected.</div>';
+        rowsHTML = '<tr><td colspan="2" style="padding: 10px; color: #666;">No items selected.</td></tr>';
       } else {
         lineItemsBreakdown.forEach(item => {
-          pdfList.innerHTML += `
-            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0;">
-              <span>✓ ${item.item}</span>
-              <span style="font-weight: bold; color: #b8860b;">₹${item.cost.toLocaleString('en-IN')}</span>
-            </div>
+          rowsHTML += `
+            <tr>
+              <td style="padding: 10px 0; border-bottom: 1px solid #eee; color: #222;">✓ ${item.item}</td>
+              <td style="padding: 10px 0; border-bottom: 1px solid #eee; text-align: right; font-weight: bold; color: #b8860b;">₹${item.cost.toLocaleString('en-IN')}</td>
+            </tr>
           `;
         });
       }
-      document.getElementById('pdf-total-span').innerText = document.getElementById('custom-total-price').innerText;
-      document.getElementById('pdf-date-span').innerText = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
 
-      // Trigger browser's native print-to-PDF utility
-      window.print();
+      const totalStr = document.getElementById('custom-total-price').innerText;
+      const currentDate = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+
+      // Open a clean print window
+      const printWindow = window.open('', '_blank', 'height=600,width=800');
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>Story Crafters - Proposal Quote</title>
+            <style>
+              body { font-family: sans-serif; padding: 30px; color: #111; background: #fff; }
+              .header { border-bottom: 2px solid #b8860b; padding-bottom: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; }
+              table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+              .total-box { border-top: 2px solid #333; padding-top: 15px; margin-top: 25px; display: flex; justify-content: space-between; font-size: 16px; font-weight: bold; }
+              .footer { margin-top: 40px; font-size: 10px; color: #555; border-top: 1px solid #eee; padding-top: 10px; }
+            </style>
+          </head>
+          <body>
+            <div class="header">
+              <div>
+                <h2 style="margin:0; font-size: 22px; text-transform: uppercase;">Story Crafters</h2>
+                <p style="margin:4px 0 0 0; font-size: 11px; color: #555;">Goa • Luxury Wedding Photography Proposal</p>
+              </div>
+              <div style="text-align: right;">
+                <p style="margin:0; font-size: 11px; color: #555;">Date: ${currentDate}</p>
+              </div>
+            </div>
+
+            <h3 style="font-size: 13px; font-weight: bold; text-transform: uppercase; color: #333; margin-bottom: 5px;">Selected Custom Services:</h3>
+            <table>
+              ${rowsHTML}
+            </table>
+
+            <div class="total-box">
+              <span>Estimated Total Quote:</span>
+              <span style="color: #b8860b; font-size: 18px;">${totalStr}</span>
+            </div>
+
+            <div class="footer">
+              <p style="margin: 3px 0;"><strong>Booking Terms:</strong> 20% advance required to lock your date. Balance due on shoot day. Advance is non-refundable.</p>
+              <p style="margin: 3px 0;">Contact: WhatsApp +91 98220 00000 | Instagram @story.crafters</p>
+            </div>
+
+            <script>
+              window.onload = function() {
+                window.print();
+              };
+            <\/script>
+          </body>
+        </html>
+      `);
+      printWindow.document.close();
     }
 
     function applyCustomPackage() {
