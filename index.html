@@ -256,22 +256,57 @@
         </div>
       </div>
 
-      <!-- 5. DYNAMIC CINEMATIC VIDEO DURATION SECTION (Shows ONLY if Cinematography is selected) -->
-      <div id="cfg-video-duration-section" class="bg-brand-card/90 p-3.5 rounded-xl border border-red-500/40 space-y-3 hidden">
+      <!-- 5. CINEMATIC VIDEO & ADD-ONS SECTION (Shows ONLY if Cinematography is selected) -->
+      <div id="cfg-video-duration-section" class="bg-neutral-900/90 p-3.5 rounded-xl border border-red-500/40 space-y-3.5 hidden">
         <div>
           <div class="flex items-center gap-1.5">
             <span class="text-red-500 text-sm">🎬</span>
-            <h4 class="text-xs font-bold text-red-400 uppercase tracking-wider">Video Duration & Deliverable</h4>
+            <h4 class="text-xs font-bold text-red-400 uppercase tracking-wider">Cinematography Film & Add-Ons</h4>
           </div>
-          <p class="text-[10px] text-neutral-400 mt-0.5">Select your preferred cinematic film edit length:</p>
+          <p class="text-[10px] text-neutral-400 mt-0.5">Select your film duration and optional aerial/teaser add-ons:</p>
         </div>
 
-        <div class="space-y-2">
-          <select id="cfg-video-duration" onchange="calculateCustomPrice()" class="w-full bg-neutral-900 text-white rounded-xl px-3 py-2 text-xs border border-neutral-700 focus:outline-none focus:border-red-500">
-            <option value="8000">3-5 Min Cinematic Film (+₹8,000)</option>
+        <!-- Video Edit Length -->
+        <div class="space-y-1">
+          <label class="block text-[10px] font-semibold text-neutral-300 uppercase">Film Duration:</label>
+          <select id="cfg-video-duration" onchange="calculateCustomPrice()" class="w-full bg-neutral-800 text-white rounded-xl px-3 py-2 text-xs border border-neutral-700 focus:outline-none focus:border-red-500">
             <option value="10000" selected>6-8 Min Cinematic Film (+₹10,000)</option>
+            <option value="8000">3-5 Min Cinematic Film (+₹8,000)</option>
             <option value="5000">2-3 Min Cinematic Film (+₹5,000)</option>
           </select>
+        </div>
+
+        <!-- ADD-ONS: DRONE & TRAILER -->
+        <div class="pt-2 border-t border-neutral-800 space-y-2.5">
+          <span class="text-[10px] font-bold uppercase text-amber-400 tracking-wider block">Cinematography Add-Ons:</span>
+          
+          <!-- Drone Option -->
+          <div class="space-y-1 bg-neutral-950 p-2.5 rounded-xl border border-neutral-800">
+            <label class="flex items-center justify-between cursor-pointer text-xs font-semibold text-white">
+              <span class="flex items-center gap-1.5">
+                <input type="checkbox" id="cfg-add-drone" onchange="calculateCustomPrice()" class="accent-amber-500 w-4 h-4">
+                <span>🚁 Drone Aerial Coverage</span>
+              </span>
+              <span class="text-amber-400 font-bold">+₹10,000 / Session</span>
+            </label>
+            <p class="text-[9px] text-neutral-400 pl-5 leading-tight">
+              <strong>Drone Permission Note:</strong> Drones are subject to DGCA & government regulations. The client has the responsibility of obtaining permissions to fly drone from the event venue and local authorities.
+            </p>
+          </div>
+
+          <!-- Trailer Option -->
+          <div class="space-y-1 bg-neutral-950 p-2.5 rounded-xl border border-neutral-800">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-semibold text-white flex items-center gap-1.5">
+                <span>🎥 Cinematic Teaser / Trailer:</span>
+              </span>
+              <select id="cfg-add-trailer" onchange="calculateCustomPrice()" class="bg-neutral-800 text-white text-xs rounded px-2 py-1 border border-neutral-700">
+                <option value="0">None</option>
+                <option value="4000">1-2 Min Trailer (+₹4,000)</option>
+                <option value="5000">2-3 Min Trailer (+₹5,000)</option>
+              </select>
+            </div>
+          </div>
         </div>
 
         <!-- NOTE & DELIVERABLE TERMS FROM IMAGE -->
@@ -422,6 +457,9 @@
       "Video 6-8 Min Film": 10000,
       "Video 3-5 Min Film": 8000,
       "Video 2-3 Min Film": 5000,
+      "Drone coverage per session": 10000,
+      "Trailer 1-2 Min": 4000,
+      "Trailer 2-3 Min": 5000,
       "Album": 250
     };
 
@@ -701,7 +739,7 @@
         summaryParts.push(`Reception (${photo !== 'none' ? photo + ' Photog' : ''}${cine !== 'none' ? ', ' + cine + ' Cine' : ''}${albumText})`);
       }
 
-      // 5. CINEMATIC VIDEO DURATION SECTION (SHOWS ONLY IF CINEMATOGRAPHY IS SELECTED)
+      // 5. CINEMATIC VIDEO DURATION & ADD-ONS (SHOWS ONLY IF CINEMATOGRAPHY IS SELECTED)
       const videoSection = document.getElementById('cfg-video-duration-section');
       if(hasCinematography) {
         videoSection.classList.remove('hidden');
@@ -712,7 +750,23 @@
         if(videoCost === 8000) durationText = "3-5 Min Film";
         if(videoCost === 5000) durationText = "2-3 Min Film";
 
-        summaryParts.push(`Video Edit (${durationText})`);
+        let cineAddons = [];
+
+        // Check Drone
+        if(document.getElementById('cfg-add-drone').checked) {
+          total += (rates["Drone coverage per session"] || 10000);
+          cineAddons.push("Drone");
+        }
+
+        // Check Trailer
+        const trailerVal = parseInt(document.getElementById('cfg-add-trailer').value) || 0;
+        if(trailerVal > 0) {
+          total += trailerVal;
+          cineAddons.push(trailerVal === 4000 ? "1-2m Trailer" : "2-3m Trailer");
+        }
+
+        const addOnText = cineAddons.length > 0 ? ` + ${cineAddons.join(', ')}` : '';
+        summaryParts.push(`Video (${durationText}${addOnText})`);
       } else {
         videoSection.classList.add('hidden');
       }
