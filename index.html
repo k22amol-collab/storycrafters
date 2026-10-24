@@ -360,7 +360,7 @@
     </div>
   </section>
 
-  <!-- CLIENT INQUIRY & BOOKING FORM (FEATURE 4: MULTI-DAY DATES & VENUE SELECTOR) -->
+  <!-- CLIENT INQUIRY & BOOKING FORM -->
   <section id="inquiry-section" class="px-4 py-2 max-w-md mx-auto mb-4">
     <div class="glass p-4 rounded-2xl border border-brand-accent/30 space-y-3">
       <h4 class="font-bold text-sm text-brand-accent uppercase tracking-wider">Book Your Date / Inquire</h4>
@@ -484,7 +484,7 @@
     <button onclick="nextPhoto()" class="absolute right-2 text-white text-2xl font-bold bg-neutral-800/80 w-10 h-10 rounded-full flex items-center justify-center z-50">&rsaquo;</button>
   </div>
 
-  <!-- ITEMIZED BREAKDOWN MODAL (FEATURE 5: DOWNLOAD PDF QUOTE) -->
+  <!-- ITEMIZED BREAKDOWN MODAL -->
   <div id="breakdown-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
     <div id="pdf-printable-area" class="glass w-full max-w-sm rounded-2xl p-4 border border-brand-accent/40 space-y-3 bg-[#1a1a1a]">
       <div class="flex items-center justify-between border-b border-neutral-800 pb-2">
@@ -550,6 +550,7 @@
     };
 
     window.onload = function() {
+      window.scrollTo(0, 0); // Ensures page opens at the very top
       fetchPhotos();
       fetchPackages();
       fetchCustomRates();
@@ -693,7 +694,8 @@
       const container = document.getElementById('packages-list');
       container.innerHTML = '';
       if(packages.length > 0) {
-        selectPackage(packages[0].name, packages[0].price);
+        // Pre-select first package on load WITHOUT forcing page scroll
+        selectPackageWithoutScroll(packages[0].name, packages[0].price);
       }
 
       packages.forEach(pkg => {
@@ -710,12 +712,17 @@
       });
     }
 
-    function selectPackage(name, price) {
+    // Helper for silent pre-selection on load without scrolling down
+    function selectPackageWithoutScroll(name, price) {
       selectedPackage = `${name} (${price})`;
       document.getElementById('selected-pkg-name').innerHTML = `
         <span class="text-white">${name}</span>
         <span class="text-brand-accent font-extrabold ml-1">(${price})</span>
       `;
+    }
+
+    function selectPackage(name, price) {
+      selectPackageWithoutScroll(name, price);
       
       document.getElementById('cfg-wedding-active').checked = false;
       document.getElementById('cfg-haldi-active').checked = false;
