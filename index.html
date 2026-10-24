@@ -5,8 +5,6 @@
   <title>Story Crafters | Portfolio & Rates</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- html2pdf library for PDF quote generation -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -20,6 +18,26 @@
     body { background-color: #0f0f0f; color: #f3f4f6; font-family: system-ui, -apple-system, sans-serif; }
     .glass { background: rgba(26, 26, 26, 0.92); backdrop-filter: blur(12px); border: 1px solid rgba(212, 175, 55, 0.2); }
     .no-scrollbar::-webkit-scrollbar { display: none; }
+
+    /* Print styling: Hides everything on the page except the printable quote container when printing/saving as PDF */
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #pdf-printable-area, #pdf-printable-area * {
+        visibility: visible;
+      }
+      #pdf-printable-area {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        display: block !important;
+        background: #ffffff !important;
+        color: #111111 !important;
+        padding: 20px;
+      }
+    }
   </style>
 </head>
 <body class="min-h-screen pb-48">
@@ -510,31 +528,31 @@
     </div>
   </div>
 
-  <!-- HIDDEN CLEAN WHITE PDF TEMPLATE (Strictly formatted for crisp PDF export) -->
-  <div id="pdf-printable-area" style="display:none; width: 600px; background: #ffffff; color: #111111; padding: 30px; font-family: sans-serif;">
-    <div style="border-bottom: 2px solid #d4af37; padding-bottom: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+  <!-- NATIVE PRINTABLE PDF TEMPLATE (Triggers clean browser Save-as-PDF dialog) -->
+  <div id="pdf-printable-area" style="display: none;">
+    <div style="border-bottom: 2px solid #b8860b; padding-bottom: 15px; margin-bottom: 20px; display: flex; justify-content: space-between;">
       <div>
-        <h2 style="font-size: 20px; font-weight: bold; color: #111; text-transform: uppercase; margin: 0;">Story Crafters</h2>
-        <p style="font-size: 11px; color: #555; margin: 2px 0 0 0;">Goa • Luxury Wedding Photography Proposal</p>
+        <h2 style="font-size: 22px; font-weight: bold; color: #111; text-transform: uppercase; margin: 0;">Story Crafters</h2>
+        <p style="font-size: 11px; color: #555; margin: 4px 0 0 0;">Goa • Luxury Wedding Photography Proposal</p>
       </div>
       <div style="text-align: right;">
-        <p style="font-size: 10px; color: #777; margin: 0;">Date: <span id="pdf-date-span"></span></p>
+        <p style="font-size: 11px; color: #555; margin: 0;">Date: <span id="pdf-date-span"></span></p>
       </div>
     </div>
     
-    <div style="margin-bottom: 15px;">
-      <h3 style="font-size: 12px; font-weight: bold; text-transform: uppercase; color: #333; margin-bottom: 8px;">Selected Custom Services:</h3>
-      <div id="pdf-items-list" style="font-size: 12px; color: #222; space-y: 6px;"></div>
+    <div style="margin-bottom: 20px;">
+      <h3 style="font-size: 13px; font-weight: bold; text-transform: uppercase; color: #333; margin-bottom: 10px; border-bottom: 1px solid #ddd; padding-bottom: 5px;">Selected Custom Services:</h3>
+      <div id="pdf-items-list" style="font-size: 12px; color: #222;"></div>
     </div>
 
-    <div style="border-top: 2px solid #ddd; padding-top: 15px; margin-top: 20px; display: flex; justify-content: space-between; align-items: center;">
-      <span style="font-size: 14px; font-weight: bold; color: #111;">Estimated Total Quote:</span>
-      <span id="pdf-total-span" style="font-size: 16px; font-weight: bold; color: #b8860b;">₹0</span>
+    <div style="border-top: 2px solid #333; padding-top: 15px; margin-top: 25px; display: flex; justify-content: space-between; align-items: center;">
+      <span style="font-size: 15px; font-weight: bold; color: #111;">Estimated Total Quote:</span>
+      <span id="pdf-total-span" style="font-size: 18px; font-weight: bold; color: #b8860b;">₹0</span>
     </div>
 
-    <div style="margin-top: 30px; font-size: 9px; color: #666; border-top: 1px solid #eee; pt-10px;">
-      <p style="margin: 2px 0;"><strong>Booking Terms:</strong> 20% advance required to lock your date. Balance due on shoot day.</p>
-      <p style="margin: 2px 0;">Contact: WhatsApp +91 98220 00000 | Instagram @story.crafters</p>
+    <div style="margin-top: 40px; font-size: 10px; color: #555; border-top: 1px solid #eee; padding-top: 10px;">
+      <p style="margin: 3px 0;"><strong>Booking Terms:</strong> 20% advance required to lock your date. Balance due on shoot day. Advance is non-refundable.</p>
+      <p style="margin: 3px 0;">Contact: WhatsApp +91 98220 00000 | Instagram @story.crafters</p>
     </div>
   </div>
 
@@ -991,7 +1009,6 @@
     }
 
     function downloadPDFQuote() {
-      // 1. Populate the dedicated hidden clean white PDF template
       const pdfList = document.getElementById('pdf-items-list');
       pdfList.innerHTML = '';
       if(lineItemsBreakdown.length === 0) {
@@ -999,7 +1016,7 @@
       } else {
         lineItemsBreakdown.forEach(item => {
           pdfList.innerHTML += `
-            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #f0f0f0; padding: 6px 0;">
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0;">
               <span>✓ ${item.item}</span>
               <span style="font-weight: bold; color: #b8860b;">₹${item.cost.toLocaleString('en-IN')}</span>
             </div>
@@ -1009,22 +1026,8 @@
       document.getElementById('pdf-total-span').innerText = document.getElementById('custom-total-price').innerText;
       document.getElementById('pdf-date-span').innerText = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
 
-      // 2. Temporarily display element so html2canvas can read it accurately
-      const printableArea = document.getElementById('pdf-printable-area');
-      printableArea.style.display = 'block';
-
-      const opt = {
-        margin:       10,
-        filename:     'Story-Crafters-Proposal.pdf',
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-      };
-
-      html2pdf().from(printableArea).set(opt).save().then(() => {
-        // Hide again after download starts
-        printableArea.style.display = 'none';
-      });
+      // Trigger browser's native print-to-PDF utility
+      window.print();
     }
 
     function applyCustomPackage() {
