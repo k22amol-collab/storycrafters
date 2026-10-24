@@ -266,21 +266,22 @@
           <p class="text-[10px] text-neutral-400 mt-0.5">Select your film duration and optional aerial/teaser add-ons:</p>
         </div>
 
-        <!-- Video Edit Length -->
+        <!-- Video Edit Length (DEFAULT NONE / OPTIONAL) -->
         <div class="space-y-1">
           <label class="block text-[10px] font-semibold text-neutral-300 uppercase">Film Duration:</label>
           <select id="cfg-video-duration" onchange="calculateCustomPrice()" class="w-full bg-neutral-800 text-white rounded-xl px-3 py-2 text-xs border border-neutral-700 focus:outline-none focus:border-red-500">
-            <option value="10000" selected>6-8 Min Cinematic Film (+₹10,000)</option>
+            <option value="0" selected>None / Select Duration (Optional)</option>
+            <option value="10000">6-8 Min Cinematic Film (+₹10,000)</option>
             <option value="8000">3-5 Min Cinematic Film (+₹8,000)</option>
             <option value="5000">2-3 Min Cinematic Film (+₹5,000)</option>
           </select>
         </div>
 
-        <!-- ADD-ONS: DRONE & TRAILER -->
+        <!-- ADD-ONS: DRONE & TRAILER (DEFAULTS NONE) -->
         <div class="pt-2 border-t border-neutral-800 space-y-2.5">
           <span class="text-[10px] font-bold uppercase text-amber-400 tracking-wider block">Cinematography Add-Ons:</span>
           
-          <!-- Drone Option -->
+          <!-- Drone Option (DEFAULT UNCHECKED / NONE) -->
           <div class="space-y-1 bg-neutral-950 p-2.5 rounded-xl border border-neutral-800">
             <label class="flex items-center justify-between cursor-pointer text-xs font-semibold text-white">
               <span class="flex items-center gap-1.5">
@@ -290,18 +291,18 @@
               <span class="text-amber-400 font-bold">+₹10,000 / Session</span>
             </label>
             <p class="text-[9px] text-neutral-400 pl-5 leading-tight">
-              <strong>Drone Permission Note:</strong> Drones are subject to DGCA & government regulations. The client has the responsibility of obtaining permissions to fly drone from the event venue and local authorities.
+              <strong>Drone Permission Note:</strong> Drones are subject to DGCA & government regulations. The client has the responsibility of obtaining permissions to fly drone from the event venue and local authorities[cite: 5].
             </p>
           </div>
 
-          <!-- Trailer Option -->
+          <!-- Trailer Option (DEFAULT NONE) -->
           <div class="space-y-1 bg-neutral-950 p-2.5 rounded-xl border border-neutral-800">
             <div class="flex items-center justify-between">
               <span class="text-xs font-semibold text-white flex items-center gap-1.5">
                 <span>🎥 Cinematic Teaser / Trailer:</span>
               </span>
               <select id="cfg-add-trailer" onchange="calculateCustomPrice()" class="bg-neutral-800 text-white text-xs rounded px-2 py-1 border border-neutral-700">
-                <option value="0">None</option>
+                <option value="0" selected>None</option>
                 <option value="4000">1-2 Min Trailer (+₹4,000)</option>
                 <option value="5000">2-3 Min Trailer (+₹5,000)</option>
               </select>
@@ -313,10 +314,10 @@
         <div class="bg-neutral-950 p-2.5 rounded-lg border border-neutral-800/80 text-[10px] text-neutral-300 space-y-1">
           <div class="text-red-400 font-bold uppercase tracking-wider text-[9px] mb-1">Film Specifications & Terms:</div>
           <ul class="list-disc pl-3.5 space-y-0.5 text-neutral-400">
-            <li><strong>Video Resolution:</strong> Full HD (1920 × 1080p)</li>
-            <li>One round of revisions permittance after first draft.</li>
-            <li><strong>Timelines:</strong> 6-8 & 3-5 min within 2 months | 2-3 min within 1 month</li>
-            <li>Mutual song selection. Once songs are locked, no changes permitted.</li>
+            <li><strong>Video Resolution:</strong> Full HD (1920 × 1080p)[cite: 4]</li>
+            <li>One round of revisions permittance after first draft[cite: 4].</li>
+            <li><strong>Timelines:</strong> 6-8 & 3-5 min within 2 months | 2-3 min within 1 month[cite: 4]</li>
+            <li>Mutual song selection. Once songs are locked, no changes permitted[cite: 4].</li>
           </ul>
         </div>
       </div>
@@ -339,7 +340,7 @@
     <div class="glass p-4 rounded-2xl border border-neutral-800 text-xs text-neutral-300 space-y-3">
       <h4 class="font-bold text-sm text-brand-accent uppercase tracking-wider">Good to Know & Terms</h4>
       <div>
-        <span class="font-semibold text-white">Albums:</span> ₹250/spread (12"x18" non-tearable, includes Goa delivery). Delivered in 30-40 working days post-selection[cite: 4].
+        <span class="font-semibold text-white">Albums:</span> ₹250/spread (12"x18" non-tearable, includes Goa delivery)[cite: 4]. Delivered in 30-40 working days post-selection[cite: 4].
       </div>
       <div>
         <span class="font-semibold text-white">Booking Policy:</span> 20% advance required to lock your date. Balance 80% due on shoot day. Advance is non-refundable.
@@ -743,14 +744,13 @@
       const videoSection = document.getElementById('cfg-video-duration-section');
       if(hasCinematography) {
         videoSection.classList.remove('hidden');
-        const videoCost = parseInt(document.getElementById('cfg-video-duration').value) || 10000;
+        const videoCost = parseInt(document.getElementById('cfg-video-duration').value) || 0;
         total += videoCost;
 
-        let durationText = "6-8 Min Film";
-        if(videoCost === 8000) durationText = "3-5 Min Film";
-        if(videoCost === 5000) durationText = "2-3 Min Film";
-
         let cineAddons = [];
+        if(videoCost === 10000) cineAddons.push("6-8m Film");
+        if(videoCost === 8000) cineAddons.push("3-5m Film");
+        if(videoCost === 5000) cineAddons.push("2-3m Film");
 
         // Check Drone
         if(document.getElementById('cfg-add-drone').checked) {
@@ -765,8 +765,9 @@
           cineAddons.push(trailerVal === 4000 ? "1-2m Trailer" : "2-3m Trailer");
         }
 
-        const addOnText = cineAddons.length > 0 ? ` + ${cineAddons.join(', ')}` : '';
-        summaryParts.push(`Video (${durationText}${addOnText})`);
+        if(cineAddons.length > 0) {
+          summaryParts.push(`Video Add-ons (${cineAddons.join(', ')})`);
+        }
       } else {
         videoSection.classList.add('hidden');
       }
