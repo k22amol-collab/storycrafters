@@ -313,7 +313,7 @@
   <section class="px-4 py-3 max-w-md mx-auto space-y-4 mb-2">
     <div class="text-center">
       <h3 class="text-sm font-bold text-brand-accent uppercase tracking-wider">Meet the Founders</h3>
-      <p class="text-[11px] text-brand-muted mt-1">Founded in 2021 by Pranav and Amol with over 5 years of experience each[cite: 2].</p>
+      <p class="text-[11px] text-brand-muted mt-1">Founded in 2021 by Pranav and Amol with over 5 years of experience each.</p>
     </div>
 
     <!-- Pranav Card -->
@@ -323,8 +323,8 @@
       </div>
       <div>
         <h4 class="font-bold text-xs text-white">Pranav Morajkar</h4>
-        <div class="text-[9px] text-brand-accent uppercase font-semibold mb-1">The Visionary Storyteller[cite: 2]</div>
-        <p class="text-[11px] text-neutral-300 leading-relaxed">Lead Photographer & Cinematographer[cite: 2] who crafts epic sagas and turns your big day into a blockbuster[cite: 2].</p>
+        <div class="text-[9px] text-brand-accent uppercase font-semibold mb-1">Lead Photographer & Cinematographer</div>
+        <p class="text-[11px] text-neutral-300 leading-relaxed">Pranav, our Lead Photographer & Cinematographer, has over 5 years of experience capturing weddings. He loves finding the perfect shot, even from the ground! His focus is on capturing real, candid moments that make every wedding unique. He turns your big day into a blockbuster, one shot at a time.</p>
       </div>
     </div>
 
@@ -335,8 +335,8 @@
       </div>
       <div>
         <h4 class="font-bold text-xs text-white">Amol Kamat</h4>
-        <div class="text-[9px] text-brand-accent uppercase font-semibold mb-1">The Creative Soul[cite: 2]</div>
-        <p class="text-[11px] text-neutral-300 leading-relaxed">Amol, our Lead Photographer[cite: 2], is the artist who finds beauty in everything—yes, even in that one relative who always photobombs the perfect shot[cite: 2]. With over 5 years of experience[cite: 2], he has a knack for turning ordinary moments into extraordinary memories[cite: 2]. Amol’s creative eye ensures that every photograph is a piece of art, even if it means he’ll spend an extra 10 minutes adjusting that one stray flower petal[cite: 2]. If you want someone who’s as passionate about your wedding photos as you are, Amol’s your guy.</p>
+        <div class="text-[9px] text-brand-accent uppercase font-semibold mb-1">Lead Photographer</div>
+        <p class="text-[11px] text-neutral-300 leading-relaxed">Amol, our Lead Photographer, has over 5 years of experience turning ordinary moments into beautiful memories. With a creative eye for detail, he captures every special moment perfectly. If you want wedding photos filled with love and creativity, Amol is your guy!</p>
       </div>
     </div>
   </section>
@@ -677,4 +677,33 @@
       document.getElementById('inquiry-section').scrollIntoView({ behavior: 'smooth' });
     }
 
-    function submit
+    function submitInquiry() {
+      const name = document.getElementById('client-name').value.trim();
+      const phone = document.getElementById('client-phone').value.trim();
+      const date = document.getElementById('client-date').value;
+      const venue = document.getElementById('client-venue').value.trim();
+      const pkg = selectedPackage || "No package selected yet";
+
+      if(!name || !phone || !date) {
+        alert("Please enter your name, mobile number, and event date before sending!");
+        return;
+      }
+
+      // Save inquiry to Google Sheet
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name, phone: phone, date: date, venue: venue, package: pkg })
+      }).then(() => console.log("Saved inquiry to Sheet!"))
+        .catch(err => console.error("Error saving inquiry:", err));
+
+      // Open WhatsApp with pre-filled details
+      const phoneNumber = "919822000000"; // Replace with your actual WhatsApp phone number
+      const msg = encodeURIComponent(`Hi Story Crafter!\n\n*New Inquiry Details:*\n👤 Name: ${name}\n📞 Mobile: ${phone}\n📅 Date: ${date}\n📍 Venue: ${venue || 'Not specified'}\n📦 Package: ${pkg}\n\nIs this date available?`);
+      
+      window.open(`https://wa.me/${phoneNumber}?text=${msg}`, '_blank');
+    }
+  </script>
+</body>
+</html>
