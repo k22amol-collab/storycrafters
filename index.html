@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Story Crafter | Portfolio & Rates</title>
+  <title>Story Crafters | Portfolio & Rates</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- html2pdf library for PDF quote generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -25,7 +27,7 @@
   <!-- HEADER -->
   <header class="sticky top-0 z-40 glass px-4 py-3 flex justify-between items-center shadow-lg">
     <div>
-      <h1 class="text-lg font-bold tracking-wider text-brand-accent uppercase">Story Crafter</h1>
+      <h1 class="text-lg font-bold tracking-wider text-brand-accent uppercase">Story Crafters</h1>
       <p class="text-[10px] text-brand-muted">Goa • Luxury Wedding Photography</p>
     </div>
     <a href="#packages" class="bg-brand-accent text-brand-dark px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider shadow">Rates</a>
@@ -317,10 +319,10 @@
         <div class="bg-neutral-950 p-2.5 rounded-lg border border-neutral-800/80 text-[10px] text-neutral-300 space-y-1">
           <div class="text-red-400 font-bold uppercase tracking-wider text-[9px] mb-1">Film Specifications & Terms:</div>
           <ul class="list-disc pl-3.5 space-y-0.5 text-neutral-400">
-            <li><strong>Video Resolution:</strong> Full HD (1920 × 1080p)[cite: 4]</li>
-            <li>One round of revisions permittance after first draft[cite: 4].</li>
-            <li><strong>Timelines:</strong> 6-8 & 3-5 min within 2 months | 2-3 min within 1 month[cite: 4]</li>
-            <li>Mutual song selection. Once songs are locked, no changes permitted[cite: 4].</li>
+            <li><strong>Video Resolution:</strong> Full HD (1920 × 1080p)</li>
+            <li>One round of revisions permittance after first draft.</li>
+            <li><strong>Timelines:</strong> 6-8 & 3-5 min within 2 months | 2-3 min within 1 month</li>
+            <li>Mutual song selection. Once songs are locked, no changes permitted.</li>
           </ul>
         </div>
       </div>
@@ -350,7 +352,7 @@
     <div class="glass p-4 rounded-2xl border border-neutral-800 text-xs text-neutral-300 space-y-3">
       <h4 class="font-bold text-sm text-brand-accent uppercase tracking-wider">Good to Know & Terms</h4>
       <div>
-        <span class="font-semibold text-white">Albums:</span> ₹250/spread (12"x18" non-tearable, includes Goa delivery)[cite: 4]. Delivered in 30-40 working days post-selection[cite: 4].
+        <span class="font-semibold text-white">Albums:</span> ₹250/spread (12"x18" non-tearable, includes Goa delivery). Delivered in 30-40 working days post-selection.
       </div>
       <div>
         <span class="font-semibold text-white">Booking Policy:</span> 20% advance required to lock your date. Balance 80% due on shoot day. Advance is non-refundable.
@@ -358,7 +360,7 @@
     </div>
   </section>
 
-  <!-- CLIENT INQUIRY & BOOKING FORM -->
+  <!-- CLIENT INQUIRY & BOOKING FORM (FEATURE 4: MULTI-DAY DATES & VENUE SELECTOR) -->
   <section id="inquiry-section" class="px-4 py-2 max-w-md mx-auto mb-4">
     <div class="glass p-4 rounded-2xl border border-brand-accent/30 space-y-3">
       <h4 class="font-bold text-sm text-brand-accent uppercase tracking-wider">Book Your Date / Inquire</h4>
@@ -373,13 +375,32 @@
           <label class="block text-[10px] uppercase tracking-wider text-neutral-400 mb-1">Mobile / WhatsApp Number</label>
           <input type="tel" id="client-phone" placeholder="e.g. +91 98220 00000" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-accent">
         </div>
-        <div>
-          <label class="block text-[10px] uppercase tracking-wider text-neutral-400 mb-1">Event Date</label>
-          <input type="date" id="client-date" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-accent">
+        
+        <!-- Multi-Day Event Dates -->
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-[10px] uppercase tracking-wider text-neutral-400 mb-1">Primary Event Date</label>
+            <input type="date" id="client-date" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-accent">
+          </div>
+          <div>
+            <label class="block text-[10px] uppercase tracking-wider text-neutral-400 mb-1">Additional Date (Opt.)</label>
+            <input type="date" id="client-date-secondary" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-accent">
+          </div>
         </div>
+
+        <!-- Venue Quick Select & Custom Input -->
         <div>
           <label class="block text-[10px] uppercase tracking-wider text-neutral-400 mb-1">Venue / Location</label>
-          <input type="text" id="client-venue" placeholder="e.g. Cidade de Goa, Panaji" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-accent">
+          <select id="client-venue-select" onchange="handleVenuePreset(this)" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white mb-1.5 focus:outline-none focus:border-brand-accent">
+            <option value="">Select Popular Goa Venue or Type Below...</option>
+            <option value="Cidade de Goa, Panaji">Cidade de Goa, Panaji</option>
+            <option value="Grand Hyatt, Bambolim">Grand Hyatt, Bambolim</option>
+            <option value="Taj Exotica, Benaulim">Taj Exotica, Benaulim</option>
+            <option value="Alila Diwa, Majorda">Alila Diwa, Majorda</option>
+            <option value="W Goa, Vagator">W Goa, Vagator</option>
+            <option value="custom">Other / Custom Venue</option>
+          </select>
+          <input type="text" id="client-venue" placeholder="e.g. Private Villa, Candolim" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-accent">
         </div>
       </div>
     </div>
@@ -463,21 +484,29 @@
     <button onclick="nextPhoto()" class="absolute right-2 text-white text-2xl font-bold bg-neutral-800/80 w-10 h-10 rounded-full flex items-center justify-center z-50">&rsaquo;</button>
   </div>
 
-  <!-- ITEMIZED BREAKDOWN MODAL -->
+  <!-- ITEMIZED BREAKDOWN MODAL (FEATURE 5: DOWNLOAD PDF QUOTE) -->
   <div id="breakdown-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="glass w-full max-w-sm rounded-2xl p-4 border border-brand-accent/40 space-y-3">
+    <div id="pdf-printable-area" class="glass w-full max-w-sm rounded-2xl p-4 border border-brand-accent/40 space-y-3 bg-[#1a1a1a]">
       <div class="flex items-center justify-between border-b border-neutral-800 pb-2">
-        <h4 class="text-sm font-bold text-brand-accent uppercase tracking-wider">Itemized Quote Breakdown</h4>
-        <button onclick="closeBreakdownModal()" class="text-neutral-400 hover:text-white font-bold text-lg">&times;</button>
+        <div>
+          <h4 class="text-sm font-bold text-brand-accent uppercase tracking-wider">Story Crafters</h4>
+          <p class="text-[9px] text-neutral-400">Custom Package Proposal</p>
+        </div>
+        <button onclick="closeBreakdownModal()" class="text-neutral-400 hover:text-white font-bold text-lg no-print">&times;</button>
       </div>
       <div id="breakdown-list" class="space-y-2 text-xs text-neutral-300 max-h-60 overflow-y-auto pr-1"></div>
       <div class="border-t border-neutral-800 pt-2 flex items-center justify-between">
         <span class="font-bold text-xs text-white">Estimated Total:</span>
         <span id="breakdown-modal-total" class="font-extrabold text-sm text-brand-accent">₹0</span>
       </div>
-      <button onclick="closeBreakdownModal(); applyCustomPackage();" class="w-full bg-brand-accent text-brand-dark py-2 rounded-xl text-xs font-bold uppercase tracking-wider">
-        Apply Quote & Proceed
-      </button>
+      <div class="flex gap-2 pt-1 no-print">
+        <button onclick="downloadPDFQuote()" class="w-1/2 bg-neutral-800 hover:bg-neutral-700 text-brand-accent border border-brand-accent/40 py-2 rounded-xl text-xs font-bold uppercase tracking-wider">
+          📄 Download PDF
+        </button>
+        <button onclick="closeBreakdownModal(); applyCustomPackage();" class="w-1/2 bg-brand-accent text-brand-dark py-2 rounded-xl text-xs font-bold uppercase tracking-wider">
+          Apply Quote
+        </button>
+      </div>
     </div>
   </div>
 
@@ -650,6 +679,16 @@
       if(el) el.classList.toggle('hidden');
     }
 
+    function handleVenuePreset(selectEl) {
+      const venueInput = document.getElementById('client-venue');
+      if(selectEl.value && selectEl.value !== 'custom') {
+        venueInput.value = selectEl.value;
+      } else if(selectEl.value === 'custom') {
+        venueInput.value = '';
+        venueInput.focus();
+      }
+    }
+
     function renderPackages(packages) {
       const container = document.getElementById('packages-list');
       container.innerHTML = '';
@@ -673,13 +712,11 @@
 
     function selectPackage(name, price) {
       selectedPackage = `${name} (${price})`;
-      // Display both package name and price in the bottom action bar
       document.getElementById('selected-pkg-name').innerHTML = `
         <span class="text-white">${name}</span>
         <span class="text-brand-accent font-extrabold ml-1">(${price})</span>
       `;
       
-      // Reset custom builder checkboxes so standard package selection takes priority cleanly
       document.getElementById('cfg-wedding-active').checked = false;
       document.getElementById('cfg-haldi-active').checked = false;
       document.getElementById('cfg-eng-active').checked = false;
@@ -920,6 +957,18 @@
       document.getElementById('breakdown-modal').classList.add('hidden');
     }
 
+    function downloadPDFQuote() {
+      const element = document.getElementById('pdf-printable-area');
+      const opt = {
+        margin:       10,
+        filename:     'Story-Crafters-Quote.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      };
+      html2pdf().from(element).set(opt).save();
+    }
+
     function applyCustomPackage() {
       const calc = calculateCustomPrice();
       if(calc.totalStr === "₹0") {
@@ -927,7 +976,6 @@
         return;
       }
       selectedPackage = `${calc.summary} (${calc.totalStr})`;
-      // Display both "Custom Quote" title and calculated price in bottom bar
       document.getElementById('selected-pkg-name').innerHTML = `
         <span class="text-white font-bold">Custom Package</span>
         <span class="text-brand-accent font-extrabold ml-1">(${calc.totalStr})</span>
@@ -938,27 +986,30 @@
     function submitInquiry() {
       const name = document.getElementById('client-name').value.trim();
       const phone = document.getElementById('client-phone').value.trim();
-      const date = document.getElementById('client-date').value;
+      const date1 = document.getElementById('client-date').value;
+      const date2 = document.getElementById('client-date-secondary').value;
       const venue = document.getElementById('client-venue').value.trim();
       const pkg = selectedPackage || "No package selected yet";
 
-      if(!name || !phone || !date) {
-        alert("Please enter your name, mobile number, and event date before sending!");
+      if(!name || !phone || !date1) {
+        alert("Please enter your name, mobile number, and primary event date before sending!");
         return;
       }
+
+      const dateStr = date2 ? `${date1} & ${date2}` : date1;
 
       // Save inquiry to Google Sheet
       fetch(SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: name, phone: phone, date: date, venue: venue, package: pkg })
+        body: JSON.stringify({ name: name, phone: phone, date: dateStr, venue: venue, package: pkg })
       }).then(() => console.log("Saved inquiry to Sheet!"))
         .catch(err => console.error("Error saving inquiry:", err));
 
       // Open WhatsApp with pre-filled details
       const phoneNumber = "919822000000"; // Replace with your actual WhatsApp phone number
-      const msg = encodeURIComponent(`Hi Story Crafter!\n\n*New Inquiry Details:*\n👤 Name: ${name}\n📞 Mobile: ${phone}\n📅 Date: ${date}\n📍 Venue: ${venue || 'Not specified'}\n📦 Package: ${pkg}\n\nIs this date available?`);
+      const msg = encodeURIComponent(`Hi Story Crafters!\n\n*New Inquiry Details:*\n👤 Name: ${name}\n📞 Mobile: ${phone}\n📅 Date(s): ${dateStr}\n📍 Venue: ${venue || 'Not specified'}\n📦 Package: ${pkg}\n\nIs this date available?`);
       
       window.open(`https://wa.me/${phoneNumber}?text=${msg}`, '_blank');
     }
