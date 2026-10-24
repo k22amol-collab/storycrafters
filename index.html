@@ -114,7 +114,6 @@
               <span>Home to Venue Coverage (Bride Side)</span>
             </label>
           </div>
-          <!-- WEDDING ALBUM -->
           <div class="pt-2 border-t border-neutral-800 space-y-1">
             <label class="flex items-center gap-2 cursor-pointer text-brand-accent">
               <input type="checkbox" id="cfg-wedding-album-active" onchange="calculateCustomPrice()" class="accent-amber-500 w-3.5 h-3.5">
@@ -137,22 +136,25 @@
         
         <div id="cfg-haldi-options" class="pl-6 space-y-2 text-xs hidden">
           <div class="flex items-center justify-between">
-            <span class="text-neutral-300">Photography:</span>
+            <span class="text-neutral-300">Photography Team:</span>
             <select id="cfg-haldi-photo" onchange="calculateCustomPrice()" class="bg-neutral-800 text-white rounded px-2 py-1 text-xs border border-neutral-700">
               <option value="none">None</option>
-              <option value="5">Photography (5 hrs)</option>
-              <option value="8">Photography (8 hrs)</option>
+              <option value="1-5">1 Photographer (5 hrs)</option>
+              <option value="1-8">1 Photographer (8 hrs)</option>
+              <option value="2-5">2 Photographers (5 hrs)</option>
+              <option value="2-8">2 Photographers (8 hrs)</option>
             </select>
           </div>
           <div class="flex items-center justify-between">
-            <span class="text-neutral-300">Cinematography:</span>
+            <span class="text-neutral-300">Cinematography Team:</span>
             <select id="cfg-haldi-cine" onchange="calculateCustomPrice()" class="bg-neutral-800 text-white rounded px-2 py-1 text-xs border border-neutral-700">
               <option value="none">None</option>
-              <option value="5">Cinematography (5 hrs)</option>
-              <option value="8">Cinematography (8 hrs)</option>
+              <option value="1-5">1 Cinematographer (5 hrs)</option>
+              <option value="1-8">1 Cinematographer (8 hrs)</option>
+              <option value="2-5">2 Cinematographers (5 hrs)</option>
+              <option value="2-8">2 Cinematographers (8 hrs)</option>
             </select>
           </div>
-          <!-- HALDI ALBUM -->
           <div class="pt-2 border-t border-neutral-800 space-y-1">
             <label class="flex items-center gap-2 cursor-pointer text-brand-accent">
               <input type="checkbox" id="cfg-haldi-album-active" onchange="calculateCustomPrice()" class="accent-amber-500 w-3.5 h-3.5">
@@ -177,11 +179,19 @@
           <div class="flex items-center justify-between">
             <span class="text-neutral-300">Photography:</span>
             <select id="cfg-eng-photo" onchange="calculateCustomPrice()" class="bg-neutral-800 text-white rounded px-2 py-1 text-xs border border-neutral-700">
+              <option value="none">None</option>
               <option value="1">1 Photographer</option>
               <option value="2">2 Photographers</option>
             </select>
           </div>
-          <!-- ENGAGEMENT ALBUM -->
+          <div class="flex items-center justify-between">
+            <span class="text-neutral-300">Cinematography:</span>
+            <select id="cfg-eng-cine" onchange="calculateCustomPrice()" class="bg-neutral-800 text-white rounded px-2 py-1 text-xs border border-neutral-700">
+              <option value="none">None</option>
+              <option value="1">1 Cinematographer</option>
+              <option value="2">2 Cinematographers</option>
+            </select>
+          </div>
           <div class="pt-2 border-t border-neutral-800 space-y-1">
             <label class="flex items-center gap-2 cursor-pointer text-brand-accent">
               <input type="checkbox" id="cfg-eng-album-active" onchange="calculateCustomPrice()" class="accent-amber-500 w-3.5 h-3.5">
@@ -206,11 +216,19 @@
           <div class="flex items-center justify-between">
             <span class="text-neutral-300">Photography:</span>
             <select id="cfg-rec-photo" onchange="calculateCustomPrice()" class="bg-neutral-800 text-white rounded px-2 py-1 text-xs border border-neutral-700">
+              <option value="none">None</option>
               <option value="1">1 Photographer</option>
               <option value="2">2 Photographers</option>
             </select>
           </div>
-          <!-- RECEPTION ALBUM -->
+          <div class="flex items-center justify-between">
+            <span class="text-neutral-300">Cinematography:</span>
+            <select id="cfg-rec-cine" onchange="calculateCustomPrice()" class="bg-neutral-800 text-white rounded px-2 py-1 text-xs border border-neutral-700">
+              <option value="none">None</option>
+              <option value="1">1 Cinematographer</option>
+              <option value="2">2 Cinematographers</option>
+            </select>
+          </div>
           <div class="pt-2 border-t border-neutral-800 space-y-1">
             <label class="flex items-center gap-2 cursor-pointer text-brand-accent">
               <input type="checkbox" id="cfg-rec-album-active" onchange="calculateCustomPrice()" class="accent-amber-500 w-3.5 h-3.5">
@@ -288,7 +306,7 @@
       <div>
         <h4 class="font-bold text-xs text-white">Pranav Morajkar</h4>
         <div class="text-[9px] text-brand-accent uppercase font-semibold mb-1">The Visionary Storyteller[cite: 2]</div>
-        <p class="text-[11px] text-neutral-300 leading-relaxed">Lead Photographer & Cinematographer who crafts epic sagas and turns your big day into a blockbuster[cite: 2].</p>
+        <p class="text-[11px] text-neutral-300 leading-relaxed">Lead Photographer & Cinematographer[cite: 2] who crafts epic sagas and turns your big day into a blockbuster[cite: 2].</p>
       </div>
     </div>
 
@@ -300,7 +318,7 @@
       <div>
         <h4 class="font-bold text-xs text-white">Amol Kamat</h4>
         <div class="text-[9px] text-brand-accent uppercase font-semibold mb-1">The Creative Soul[cite: 2]</div>
-        <p class="text-[11px] text-neutral-300 leading-relaxed">Amol, our Lead Photographer, is the artist who finds beauty in everything—yes, even in that one relative who always photobombs the perfect shot[cite: 2]. With over 5 years of experience, he has a knack for turning ordinary moments into extraordinary memories[cite: 2]. Amol’s creative eye ensures that every photograph is a piece of art, even if it means he’ll spend an extra 10 minutes adjusting that one stray flower petal[cite: 2]. If you want someone who’s as passionate about your wedding photos as you are, Amol’s your guy.</p>
+        <p class="text-[11px] text-neutral-300 leading-relaxed">Amol, our Lead Photographer[cite: 2], is the artist who finds beauty in everything—yes, even in that one relative who always photobombs the perfect shot[cite: 2]. With over 5 years of experience[cite: 2], he has a knack for turning ordinary moments into extraordinary memories[cite: 2]. Amol’s creative eye ensures that every photograph is a piece of art[cite: 2], even if it means he’ll spend an extra 10 minutes adjusting that one stray flower petal[cite: 2]. If you want someone who’s as passionate about your wedding photos as you are, Amol’s your guy.</p>
       </div>
     </div>
   </section>
@@ -333,7 +351,7 @@
     let currentCategory = 'wedding';
     let isExpanded = false;
 
-    // Fallback default rates according to your rate card image
+    // Fallback default rates matching your rate card sheet structure
     const defaultCustomRates = {
       "Wedding one photographer": 25000,
       "Wedding two photographer": 50000,
@@ -341,14 +359,22 @@
       "Wedding two cinematographer": 55000,
       "Wedding home to venue groom side": 5000,
       "Wedding home to venue bride side": 5000,
-      "Haldi photography 5 hrs": 10000,
-      "Haldi photography 8 hrs": 20000,
-      "Haldi cinematography 5 hrs": 10000,
-      "Haldi cinematography 8 hrs": 20000,
+      "Haldi photography 1 photog 5 hrs": 10000,
+      "Haldi photography 1 photog 8 hrs": 15000,
+      "Haldi photography 2 photog 5 hrs": 20000,
+      "Haldi photography 2 photog 8 hrs": 25000,
+      "Haldi cinematography 1 cine 5 hrs": 10000,
+      "Haldi cinematography 1 cine 8 hrs": 15000,
+      "Haldi cinematography 2 cine 5 hrs": 20000,
+      "Haldi cinematography 2 cine 8 hrs": 25000,
       "Engagement one photographer": 15000,
       "Engagement two photographer": 20000,
+      "Engagement one cinematographer": 15000,
+      "Engagement two cinematographer": 25000,
       "Reception one photographer": 15000,
       "Reception two photographer": 20000,
+      "Reception one cinematographer": 15000,
+      "Reception two cinematographer": 25000,
       "Album": 250
     };
 
@@ -479,7 +505,7 @@
       document.getElementById('inquiry-section').scrollIntoView({ behavior: 'smooth' });
     }
 
-    // --- CUSTOM CALCULATION WITH PER-EVENT ALBUM OPTIONS ---
+    // --- CUSTOM CALCULATION LOGIC ---
     function calculateCustomPrice() {
       const rates = Object.keys(sheetCustomRates).length > 0 ? sheetCustomRates : defaultCustomRates;
       const albumRate = rates["Album"] || 250;
@@ -517,21 +543,29 @@
         summaryParts.push(`Wedding (${photo !== 'none' ? photo + ' Photog' : ''}${cine !== 'none' ? ', ' + cine + ' Cine' : ''}${albumText})`);
       }
 
-      // 2. Haldi
+      // 2. Haldi Ceremony
       const hActive = document.getElementById('cfg-haldi-active').checked;
       document.getElementById('cfg-haldi-options').classList.toggle('hidden', !hActive);
       if(hActive) {
-        const photoHrs = document.getElementById('cfg-haldi-photo').value;
-        const cineHrs = document.getElementById('cfg-haldi-cine').value;
+        const photoVal = document.getElementById('cfg-haldi-photo').value; // e.g. "1-5" or "2-8"
+        const cineVal = document.getElementById('cfg-haldi-cine').value;
         const albumAct = document.getElementById('cfg-haldi-album-active').checked;
 
         document.getElementById('cfg-haldi-album-opts').classList.toggle('hidden', !albumAct);
 
-        if(photoHrs === '5') total += (rates["Haldi photography 5 hrs"] || 10000);
-        if(photoHrs === '8') total += (rates["Haldi photography 8 hrs"] || 20000);
-
-        if(cineHrs === '5') total += (rates["Haldi cinematography 5 hrs"] || 10000);
-        if(cineHrs === '8') total += (rates["Haldi cinematography 8 hrs"] || 20000);
+        let haldiParts = [];
+        if(photoVal !== 'none') {
+          const [pCount, pHrs] = photoVal.split('-');
+          const key = `Haldi photography ${pCount} photog ${pHrs} hrs`;
+          total += (rates[key] || (pCount === '1' ? 10000 : 20000));
+          haldiParts.push(`${pCount} Photog (${pHrs}h)`);
+        }
+        if(cineVal !== 'none') {
+          const [cCount, cHrs] = cineVal.split('-');
+          const key = `Haldi cinematography ${cCount} cine ${cHrs} hrs`;
+          total += (rates[key] || (cCount === '1' ? 10000 : 20000));
+          haldiParts.push(`${cCount} Cine (${cHrs}h)`);
+        }
 
         let albumText = "";
         if(albumAct) {
@@ -540,20 +574,26 @@
           albumText = ` + ${sheets}s Album`;
         }
 
-        summaryParts.push(`Haldi${albumText}`);
+        if(haldiParts.length > 0) {
+          summaryParts.push(`Haldi (${haldiParts.join(', ')}${albumText})`);
+        }
       }
 
-      // 3. Engagement
+      // 3. Engagement Ceremony
       const eActive = document.getElementById('cfg-eng-active').checked;
       document.getElementById('cfg-eng-options').classList.toggle('hidden', !eActive);
       if(eActive) {
         const photo = document.getElementById('cfg-eng-photo').value;
+        const cine = document.getElementById('cfg-eng-cine').value;
         const albumAct = document.getElementById('cfg-eng-album-active').checked;
 
         document.getElementById('cfg-eng-album-opts').classList.toggle('hidden', !albumAct);
 
         if(photo === '1') total += (rates["Engagement one photographer"] || 15000);
         if(photo === '2') total += (rates["Engagement two photographer"] || 20000);
+
+        if(cine === '1') total += (rates["Engagement one cinematographer"] || 15000);
+        if(cine === '2') total += (rates["Engagement two cinematographer"] || 25000);
 
         let albumText = "";
         if(albumAct) {
@@ -562,20 +602,24 @@
           albumText = ` + ${sheets}s Album`;
         }
 
-        summaryParts.push(`Engagement (${photo} Photog${albumText})`);
+        summaryParts.push(`Engagement (${photo !== 'none' ? photo + ' Photog' : ''}${cine !== 'none' ? ', ' + cine + ' Cine' : ''}${albumText})`);
       }
 
-      // 4. Reception
+      // 4. Reception Ceremony
       const rActive = document.getElementById('cfg-rec-active').checked;
       document.getElementById('cfg-rec-options').classList.toggle('hidden', !rActive);
       if(rActive) {
         const photo = document.getElementById('cfg-rec-photo').value;
+        const cine = document.getElementById('cfg-rec-cine').value;
         const albumAct = document.getElementById('cfg-rec-album-active').checked;
 
         document.getElementById('cfg-rec-album-opts').classList.toggle('hidden', !albumAct);
 
         if(photo === '1') total += (rates["Reception one photographer"] || 15000);
         if(photo === '2') total += (rates["Reception two photographer"] || 20000);
+
+        if(cine === '1') total += (rates["Reception one cinematographer"] || 15000);
+        if(cine === '2') total += (rates["Reception two cinematographer"] || 25000);
 
         let albumText = "";
         if(albumAct) {
@@ -584,7 +628,7 @@
           albumText = ` + ${sheets}s Album`;
         }
 
-        summaryParts.push(`Reception (${photo} Photog${albumText})`);
+        summaryParts.push(`Reception (${photo !== 'none' ? photo + ' Photog' : ''}${cine !== 'none' ? ', ' + cine + ' Cine' : ''}${albumText})`);
       }
 
       const formattedTotal = "₹" + total.toLocaleString('en-IN');
