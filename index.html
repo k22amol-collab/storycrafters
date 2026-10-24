@@ -296,7 +296,7 @@
               <span class="text-amber-400 font-bold">+₹10,000 / Session</span>
             </label>
             <p class="text-[9px] text-neutral-400 pl-5 leading-tight">
-              <strong>Drone Permission Note:</strong> Drones are subject to DGCA & government regulations. The client has the responsibility of obtaining permissions to fly drone from the event venue and local authorities.
+              <strong>Drone Permission Note:</strong> Drones are subject to DGCA & government regulations. The client has the responsibility of obtaining permissions to fly drone from the event venue and local authorities[cite: 5].
             </p>
           </div>
 
@@ -675,6 +675,14 @@
     function selectPackage(name, price) {
       selectedPackage = `${name} (${price})`;
       document.getElementById('selected-pkg-name').innerText = name;
+      
+      // Reset custom builder checkboxes so standard package selection takes priority cleanly
+      document.getElementById('cfg-wedding-active').checked = false;
+      document.getElementById('cfg-haldi-active').checked = false;
+      document.getElementById('cfg-eng-active').checked = false;
+      document.getElementById('cfg-rec-active').checked = false;
+      calculateCustomPrice();
+
       document.getElementById('inquiry-section').scrollIntoView({ behavior: 'smooth' });
     }
 
