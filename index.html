@@ -49,7 +49,7 @@
     </div>
 
     <!-- LOADING SPINNER -->
-    <div id="loader" class="text-center py-10 text-brand-accent text-xs">Loading photos from Google Drive...</div>
+    <div id="loader" class="text-center py-10 text-brand-accent text-xs">Loading portfolio photos...</div>
 
     <!-- PHOTO GRID -->
     <div class="grid grid-cols-2 gap-2.5 hidden" id="photo-grid"></div>
@@ -78,7 +78,7 @@
       <div>
         <span class="text-[9px] uppercase tracking-widest text-brand-accent bg-brand-accent/10 px-2.5 py-0.5 rounded-full border border-brand-accent/30 font-semibold">Interactive</span>
         <h3 class="text-base font-bold text-white mt-1">Build Your Custom Package</h3>
-        <p class="text-[11px] text-brand-muted">Select specific coverage and album options per event to calculate your total quote.</p>
+        <p class="text-[11px] text-brand-muted">Select specific coverage and options per event to calculate your total quote.</p>
       </div>
 
       <!-- 1. MAIN WEDDING DAY -->
@@ -105,26 +105,6 @@
               <option value="2" selected>2 Cinematographers</option>
             </select>
           </div>
-          <div class="pt-1 space-y-1">
-            <label class="flex items-center gap-2 cursor-pointer text-neutral-300">
-              <input type="checkbox" id="cfg-wedding-groom" onchange="calculateCustomPrice()" class="accent-amber-500 w-3.5 h-3.5">
-              <span>Home to Venue Coverage (Groom Side)</span>
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer text-neutral-300">
-              <input type="checkbox" id="cfg-wedding-bride" onchange="calculateCustomPrice()" class="accent-amber-500 w-3.5 h-3.5">
-              <span>Home to Venue Coverage (Bride Side)</span>
-            </label>
-          </div>
-          <div class="pt-2 border-t border-neutral-800 space-y-1">
-            <label class="flex items-center gap-2 cursor-pointer text-brand-accent">
-              <input type="checkbox" id="cfg-wedding-album-active" onchange="calculateCustomPrice()" class="accent-amber-500 w-3.5 h-3.5">
-              <span class="font-semibold">Add Wedding Album</span>
-            </label>
-            <div id="cfg-wedding-album-opts" class="flex items-center justify-between text-neutral-300 pl-5 hidden">
-              <span>Album Sheets/Spreads:</span>
-              <input type="number" id="cfg-wedding-album-sheets" value="30" min="1" oninput="calculateCustomPrice()" class="bg-neutral-800 text-white w-16 rounded px-2 py-1 text-xs border border-neutral-700 text-center">
-            </div>
-          </div>
         </div>
       </div>
 
@@ -136,38 +116,12 @@
         </label>
         
         <div id="cfg-haldi-options" class="pl-6 space-y-2 text-xs hidden">
-          <div class="space-y-1 bg-neutral-950 p-2 rounded-lg border border-neutral-800">
-            <span class="text-brand-accent font-semibold block text-[11px]">Side / Location Coverage:</span>
-            <div class="flex gap-4">
-              <label class="flex items-center gap-1.5 cursor-pointer text-neutral-300">
-                <input type="checkbox" id="cfg-haldi-groom" onchange="calculateCustomPrice()" class="accent-amber-500 w-3.5 h-3.5" checked>
-                <span>Groom Side</span>
-              </label>
-              <label class="flex items-center gap-1.5 cursor-pointer text-neutral-300">
-                <input type="checkbox" id="cfg-haldi-bride" onchange="calculateCustomPrice()" class="accent-amber-500 w-3.5 h-3.5">
-                <span>Bride Side</span>
-              </label>
-            </div>
-          </div>
-
           <div class="flex items-center justify-between">
             <span class="text-neutral-300">Photography:</span>
             <select id="cfg-haldi-photo" onchange="calculateCustomPrice()" class="bg-neutral-800 text-white rounded px-2 py-1 text-xs border border-neutral-700">
               <option value="none">None</option>
-              <option value="1-5">1 Photographer (5 hrs)</option>
-              <option value="1-8">1 Photographer (8 hrs)</option>
-              <option value="2-5">2 Photographers (5 hrs)</option>
-              <option value="2-8">2 Photographers (8 hrs)</option>
-            </select>
-          </div>
-          <div class="flex items-center justify-between">
-            <span class="text-neutral-300">Cinematography:</span>
-            <select id="cfg-haldi-cine" onchange="calculateCustomPrice()" class="bg-neutral-800 text-white rounded px-2 py-1 text-xs border border-neutral-700">
-              <option value="none">None</option>
-              <option value="1-5">1 Cinematographer (5 hrs)</option>
-              <option value="1-8">1 Cinematographer (8 hrs)</option>
-              <option value="2-5">2 Cinematographers (5 hrs)</option>
-              <option value="2-8">2 Cinematographers (8 hrs)</option>
+              <option value="1">1 Photographer (5 hrs)</option>
+              <option value="2">2 Photographers (5 hrs)</option>
             </select>
           </div>
         </div>
@@ -189,14 +143,6 @@
               <option value="2">2 Photographers</option>
             </select>
           </div>
-          <div class="flex items-center justify-between">
-            <span class="text-neutral-300">Cinematography:</span>
-            <select id="cfg-eng-cine" onchange="calculateCustomPrice()" class="bg-neutral-800 text-white rounded px-2 py-1 text-xs border border-neutral-700">
-              <option value="none">None</option>
-              <option value="1">1 Cinematographer</option>
-              <option value="2">2 Cinematographers</option>
-            </select>
-          </div>
         </div>
       </div>
 
@@ -214,14 +160,6 @@
               <option value="none">None</option>
               <option value="1">1 Photographer</option>
               <option value="2">2 Photographers</option>
-            </select>
-          </div>
-          <div class="flex items-center justify-between">
-            <span class="text-neutral-300">Cinematography:</span>
-            <select id="cfg-rec-cine" onchange="calculateCustomPrice()" class="bg-neutral-800 text-white rounded px-2 py-1 text-xs border border-neutral-700">
-              <option value="none">None</option>
-              <option value="1">1 Cinematographer</option>
-              <option value="2">2 Cinematographers</option>
             </select>
           </div>
         </div>
@@ -251,7 +189,7 @@
   <section id="inquiry-section" class="px-4 py-2 max-w-md mx-auto mb-4">
     <div class="glass p-4 rounded-2xl border border-brand-accent/30 space-y-3">
       <h4 class="font-bold text-sm text-brand-accent uppercase tracking-wider">Book Your Dates / Inquire</h4>
-      <p class="text-[11px] text-brand-muted">Provide your details and event dates below. You can leave dates blank if not yet finalized.</p>
+      <p class="text-[11px] text-brand-muted">Provide your details and event dates below. Leave any unfinalized dates blank.</p>
       
       <div class="space-y-2.5">
         <div>
@@ -265,7 +203,7 @@
         
         <!-- FLEXIBLE EVENT DATES (Event Name & Date) -->
         <div class="space-y-2 pt-1 border-t border-neutral-800">
-          <label class="block text-[10px] uppercase tracking-wider text-brand-accent font-bold">Event Dates (Optional / As Finalized)</label>
+          <label class="block text-[10px] uppercase tracking-wider text-brand-accent font-bold">Event Dates (Optional)</label>
           
           <div class="flex items-center justify-between bg-neutral-900/90 p-2 rounded-xl border border-neutral-800 text-xs">
             <span class="text-neutral-300 font-medium">💍 Engagement Date:</span>
@@ -303,14 +241,6 @@
           <input type="text" id="client-venue" placeholder="e.g. Private Villa, Candolim" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-accent">
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- ABOUT THE FOUNDERS -->
-  <section class="px-4 py-3 max-w-md mx-auto space-y-4 mb-2">
-    <div class="text-center">
-      <h3 class="text-sm font-bold text-brand-accent uppercase tracking-wider">Meet the Founders</h3>
-      <p class="text-[11px] text-brand-muted mt-1">Founded in 2021 by Pranav and Amol with over 5 years of experience each[cite: 2].</p>
     </div>
   </section>
 
@@ -408,16 +338,10 @@
     };
 
     const defaultCustomRates = {
-      "Wedding one photographer": 25000,
       "Wedding two photographer": 50000,
-      "Wedding one cinematographer": 25000,
-      "Wedding two cinematographer": 55000,
       "Haldi photography 5 hrs": 10000,
-      "Haldi photography 8 hrs": 20000,
       "Engagement one photographer": 15000,
-      "Engagement two photographer": 20000,
       "Reception one photographer": 15000,
-      "Reception two photographer": 20000,
       "Album": 250
     };
 
@@ -436,7 +360,6 @@
           renderPhotos();
         })
         .catch(err => {
-          console.warn("Using default photos fallback:", err);
           allPhotos = defaultPhotos;
           renderPhotos();
         });
@@ -563,31 +486,40 @@
       document.getElementById('inquiry-section').scrollIntoView({ behavior: 'smooth' });
     }
 
+    // Toggle custom builder dropdowns
+    document.addEventListener('change', function(e) {
+      if(e.target && e.target.id === 'cfg-wedding-active') document.getElementById('cfg-wedding-options').classList.toggle('hidden', !e.target.checked);
+      if(e.target && e.target.id === 'cfg-haldi-active') document.getElementById('cfg-haldi-options').classList.toggle('hidden', !e.target.checked);
+      if(e.target && e.target.id === 'cfg-eng-active') document.getElementById('cfg-eng-options').classList.toggle('hidden', !e.target.checked);
+      if(e.target && e.target.id === 'cfg-rec-active') document.getElementById('cfg-rec-options').classList.toggle('hidden', !e.target.checked);
+      if(e.target && e.target.id.startsWith('cfg-')) calculateCustomPrice();
+    });
+
     function calculateCustomPrice() {
       const rates = Object.keys(sheetCustomRates).length > 0 ? sheetCustomRates : defaultCustomRates;
       let total = 0;
       let summaryParts = [];
       lineItemsBreakdown = [];
 
-      if(document.getElementById('cfg-wedding-active').checked) {
+      if(document.getElementById('cfg-wedding-active')?.checked) {
         let p = rates["Wedding two photographer"] || 50000;
         total += p;
         lineItemsBreakdown.push({ item: "Wedding Photography", cost: p });
         summaryParts.push("Wedding");
       }
-      if(document.getElementById('cfg-haldi-active').checked) {
+      if(document.getElementById('cfg-haldi-active')?.checked) {
         let p = rates["Haldi photography 5 hrs"] || 10000;
         total += p;
         lineItemsBreakdown.push({ item: "Haldi Photography", cost: p });
         summaryParts.push("Haldi");
       }
-      if(document.getElementById('cfg-eng-active').checked) {
+      if(document.getElementById('cfg-eng-active')?.checked) {
         let p = rates["Engagement one photographer"] || 15000;
         total += p;
         lineItemsBreakdown.push({ item: "Engagement Photography", cost: p });
         summaryParts.push("Engagement");
       }
-      if(document.getElementById('cfg-rec-active').checked) {
+      if(document.getElementById('cfg-rec-active')?.checked) {
         let p = rates["Reception one photographer"] || 15000;
         total += p;
         lineItemsBreakdown.push({ item: "Reception Photography", cost: p });
@@ -595,16 +527,22 @@
       }
 
       const formattedTotal = "₹" + total.toLocaleString('en-IN');
-      document.getElementById('custom-total-price').innerText = formattedTotal;
+      const totalEl = document.getElementById('custom-total-price');
+      if(totalEl) totalEl.innerText = formattedTotal;
+      
       return { totalStr: formattedTotal, summary: summaryParts.length > 0 ? "Custom: " + summaryParts.join(" + ") : "Custom Package" };
     }
 
     function openBreakdownModal() {
       const listEl = document.getElementById('breakdown-list');
       listEl.innerHTML = '';
-      lineItemsBreakdown.forEach(item => {
-        listEl.innerHTML += `<div class="flex justify-reference border-b border-neutral-800 pb-1"><span>✓ ${item.item}</span><span class="font-bold text-brand-accent">₹${item.cost.toLocaleString('en-IN')}</span></div>`;
-      });
+      if(lineItemsBreakdown.length === 0) {
+        listEl.innerHTML = `<div class="text-neutral-400 py-2 text-center">No options selected yet.</div>`;
+      } else {
+        lineItemsBreakdown.forEach(item => {
+          listEl.innerHTML += `<div class="flex justify-between border-b border-neutral-800 pb-1"><span>✓ ${item.item}</span><span class="font-bold text-brand-accent">₹${item.cost.toLocaleString('en-IN')}</span></div>`;
+        });
+      }
       document.getElementById('breakdown-modal-total').innerText = document.getElementById('custom-total-price').innerText;
       document.getElementById('breakdown-modal').classList.remove('hidden');
     }
@@ -613,9 +551,23 @@
 
     function applyCustomPackage() {
       const calc = calculateCustomPrice();
+      if(calc.totalStr === "₹0") {
+        alert("Please select at least one event coverage option.");
+        return;
+      }
       selectedPackage = `${calc.summary} (${calc.totalStr})`;
       document.getElementById('selected-pkg-name').innerHTML = `<span class="text-white font-bold">Custom Package</span><span class="text-brand-accent font-extrabold ml-1">(${calc.totalStr})</span>`;
       document.getElementById('inquiry-section').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function handleVenuePreset(selectEl) {
+      const venueInput = document.getElementById('client-venue');
+      if(selectEl.value && selectEl.value !== 'custom') {
+        venueInput.value = selectEl.value;
+      } else if(selectEl.value === 'custom') {
+        venueInput.value = '';
+        venueInput.focus();
+      }
     }
 
     function submitInquiry() {
