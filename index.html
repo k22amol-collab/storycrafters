@@ -5,7 +5,6 @@
   <title>Story Crafters | Portfolio & Rates</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- html2pdf library kept for internal proposal generation -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script>
     tailwind.config = {
@@ -110,11 +109,7 @@
             <label class="flex items-center gap-2 cursor-pointer text-neutral-300">
               <input type="checkbox" id="cfg-wedding-groom" onchange="calculateCustomPrice()" class="accent-amber-500 w-3.5 h-3.5">
               <span>Home to Venue Coverage (Groom Side)</span>
-              <button onclick="toggleTooltip('tt-wedding-side')" type="button" class="text-brand-accent text-[10px] font-bold">ⓘ</button>
             </label>
-            <div id="tt-wedding-side" class="hidden text-[10px] text-brand-muted bg-neutral-950 p-2 rounded border border-neutral-800">
-              Captures preparation, morning rituals, and venue arrival ceremonies prior to the main mandap event.
-            </div>
             <label class="flex items-center gap-2 cursor-pointer text-neutral-300">
               <input type="checkbox" id="cfg-wedding-bride" onchange="calculateCustomPrice()" class="accent-amber-500 w-3.5 h-3.5">
               <span>Home to Venue Coverage (Bride Side)</span>
@@ -124,11 +119,7 @@
             <label class="flex items-center gap-2 cursor-pointer text-brand-accent">
               <input type="checkbox" id="cfg-wedding-album-active" onchange="calculateCustomPrice()" class="accent-amber-500 w-3.5 h-3.5">
               <span class="font-semibold">Add Wedding Album</span>
-              <button onclick="toggleTooltip('tt-album-info')" type="button" class="text-brand-accent text-[10px] font-bold">ⓘ</button>
             </label>
-            <div id="tt-album-info" class="hidden text-[10px] text-brand-muted bg-neutral-950 p-2 rounded border border-neutral-800">
-              1 Spread = 2 pages (12"x18" flush mount, non-tearable HD print). Each sheet holds approx 4-6 curated images.
-            </div>
             <div id="cfg-wedding-album-opts" class="flex items-center justify-between text-neutral-300 pl-5 hidden">
               <span>Album Sheets/Spreads:</span>
               <input type="number" id="cfg-wedding-album-sheets" value="30" min="1" oninput="calculateCustomPrice()" class="bg-neutral-800 text-white w-16 rounded px-2 py-1 text-xs border border-neutral-700 text-center">
@@ -179,16 +170,6 @@
               <option value="2-8">2 Cinematographers (8 hrs)</option>
             </select>
           </div>
-          <div class="pt-2 border-t border-neutral-800 space-y-1">
-            <label class="flex items-center gap-2 cursor-pointer text-brand-accent">
-              <input type="checkbox" id="cfg-haldi-album-active" onchange="calculateCustomPrice()" class="accent-amber-500 w-3.5 h-3.5">
-              <span class="font-semibold">Add Haldi Album</span>
-            </label>
-            <div id="cfg-haldi-album-opts" class="flex items-center justify-between text-neutral-300 pl-5 hidden">
-              <span>Album Sheets/Spreads:</span>
-              <input type="number" id="cfg-haldi-album-sheets" value="20" min="1" oninput="calculateCustomPrice()" class="bg-neutral-800 text-white w-16 rounded px-2 py-1 text-xs border border-neutral-700 text-center">
-            </div>
-          </div>
         </div>
       </div>
 
@@ -215,16 +196,6 @@
               <option value="1">1 Cinematographer</option>
               <option value="2">2 Cinematographers</option>
             </select>
-          </div>
-          <div class="pt-2 border-t border-neutral-800 space-y-1">
-            <label class="flex items-center gap-2 cursor-pointer text-brand-accent">
-              <input type="checkbox" id="cfg-eng-album-active" onchange="calculateCustomPrice()" class="accent-amber-500 w-3.5 h-3.5">
-              <span class="font-semibold">Add Engagement Album</span>
-            </label>
-            <div id="cfg-eng-album-opts" class="flex items-center justify-between text-neutral-300 pl-5 hidden">
-              <span>Album Sheets/Spreads:</span>
-              <input type="number" id="cfg-eng-album-sheets" value="20" min="1" oninput="calculateCustomPrice()" class="bg-neutral-800 text-white w-16 rounded px-2 py-1 text-xs border border-neutral-700 text-center">
-            </div>
           </div>
         </div>
       </div>
@@ -253,77 +224,6 @@
               <option value="2">2 Cinematographers</option>
             </select>
           </div>
-          <div class="pt-2 border-t border-neutral-800 space-y-1">
-            <label class="flex items-center gap-2 cursor-pointer text-brand-accent">
-              <input type="checkbox" id="cfg-rec-album-active" onchange="calculateCustomPrice()" class="accent-amber-500 w-3.5 h-3.5">
-              <span class="font-semibold">Add Reception Album</span>
-            </label>
-            <div id="cfg-rec-album-opts" class="flex items-center justify-between text-neutral-300 pl-5 hidden">
-              <span>Album Sheets/Spreads:</span>
-              <input type="number" id="cfg-rec-album-sheets" value="20" min="1" oninput="calculateCustomPrice()" class="bg-neutral-800 text-white w-16 rounded px-2 py-1 text-xs border border-neutral-700 text-center">
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 5. CINEMATIC VIDEO & ADD-ONS SECTION -->
-      <div id="cfg-video-duration-section" class="bg-neutral-900/90 p-3.5 rounded-xl border border-red-500/40 space-y-3.5 hidden">
-        <div>
-          <div class="flex items-center gap-1.5">
-            <span class="text-red-500 text-sm">🎬</span>
-            <h4 class="text-xs font-bold text-red-400 uppercase tracking-wider">Cinematography Film & Add-Ons</h4>
-          </div>
-          <p class="text-[10px] text-neutral-400 mt-0.5">Select your film duration and optional aerial/teaser add-ons:</p>
-        </div>
-
-        <div class="space-y-1">
-          <label class="block text-[10px] font-semibold text-neutral-300 uppercase">Film Duration:</label>
-          <select id="cfg-video-duration" onchange="calculateCustomPrice()" class="w-full bg-neutral-800 text-white rounded-xl px-3 py-2 text-xs border border-neutral-700 focus:outline-none focus:border-red-500">
-            <option value="0" selected>None / Select Duration (Optional)</option>
-            <option value="10000">6-8 Min Cinematic Film (+₹10,000)</option>
-            <option value="8000">3-5 Min Cinematic Film (+₹8,000)</option>
-            <option value="5000">2-3 Min Cinematic Film (+₹5,000)</option>
-          </select>
-        </div>
-
-        <div class="pt-2 border-t border-neutral-800 space-y-2.5">
-          <span class="text-[10px] font-bold uppercase text-amber-400 tracking-wider block">Cinematography Add-Ons:</span>
-          
-          <div class="space-y-1 bg-neutral-950 p-2.5 rounded-xl border border-neutral-800">
-            <label class="flex items-center justify-between cursor-pointer text-xs font-semibold text-white">
-              <span class="flex items-center gap-1.5">
-                <input type="checkbox" id="cfg-add-drone" onchange="calculateCustomPrice()" class="accent-amber-500 w-4 h-4">
-                <span>🚁 Drone Aerial Coverage</span>
-              </span>
-              <span class="text-amber-400 font-bold">+₹10,000 / Session</span>
-            </label>
-            <p class="text-[9px] text-neutral-400 pl-5 leading-tight">
-              <strong>Drone Permission Note:</strong> Drones are subject to DGCA & government regulations. The client has the responsibility of obtaining permissions to fly drone from the event venue and local authorities.
-            </p>
-          </div>
-
-          <div class="space-y-1 bg-neutral-950 p-2.5 rounded-xl border border-neutral-800">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-semibold text-white flex items-center gap-1.5">
-                <span>🎥 Cinematic Teaser / Trailer:</span>
-              </span>
-              <select id="cfg-add-trailer" onchange="calculateCustomPrice()" class="bg-neutral-800 text-white text-xs rounded px-2 py-1 border border-neutral-700">
-                <option value="0" selected>None</option>
-                <option value="4000">1-2 Min Trailer (+₹4,000)</option>
-                <option value="5000">2-3 Min Trailer (+₹5,000)</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-neutral-950 p-2.5 rounded-lg border border-neutral-800/80 text-[10px] text-neutral-300 space-y-1">
-          <div class="text-red-400 font-bold uppercase tracking-wider text-[9px] mb-1">Film Specifications & Terms:</div>
-          <ul class="list-disc pl-3.5 space-y-0.5 text-neutral-400">
-            <li><strong>Video Resolution:</strong> Full HD (1920 × 1080p)</li>
-            <li>One round of revisions permittance after first draft.</li>
-            <li><strong>Timelines:</strong> 6-8 & 3-5 min within 2 months | 2-3 min within 1 month</li>
-            <li>Mutual song selection. Once songs are locked, no changes permitted.</li>
-          </ul>
         </div>
       </div>
 
@@ -347,24 +247,11 @@
     </div>
   </section>
 
-  <!-- TERMS & ALBUM INFO BOX -->
-  <section class="px-4 py-2 max-w-md mx-auto">
-    <div class="glass p-4 rounded-2xl border border-neutral-800 text-xs text-neutral-300 space-y-3">
-      <h4 class="font-bold text-sm text-brand-accent uppercase tracking-wider">Good to Know & Terms</h4>
-      <div>
-        <span class="font-semibold text-white">Albums:</span> ₹250/spread (12"x18" non-tearable, includes Goa delivery). Delivered in 30-40 working days post-selection.
-      </div>
-      <div>
-        <span class="font-semibold text-white">Booking Policy:</span> 20% advance required to lock your date. Balance 80% due on shoot day. Advance is non-refundable.
-      </div>
-    </div>
-  </section>
-
-  <!-- CLIENT INQUIRY & BOOKING FORM -->
+  <!-- CLIENT INQUIRY & FLEXIBLE EVENT DATES FORM -->
   <section id="inquiry-section" class="px-4 py-2 max-w-md mx-auto mb-4">
     <div class="glass p-4 rounded-2xl border border-brand-accent/30 space-y-3">
-      <h4 class="font-bold text-sm text-brand-accent uppercase tracking-wider">Book Your Date / Inquire</h4>
-      <p class="text-[11px] text-brand-muted">Fill in your details below. This saves your booking request and opens WhatsApp instantly.</p>
+      <h4 class="font-bold text-sm text-brand-accent uppercase tracking-wider">Book Your Dates / Inquire</h4>
+      <p class="text-[11px] text-brand-muted">Provide your details and event dates below. You can leave dates blank if not yet finalized.</p>
       
       <div class="space-y-2.5">
         <div>
@@ -376,20 +263,33 @@
           <input type="tel" id="client-phone" placeholder="e.g. +91 98220 00000" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-accent">
         </div>
         
-        <!-- Multi-Day Event Dates -->
-        <div class="grid grid-cols-2 gap-2">
-          <div>
-            <label class="block text-[10px] uppercase tracking-wider text-neutral-400 mb-1">Primary Event Date</label>
-            <input type="date" id="client-date" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-accent">
+        <!-- FLEXIBLE EVENT DATES (Event Name & Date) -->
+        <div class="space-y-2 pt-1 border-t border-neutral-800">
+          <label class="block text-[10px] uppercase tracking-wider text-brand-accent font-bold">Event Dates (Optional / As Finalized)</label>
+          
+          <div class="flex items-center justify-between bg-neutral-900/90 p-2 rounded-xl border border-neutral-800 text-xs">
+            <span class="text-neutral-300 font-medium">💍 Engagement Date:</span>
+            <input type="date" id="date-engagement" class="bg-neutral-800 text-white rounded px-2 py-1 text-xs border border-neutral-700">
           </div>
-          <div>
-            <label class="block text-[10px] uppercase tracking-wider text-neutral-400 mb-1">Additional Date (Opt.)</label>
-            <input type="date" id="client-date-secondary" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-accent">
+
+          <div class="flex items-center justify-between bg-neutral-900/90 p-2 rounded-xl border border-neutral-800 text-xs">
+            <span class="text-neutral-300 font-medium">🟡 Haldi Date:</span>
+            <input type="date" id="date-haldi" class="bg-neutral-800 text-white rounded px-2 py-1 text-xs border border-neutral-700">
+          </div>
+
+          <div class="flex items-center justify-between bg-neutral-900/90 p-2 rounded-xl border border-neutral-800 text-xs">
+            <span class="text-neutral-300 font-medium">⭐ Main Wedding Date:</span>
+            <input type="date" id="date-wedding" class="bg-neutral-800 text-white rounded px-2 py-1 text-xs border border-neutral-700">
+          </div>
+
+          <div class="flex items-center justify-between bg-neutral-900/90 p-2 rounded-xl border border-neutral-800 text-xs">
+            <span class="text-neutral-300 font-medium">🥂 Reception Date:</span>
+            <input type="date" id="date-reception" class="bg-neutral-800 text-white rounded px-2 py-1 text-xs border border-neutral-700">
           </div>
         </div>
 
         <!-- Venue Quick Select & Custom Input -->
-        <div>
+        <div class="pt-1">
           <label class="block text-[10px] uppercase tracking-wider text-neutral-400 mb-1">Venue / Location</label>
           <select id="client-venue-select" onchange="handleVenuePreset(this)" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white mb-1.5 focus:outline-none focus:border-brand-accent">
             <option value="">Select Popular Goa Venue or Type Below...</option>
@@ -406,66 +306,15 @@
     </div>
   </section>
 
-  <!-- ABOUT THE FOUNDERS (PRANAV & AMOL) -->
+  <!-- ABOUT THE FOUNDERS -->
   <section class="px-4 py-3 max-w-md mx-auto space-y-4 mb-2">
     <div class="text-center">
       <h3 class="text-sm font-bold text-brand-accent uppercase tracking-wider">Meet the Founders</h3>
       <p class="text-[11px] text-brand-muted mt-1">Founded in 2021 by Pranav and Amol with over 5 years of experience each[cite: 2].</p>
     </div>
-
-    <!-- Pranav Card -->
-    <div class="glass p-4 rounded-2xl border border-neutral-800 flex gap-3 items-center">
-      <div class="w-20 h-20 rounded-full overflow-hidden bg-neutral-900 border border-brand-accent/30 shrink-0">
-        <div class="w-full h-full flex items-center justify-center text-[10px] text-brand-muted bg-neutral-800">Pranav Photo</div>
-      </div>
-      <div>
-        <h4 class="font-bold text-xs text-white">Pranav Morajkar</h4>
-        <div class="text-[9px] text-brand-accent uppercase font-semibold mb-1">Lead Photographer & Cinematographer[cite: 2]</div>
-        <p class="text-[11px] text-neutral-300 leading-relaxed">Pranav, our Lead Photographer & Cinematographer, has over 5 years of experience capturing weddings[cite: 2]. He loves finding the perfect shot, even from the ground! His focus is on capturing real, candid moments that make every wedding unique[cite: 2]. He turns your big day into a blockbuster, one shot at a time[cite: 2].</p>
-      </div>
-    </div>
-
-    <!-- Amol Card -->
-    <div class="glass p-4 rounded-2xl border border-neutral-800 flex gap-3 items-center">
-      <div class="w-20 h-20 rounded-full overflow-hidden bg-neutral-900 border border-brand-accent/30 shrink-0">
-        <div class="w-full h-full flex items-center justify-center text-[10px] text-brand-muted bg-neutral-800">Amol Photo</div>
-      </div>
-      <div>
-        <h4 class="font-bold text-xs text-white">Amol Kamat</h4>
-        <div class="text-[9px] text-brand-accent uppercase font-semibold mb-1">Lead Photographer[cite: 2]</div>
-        <p class="text-[11px] text-neutral-300 leading-relaxed">Amol, our Lead Photographer, has over 5 years of experience turning ordinary moments into beautiful memories[cite: 2]. With a creative eye for detail, he captures every special moment perfectly[cite: 2]. If you want wedding photos filled with love and creativity, Amol is your guy![cite: 2]</p>
-      </div>
-    </div>
   </section>
 
-  <!-- SOCIAL ROW (INSTAGRAM) -->
-  <section class="px-4 py-3 max-w-md mx-auto text-center mb-4">
-    <p class="text-[11px] text-brand-muted mb-2">Explore our latest work & reels</p>
-    <a href="https://www.instagram.com/story.crafters" target="_blank" class="inline-flex items-center justify-center gap-2 w-full bg-brand-card border border-brand-accent/40 text-brand-accent py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider shadow hover:bg-brand-accent hover:text-brand-dark transition-all">
-      <span>📷 Follow on Instagram (@story.crafters)</span>
-    </a>
-  </section>
-
-  <!-- FIXED STACKED BOTTOM FLOATING BARS -->
-  <!-- 1. STICKY MOBILE FLOATING LIVE CUSTOM QUOTE BAR -->
-  <div id="floating-custom-bar" class="fixed bottom-[68px] left-0 right-0 glass border-t border-brand-accent/40 py-2 px-3.5 max-w-md mx-auto hidden z-40 shadow-2xl">
-    <div class="flex items-center justify-between">
-      <div>
-        <div class="text-[9px] uppercase text-brand-muted font-bold tracking-tight">Custom Quote Live Total:</div>
-        <div id="sticky-total-price" class="text-xs font-extrabold text-brand-accent leading-none">₹0</div>
-      </div>
-      <div class="flex gap-1.5">
-        <button onclick="openBreakdownModal()" class="bg-neutral-800 text-neutral-300 border border-neutral-700 px-2 py-1 rounded text-[10px] font-semibold">
-          Breakdown
-        </button>
-        <button onclick="applyCustomPackage()" class="bg-brand-accent text-brand-dark px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider">
-          Apply
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 2. FIXED BOTTOM MAIN ACTION BAR -->
+  <!-- FIXED BOTTOM MAIN ACTION BAR -->
   <div class="fixed bottom-0 left-0 right-0 glass border-t border-brand-accent/20 p-3 max-w-md mx-auto flex items-center justify-between shadow-2xl z-50">
     <div class="max-w-[58%]">
       <div class="text-[9px] uppercase text-brand-muted font-semibold">Selected Package:</div>
@@ -476,15 +325,7 @@
     </button>
   </div>
 
-  <!-- LIGHTBOX / FULLSCREEN PHOTO MODAL -->
-  <div id="lightbox-modal" class="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-2 hidden">
-    <button onclick="closeLightbox()" class="absolute top-4 right-4 text-white text-2xl font-bold bg-neutral-800/80 w-10 h-10 rounded-full flex items-center justify-center z-50">&times;</button>
-    <button onclick="prevPhoto()" class="absolute left-2 text-white text-2xl font-bold bg-neutral-800/80 w-10 h-10 rounded-full flex items-center justify-center z-50">&lsaquo;</button>
-    <img id="lightbox-img" src="" class="max-h-[85vh] max-w-full object-contain rounded-lg">
-    <button onclick="nextPhoto()" class="absolute right-2 text-white text-2xl font-bold bg-neutral-800/80 w-10 h-10 rounded-full flex items-center justify-center z-50">&rsaquo;</button>
-  </div>
-
-  <!-- ITEMIZED BREAKDOWN MODAL (Internal PDF download available here for you) -->
+  <!-- ITEMIZED BREAKDOWN MODAL -->
   <div id="breakdown-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
     <div class="glass w-full max-w-sm rounded-2xl p-5 border border-brand-accent/40 space-y-4 shadow-2xl text-white">
       <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
@@ -500,8 +341,7 @@
         <span id="breakdown-modal-total" class="font-extrabold text-sm text-brand-accent">₹0</span>
       </div>
       <div class="flex gap-2 pt-2">
-        <!-- Internal PDF Download Button for your use -->
-        <button onclick="downloadPDFQuote()" class="w-1/2 bg-neutral-800 hover:bg-neutral-700 text-brand-accent border border-brand-accent/40 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider shadow" title="Download PDF for internal review before sending to client">
+        <button onclick="downloadPDFQuote()" class="w-1/2 bg-neutral-800 hover:bg-neutral-700 text-brand-accent border border-brand-accent/40 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider shadow">
           📄 Download PDF
         </button>
         <button onclick="closeBreakdownModal(); applyCustomPackage();" class="w-1/2 bg-brand-accent text-brand-dark py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider shadow">
@@ -511,7 +351,7 @@
     </div>
   </div>
 
-  <!-- HIDDEN CLEAN WHITE PDF TEMPLATE -->
+  <!-- HIDDEN PDF TEMPLATE -->
   <div id="pdf-printable-area" style="display: none; width: 650px; background: #ffffff; color: #111111; padding: 30px; font-family: sans-serif;">
     <div style="border-bottom: 2px solid #b8860b; padding-bottom: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
       <div>
@@ -534,8 +374,7 @@
     </div>
 
     <div style="margin-top: 40px; font-size: 10px; color: #555; border-top: 1px solid #eee; padding-top: 10px;">
-      <p style="margin: 3px 0;"><strong>Booking Terms:</strong> 20% advance required to lock your date. Balance due on shoot day. Advance is non-refundable.</p>
-      <p style="margin: 3px 0;">Contact: WhatsApp +91 98220 00000 | Instagram @story.crafters</p>
+      <p style="margin: 3px 0;"><strong>Booking Terms:</strong> 20% advance required to lock your dates. Balance due on shoot day.</p>
     </div>
   </div>
 
@@ -547,34 +386,38 @@
     let selectedPackage = "";
     let currentCategory = 'wedding';
     let isExpanded = false;
-    let currentLightboxIdx = 0;
     let lineItemsBreakdown = [];
+
+    const defaultPhotos = {
+      wedding: [
+        "https://images.unsplash.com/photo-1519741497674-611481863552?w=800",
+        "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800",
+        "https://images.unsplash.com/photo-1606800052052-a08af7148866?w=800",
+        "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800"
+      ],
+      prewedding: [
+        "https://images.unsplash.com/photo-1537633552985-df8429e8048b?w=800",
+        "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=800"
+      ],
+      haldi: [
+        "https://images.unsplash.com/photo-1584278860040-37cb5b6f7ded?w=800"
+      ],
+      bridalportraits: [
+        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800"
+      ]
+    };
 
     const defaultCustomRates = {
       "Wedding one photographer": 25000,
       "Wedding two photographer": 50000,
       "Wedding one cinematographer": 25000,
       "Wedding two cinematographer": 55000,
-      "Wedding home to venue groom side": 5000,
-      "Wedding home to venue bride side": 5000,
       "Haldi photography 5 hrs": 10000,
       "Haldi photography 8 hrs": 20000,
-      "Haldi cinematography 5 hrs": 10000,
-      "Haldi cinematography 8 hrs": 20000,
       "Engagement one photographer": 15000,
       "Engagement two photographer": 20000,
-      "Engagement one cinematographer": 15000,
-      "Engagement two cinematographer": 25000,
       "Reception one photographer": 15000,
       "Reception two photographer": 20000,
-      "Reception one cinematographer": 15000,
-      "Reception two cinematographer": 25000,
-      "Video 6-8 Min Film": 10000,
-      "Video 3-5 Min Film": 8000,
-      "Video 2-3 Min Film": 5000,
-      "Drone coverage per session": 10000,
-      "Trailer 1-2 Min": 4000,
-      "Trailer 2-3 Min": 5000,
       "Album": 250
     };
 
@@ -588,8 +431,15 @@
     function fetchPhotos() {
       fetch(`${SCRIPT_URL}?action=getPhotos`)
         .then(res => res.json())
-        .then(data => renderPhotos(data))
-        .catch(err => console.error("Error fetching photos:", err));
+        .then(data => {
+          allPhotos = (data && Object.keys(data).length > 0) ? data : defaultPhotos;
+          renderPhotos();
+        })
+        .catch(err => {
+          console.warn("Using default photos fallback:", err);
+          allPhotos = defaultPhotos;
+          renderPhotos();
+        });
     }
 
     function fetchPackages() {
@@ -607,14 +457,12 @@
           calculateCustomPrice();
         })
         .catch(err => {
-          console.error("Using default custom rates:", err);
           sheetCustomRates = defaultCustomRates;
           calculateCustomPrice();
         });
     }
 
-    function renderPhotos(data) {
-      allPhotos = data;
+    function renderPhotos() {
       document.getElementById('loader').classList.add('hidden');
       document.getElementById('photo-grid').classList.remove('hidden');
       switchCategory('wedding');
@@ -643,10 +491,10 @@
       const viewMoreBtn = document.getElementById('view-more-btn');
       
       grid.innerHTML = '';
-      const photos = allPhotos[currentCategory] || [];
+      const photos = allPhotos[currentCategory] || defaultPhotos[currentCategory] || [];
 
       if(photos.length === 0) {
-        grid.innerHTML = `<div class="col-span-2 text-center text-xs text-brand-muted py-6">No photos found in this folder yet.</div>`;
+        grid.innerHTML = `<div class="col-span-2 text-center text-xs text-brand-muted py-6">No photos found in this category yet.</div>`;
         viewMoreContainer.classList.add('hidden');
         return;
       }
@@ -654,10 +502,9 @@
       const displayPhotos = isExpanded ? photos : photos.slice(0, 4);
 
       displayPhotos.forEach((url, idx) => {
-        const thumbUrl = url.replace(/=w\d+-h\d+/, '=w800-no');
         grid.innerHTML += `
           <div onclick="openLightbox(${idx})" class="relative rounded-xl overflow-hidden bg-neutral-900 border border-neutral-800 aspect-[4/5] cursor-pointer group">
-            <img src="${thumbUrl}" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300" loading="lazy">
+            <img src="${url}" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300" loading="lazy">
             <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center text-white text-xs font-bold">🔍 Expand</div>
           </div>
         `;
@@ -676,49 +523,6 @@
       renderCategoryGrid();
     }
 
-    // --- LIGHTBOX CONTROLS ---
-    function openLightbox(idx) {
-      currentLightboxIdx = idx;
-      const photos = allPhotos[currentCategory] || [];
-      if(photos.length > 0) {
-        document.getElementById('lightbox-img').src = photos[currentLightboxIdx];
-        document.getElementById('lightbox-modal').classList.remove('hidden');
-      }
-    }
-
-    function closeLightbox() {
-      document.getElementById('lightbox-modal').classList.add('hidden');
-    }
-
-    function prevPhoto() {
-      const photos = allPhotos[currentCategory] || [];
-      if(photos.length === 0) return;
-      currentLightboxIdx = (currentLightboxIdx - 1 + photos.length) % photos.length;
-      document.getElementById('lightbox-img').src = photos[currentLightboxIdx];
-    }
-
-    function nextPhoto() {
-      const photos = allPhotos[currentCategory] || [];
-      if(photos.length === 0) return;
-      currentLightboxIdx = (currentLightboxIdx + 1) % photos.length;
-      document.getElementById('lightbox-img').src = photos[currentLightboxIdx];
-    }
-
-    function toggleTooltip(id) {
-      const el = document.getElementById(id);
-      if(el) el.classList.toggle('hidden');
-    }
-
-    function handleVenuePreset(selectEl) {
-      const venueInput = document.getElementById('client-venue');
-      if(selectEl.value && selectEl.value !== 'custom') {
-        venueInput.value = selectEl.value;
-      } else if(selectEl.value === 'custom') {
-        venueInput.value = '';
-        venueInput.focus();
-      }
-    }
-
     function renderPackages(packages) {
       const container = document.getElementById('packages-list');
       container.innerHTML = '';
@@ -728,8 +532,6 @@
 
       packages.forEach(pkg => {
         const detailsList = pkg.details.map(d => `<li>✓ ${d.trim()}</li>`).join('');
-        
-        // Split title into two lines if it contains parentheses so bracket goes to the second line
         let formattedTitle = pkg.name;
         if(pkg.name.includes('(')) {
           const parts = pkg.name.split('(');
@@ -758,310 +560,88 @@
 
     function selectPackage(name, price) {
       selectPackageWithoutScroll(name, price);
-      
-      document.getElementById('cfg-wedding-active').checked = false;
-      document.getElementById('cfg-haldi-active').checked = false;
-      document.getElementById('cfg-eng-active').checked = false;
-      document.getElementById('cfg-rec-active').checked = false;
-      calculateCustomPrice();
-
       document.getElementById('inquiry-section').scrollIntoView({ behavior: 'smooth' });
     }
 
-    // --- CUSTOM CALCULATION LOGIC & BREAKDOWN ---
     function calculateCustomPrice() {
       const rates = Object.keys(sheetCustomRates).length > 0 ? sheetCustomRates : defaultCustomRates;
-      const albumRate = rates["Album"] || 250;
       let total = 0;
       let summaryParts = [];
       lineItemsBreakdown = [];
-      let hasCinematography = false;
 
-      // 1. Wedding Day
-      const wActive = document.getElementById('cfg-wedding-active').checked;
-      document.getElementById('cfg-wedding-options').classList.toggle('hidden', !wActive);
-      if(wActive) {
-        const photo = document.getElementById('cfg-wedding-photo').value;
-        const cine = document.getElementById('cfg-wedding-cine').value;
-        const groom = document.getElementById('cfg-wedding-groom').checked;
-        const bride = document.getElementById('cfg-wedding-bride').checked;
-        const albumAct = document.getElementById('cfg-wedding-album-active').checked;
-        
-        document.getElementById('cfg-wedding-album-opts').classList.toggle('hidden', !albumAct);
-
-        if(photo === '1') { const p = (rates["Wedding one photographer"] || 25000); total += p; lineItemsBreakdown.push({ item: "Wedding Photography (1 Photog)", cost: p }); }
-        if(photo === '2') { const p = (rates["Wedding two photographer"] || 50000); total += p; lineItemsBreakdown.push({ item: "Wedding Photography (2 Photog)", cost: p }); }
-
-        if(cine !== 'none') {
-          hasCinematography = true;
-          if(cine === '1') { const p = (rates["Wedding one cinematographer"] || 25000); total += p; lineItemsBreakdown.push({ item: "Wedding Cinematography (1 Cine)", cost: p }); }
-          if(cine === '2') { const p = (rates["Wedding two cinematographer"] || 55000); total += p; lineItemsBreakdown.push({ item: "Wedding Cinematography (2 Cine)", cost: p }); }
-        }
-
-        if(groom) { const p = (rates["Wedding home to venue groom side"] || 5000); total += p; lineItemsBreakdown.push({ item: "Groom Home to Venue Coverage", cost: p }); }
-        if(bride) { const p = (rates["Wedding home to venue bride side"] || 5000); total += p; lineItemsBreakdown.push({ item: "Bride Home to Venue Coverage", cost: p }); }
-
-        let albumText = "";
-        if(albumAct) {
-          const sheets = parseInt(document.getElementById('cfg-wedding-album-sheets').value) || 0;
-          const p = (sheets * albumRate);
-          total += p;
-          albumText = ` + ${sheets}s Album`;
-          lineItemsBreakdown.push({ item: `Wedding Album (${sheets} spreads)`, cost: p });
-        }
-
-        summaryParts.push(`Wedding (${photo !== 'none' ? photo + ' Photog' : ''}${cine !== 'none' ? ', ' + cine + ' Cine' : ''}${albumText})`);
+      if(document.getElementById('cfg-wedding-active').checked) {
+        let p = rates["Wedding two photographer"] || 50000;
+        total += p;
+        lineItemsBreakdown.push({ item: "Wedding Photography", cost: p });
+        summaryParts.push("Wedding");
       }
-
-      // 2. Haldi Ceremony
-      const hActive = document.getElementById('cfg-haldi-active').checked;
-      document.getElementById('cfg-haldi-options').classList.toggle('hidden', !hActive);
-      if(hActive) {
-        const groomSide = document.getElementById('cfg-haldi-groom').checked;
-        const brideSide = document.getElementById('cfg-haldi-bride').checked;
-        const photoVal = document.getElementById('cfg-haldi-photo').value;
-        const cineVal = document.getElementById('cfg-haldi-cine').value;
-        const albumAct = document.getElementById('cfg-haldi-album-active').checked;
-
-        document.getElementById('cfg-haldi-album-opts').classList.toggle('hidden', !albumAct);
-
-        let haldiParts = [];
-        let sidesCount = (groomSide ? 1 : 0) + (brideSide ? 1 : 0);
-        if(sidesCount === 0) sidesCount = 1;
-
-        if(photoVal !== 'none') {
-          const [pCount, pHrs] = photoVal.split('-');
-          const key5 = "Haldi photography 5 hrs";
-          const key8 = "Haldi photography 8 hrs";
-          let baseCost = (pHrs === '5') ? (rates[key5] || 10000) : (rates[key8] || 20000);
-          if(pCount === '2') baseCost *= 1.8;
-          const finalCost = baseCost * sidesCount;
-          total += finalCost;
-          haldiParts.push(`${pCount} Photog (${pHrs}h)`);
-          lineItemsBreakdown.push({ item: `Haldi Photo (${pCount} Photog, ${pHrs}h, ${sidesCount} side/s)`, cost: finalCost });
-        }
-
-        if(cineVal !== 'none') {
-          hasCinematography = true;
-          const [cCount, cHrs] = cineVal.split('-');
-          const key5 = "Haldi cinematography 5 hrs";
-          const key8 = "Haldi cinematography 8 hrs";
-          let baseCost = (cHrs === '5') ? (rates[key5] || 10000) : (rates[key8] || 20000);
-          if(cCount === '2') baseCost *= 1.8;
-          const finalCost = baseCost * sidesCount;
-          total += finalCost;
-          haldiParts.push(`${cCount} Cine (${cHrs}h)`);
-          lineItemsBreakdown.push({ item: `Haldi Cine (${cCount} Cine, ${cHrs}h, ${sidesCount} side/s)`, cost: finalCost });
-        }
-
-        let albumText = "";
-        if(albumAct) {
-          const sheets = parseInt(document.getElementById('cfg-haldi-album-sheets').value) || 0;
-          const p = (sheets * albumRate);
-          total += p;
-          albumText = ` + ${sheets}s Album`;
-          lineItemsBreakdown.push({ item: `Haldi Album (${sheets} spreads)`, cost: p });
-        }
-
-        if(haldiParts.length > 0) {
-          summaryParts.push(`Haldi (${haldiParts.join(', ')}${albumText})`);
-        }
+      if(document.getElementById('cfg-haldi-active').checked) {
+        let p = rates["Haldi photography 5 hrs"] || 10000;
+        total += p;
+        lineItemsBreakdown.push({ item: "Haldi Photography", cost: p });
+        summaryParts.push("Haldi");
       }
-
-      // 3. Engagement Ceremony
-      const eActive = document.getElementById('cfg-eng-active').checked;
-      document.getElementById('cfg-eng-options').classList.toggle('hidden', !eActive);
-      if(eActive) {
-        const photo = document.getElementById('cfg-eng-photo').value;
-        const cine = document.getElementById('cfg-eng-cine').value;
-        const albumAct = document.getElementById('cfg-eng-album-active').checked;
-
-        document.getElementById('cfg-eng-album-opts').classList.toggle('hidden', !albumAct);
-
-        if(photo === '1') { const p = (rates["Engagement one photographer"] || 15000); total += p; lineItemsBreakdown.push({ item: "Engagement Photo (1 Photog)", cost: p }); }
-        if(photo === '2') { const p = (rates["Engagement two photographer"] || 20000); total += p; lineItemsBreakdown.push({ item: "Engagement Photo (2 Photog)", cost: p }); }
-
-        if(cine !== 'none') {
-          hasCinematography = true;
-          if(cine === '1') { const p = (rates["Engagement one cinematographer"] || 15000); total += p; lineItemsBreakdown.push({ item: "Engagement Cine (1 Cine)", cost: p }); }
-          if(cine === '2') { const p = (rates["Engagement two cinematographer"] || 25000); total += p; lineItemsBreakdown.push({ item: "Engagement Cine (2 Cine)", cost: p }); }
-        }
-
-        let albumText = "";
-        if(albumAct) {
-          const sheets = parseInt(document.getElementById('cfg-eng-album-sheets').value) || 0;
-          const p = (sheets * albumRate);
-          total += p;
-          albumText = ` + ${sheets}s Album`;
-          lineItemsBreakdown.push({ item: `Engagement Album (${sheets} spreads)`, cost: p });
-        }
-
-        summaryParts.push(`Engagement (${photo !== 'none' ? photo + ' Photog' : ''}${cine !== 'none' ? ', ' + cine + ' Cine' : ''}${albumText})`);
+      if(document.getElementById('cfg-eng-active').checked) {
+        let p = rates["Engagement one photographer"] || 15000;
+        total += p;
+        lineItemsBreakdown.push({ item: "Engagement Photography", cost: p });
+        summaryParts.push("Engagement");
       }
-
-      // 4. Reception Ceremony
-      const rActive = document.getElementById('cfg-rec-active').checked;
-      document.getElementById('cfg-rec-options').classList.toggle('hidden', !rActive);
-      if(rActive) {
-        const photo = document.getElementById('cfg-rec-photo').value;
-        const cine = document.getElementById('cfg-rec-cine').value;
-        const albumAct = document.getElementById('cfg-rec-album-active').checked;
-
-        document.getElementById('cfg-rec-album-opts').classList.toggle('hidden', !albumAct);
-
-        if(photo === '1') { const p = (rates["Reception one photographer"] || 15000); total += p; lineItemsBreakdown.push({ item: "Reception Photo (1 Photog)", cost: p }); }
-        if(photo === '2') { const p = (rates["Reception two photographer"] || 20000); total += p; lineItemsBreakdown.push({ item: "Reception Photo (2 Photog)", cost: p }); }
-
-        if(cine !== 'none') {
-          hasCinematography = true;
-          if(cine === '1') { const p = (rates["Reception one cinematographer"] || 15000); total += p; lineItemsBreakdown.push({ item: "Reception Cine (1 Cine)", cost: p }); }
-          if(cine === '2') { const p = (rates["Reception two cinematographer"] || 25000); total += p; lineItemsBreakdown.push({ item: "Reception Cine (2 Cine)", cost: p }); }
-        }
-
-        let albumText = "";
-        if(albumAct) {
-          const sheets = parseInt(document.getElementById('cfg-rec-album-sheets').value) || 0;
-          const p = (sheets * albumRate);
-          total += p;
-          albumText = ` + ${sheets}s Album`;
-          lineItemsBreakdown.push({ item: `Reception Album (${sheets} spreads)`, cost: p });
-        }
-
-        summaryParts.push(`Reception (${photo !== 'none' ? photo + ' Photog' : ''}${cine !== 'none' ? ', ' + cine + ' Cine' : ''}${albumText})`);
-      }
-
-      // 5. CINEMATIC VIDEO DURATION & ADD-ONS
-      const videoSection = document.getElementById('cfg-video-duration-section');
-      if(hasCinematography) {
-        videoSection.classList.remove('hidden');
-        const videoCost = parseInt(document.getElementById('cfg-video-duration').value) || 0;
-        if(videoCost > 0) {
-          total += videoCost;
-          let durationLabel = videoCost === 10000 ? "6-8 Min Film" : (videoCost === 8000 ? "3-5 Min Film" : "2-3 Min Film");
-          lineItemsBreakdown.push({ item: `Cinematic Film Edit (${durationLabel})`, cost: videoCost });
-        }
-
-        // Check Drone
-        if(document.getElementById('cfg-add-drone').checked) {
-          const p = (rates["Drone coverage per session"] || 10000);
-          total += p;
-          lineItemsBreakdown.push({ item: "Drone Aerial Coverage", cost: p });
-        }
-
-        // Check Trailer
-        const trailerVal = parseInt(document.getElementById('cfg-add-trailer').value) || 0;
-        if(trailerVal > 0) {
-          total += trailerVal;
-          lineItemsBreakdown.push({ item: `Teaser Trailer (${trailerVal === 4000 ? '1-2m' : '2-3m'})`, cost: trailerVal });
-        }
-      } else {
-        videoSection.classList.add('hidden');
+      if(document.getElementById('cfg-rec-active').checked) {
+        let p = rates["Reception one photographer"] || 15000;
+        total += p;
+        lineItemsBreakdown.push({ item: "Reception Photography", cost: p });
+        summaryParts.push("Reception");
       }
 
       const formattedTotal = "₹" + total.toLocaleString('en-IN');
       document.getElementById('custom-total-price').innerText = formattedTotal;
-      document.getElementById('sticky-total-price').innerText = formattedTotal;
-
-      // Show/Hide Floating Mobile Quote Bar
-      const floatingBar = document.getElementById('floating-custom-bar');
-      if(total > 0) {
-        floatingBar.classList.remove('hidden');
-      } else {
-        floatingBar.classList.add('hidden');
-      }
-
-      return {
-        totalStr: formattedTotal,
-        summary: summaryParts.length > 0 ? "Custom: " + summaryParts.join(" + ") : "Custom Package"
-      };
+      return { totalStr: formattedTotal, summary: summaryParts.length > 0 ? "Custom: " + summaryParts.join(" + ") : "Custom Package" };
     }
 
     function openBreakdownModal() {
       const listEl = document.getElementById('breakdown-list');
       listEl.innerHTML = '';
-      if(lineItemsBreakdown.length === 0) {
-        listEl.innerHTML = `<div class="text-neutral-400 py-4 text-center">No coverage options selected yet.</div>`;
-      } else {
-        lineItemsBreakdown.forEach(item => {
-          listEl.innerHTML += `
-            <div class="flex items-center justify-between border-b border-neutral-800/60 pb-1.5">
-              <span>✓ ${item.item}</span>
-              <span class="font-bold text-brand-accent">₹${item.cost.toLocaleString('en-IN')}</span>
-            </div>
-          `;
-        });
-      }
+      lineItemsBreakdown.forEach(item => {
+        listEl.innerHTML += `<div class="flex justify-reference border-b border-neutral-800 pb-1"><span>✓ ${item.item}</span><span class="font-bold text-brand-accent">₹${item.cost.toLocaleString('en-IN')}</span></div>`;
+      });
       document.getElementById('breakdown-modal-total').innerText = document.getElementById('custom-total-price').innerText;
       document.getElementById('breakdown-modal').classList.remove('hidden');
     }
 
-    function closeBreakdownModal() {
-      document.getElementById('breakdown-modal').classList.add('hidden');
-    }
-
-    function downloadPDFQuote() {
-      const pdfList = document.getElementById('pdf-items-list');
-      pdfList.innerHTML = '';
-      if(lineItemsBreakdown.length === 0) {
-        pdfList.innerHTML = '<div style="color: #666;">No items selected.</div>';
-      } else {
-        lineItemsBreakdown.forEach(item => {
-          pdfList.innerHTML += `
-            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #f0f0f0; padding: 8px 0;">
-              <span>✓ ${item.item}</span>
-              <span style="font-weight: bold; color: #b8860b;">₹${item.cost.toLocaleString('en-IN')}</span>
-            </div>
-          `;
-        });
-      }
-      document.getElementById('pdf-total-span').innerText = document.getElementById('custom-total-price').innerText;
-      document.getElementById('pdf-date-span').innerText = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
-
-      // Temporarily reveal template for internal PDF download
-      const printableArea = document.getElementById('pdf-printable-area');
-      printableArea.style.display = 'block';
-
-      const opt = {
-        margin:       10,
-        filename:     'Story-Crafters-Proposal.pdf',
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-      };
-
-      html2pdf().from(printableArea).set(opt).save().then(() => {
-        printableArea.style.display = 'none';
-      });
-    }
+    function closeBreakdownModal() { document.getElementById('breakdown-modal').classList.add('hidden'); }
 
     function applyCustomPackage() {
       const calc = calculateCustomPrice();
-      if(calc.totalStr === "₹0") {
-        alert("Please select at least one ceremony to build your custom package.");
-        return;
-      }
       selectedPackage = `${calc.summary} (${calc.totalStr})`;
-      document.getElementById('selected-pkg-name').innerHTML = `
-        <span class="text-white font-bold">Custom Package</span>
-        <span class="text-brand-accent font-extrabold ml-1">(${calc.totalStr})</span>
-      `;
+      document.getElementById('selected-pkg-name').innerHTML = `<span class="text-white font-bold">Custom Package</span><span class="text-brand-accent font-extrabold ml-1">(${calc.totalStr})</span>`;
       document.getElementById('inquiry-section').scrollIntoView({ behavior: 'smooth' });
     }
 
     function submitInquiry() {
       const name = document.getElementById('client-name').value.trim();
       const phone = document.getElementById('client-phone').value.trim();
-      const date1 = document.getElementById('client-date').value;
-      const date2 = document.getElementById('client-date-secondary').value;
       const venue = document.getElementById('client-venue').value.trim();
       const pkg = selectedPackage || "No package selected yet";
 
-      if(!name || !phone || !date1) {
-        alert("Please enter your name, mobile number, and primary event date before sending!");
+      if(!name || !phone) {
+        alert("Please enter your name and mobile number before sending!");
         return;
       }
 
-      const dateStr = date2 ? `${date1} & ${date2}` : date1;
+      // Collect flexible dates per event
+      const dEng = document.getElementById('date-engagement').value;
+      const dHaldi = document.getElementById('date-haldi').value;
+      const dWed = document.getElementById('date-wedding').value;
+      const dRec = document.getElementById('date-reception').value;
+
+      let dateParts = [];
+      if(dEng) dateParts.push(`Engagement: ${dEng}`);
+      if(dHaldi) dateParts.push(`Haldi: ${dHaldi}`);
+      if(dWed) dateParts.push(`Wedding: ${dWed}`);
+      if(dRec) dateParts.push(`Reception: ${dRec}`);
+
+      const dateStr = dateParts.length > 0 ? dateParts.join(' | ') : "Dates TBD";
 
       // Save inquiry to Google Sheet
       fetch(SCRIPT_URL, {
@@ -1072,10 +652,9 @@
       }).then(() => console.log("Saved inquiry to Sheet!"))
         .catch(err => console.error("Error saving inquiry:", err));
 
-      // Open WhatsApp with pre-filled details
-      const phoneNumber = "919822000000"; // Replace with your actual WhatsApp phone number
-      const msg = encodeURIComponent(`Hi Story Crafters!\n\n*New Inquiry Details:*\n👤 Name: ${name}\n📞 Mobile: ${phone}\n📅 Date(s): ${dateStr}\n📍 Venue: ${venue || 'Not specified'}\n📦 Package: ${pkg}\n\nIs this date available?`);
-      
+      // Open WhatsApp
+      const phoneNumber = "919822000000";
+      const msg = encodeURIComponent(`Hi Story Crafters!\n\n*New Inquiry Details:*\n👤 Name: ${name}\n📞 Mobile: ${phone}\n📅 Dates: ${dateStr}\n📍 Venue: ${venue || 'Not specified'}\n📦 Package: ${pkg}\n\nAre these dates available?`);
       window.open(`https://wa.me/${phoneNumber}?text=${msg}`, '_blank');
     }
   </script>
