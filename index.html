@@ -5,7 +5,7 @@
   <title>Story Crafters | Portfolio & Rates</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- html2pdf library kept for internal proposal generation -->
+  <!-- html2pdf library for direct PDF downloading -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script>
     tailwind.config = {
@@ -410,7 +410,7 @@
   <section class="px-4 py-3 max-w-md mx-auto space-y-4 mb-2">
     <div class="text-center">
       <h3 class="text-sm font-bold text-brand-accent uppercase tracking-wider">Meet the Founders</h3>
-      <p class="text-[11px] text-brand-muted mt-1">Founded in 2021 by Pranav and Amol with over 5 years of experience each.</p>
+      <p class="text-[11px] text-brand-muted mt-1">Founded in 2021 by Pranav and Amol with over 5 years of experience each[cite: 2].</p>
     </div>
 
     <!-- Pranav Card -->
@@ -420,8 +420,8 @@
       </div>
       <div>
         <h4 class="font-bold text-xs text-white">Pranav Morajkar</h4>
-        <div class="text-[9px] text-brand-accent uppercase font-semibold mb-1">Lead Photographer & Cinematographer</div>
-        <p class="text-[11px] text-neutral-300 leading-relaxed">Pranav, our Lead Photographer & Cinematographer, has over 5 years of experience capturing weddings. He loves finding the perfect shot, even from the ground! His focus is on capturing real, candid moments that make every wedding unique. He turns your big day into a blockbuster, one shot at a time.</p>
+        <div class="text-[9px] text-brand-accent uppercase font-semibold mb-1">Lead Photographer & Cinematographer[cite: 2]</div>
+        <p class="text-[11px] text-neutral-300 leading-relaxed">Pranav, our Lead Photographer & Cinematographer, has over 5 years of experience capturing weddings[cite: 2]. He loves finding the perfect shot, even from the ground! His focus is on capturing real, candid moments that make every wedding unique[cite: 2]. He turns your big day into a blockbuster, one shot at a time[cite: 2].</p>
       </div>
     </div>
 
@@ -432,8 +432,8 @@
       </div>
       <div>
         <h4 class="font-bold text-xs text-white">Amol Kamat</h4>
-        <div class="text-[9px] text-brand-accent uppercase font-semibold mb-1">Lead Photographer</div>
-        <p class="text-[11px] text-neutral-300 leading-relaxed">Amol, our Lead Photographer, has over 5 years of experience turning ordinary moments into beautiful memories. With a creative eye for detail, he captures every special moment perfectly. If you want wedding photos filled with love and creativity, Amol is your guy!</p>
+        <div class="text-[9px] text-brand-accent uppercase font-semibold mb-1">Lead Photographer[cite: 2]</div>
+        <p class="text-[11px] text-neutral-300 leading-relaxed">Amol, our Lead Photographer, has over 5 years of experience turning ordinary moments into beautiful memories[cite: 2]. With a creative eye for detail, he captures every special moment perfectly[cite: 2]. If you want wedding photos filled with love and creativity, Amol is your guy![cite: 2]</p>
       </div>
     </div>
   </section>
@@ -484,7 +484,7 @@
     <button onclick="nextPhoto()" class="absolute right-2 text-white text-2xl font-bold bg-neutral-800/80 w-10 h-10 rounded-full flex items-center justify-center z-50">&rsaquo;</button>
   </div>
 
-  <!-- ITEMIZED BREAKDOWN MODAL (Internal PDF download available here for you) -->
+  <!-- ITEMIZED BREAKDOWN MODAL -->
   <div id="breakdown-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
     <div class="glass w-full max-w-sm rounded-2xl p-5 border border-brand-accent/40 space-y-4 shadow-2xl text-white">
       <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
@@ -500,8 +500,7 @@
         <span id="breakdown-modal-total" class="font-extrabold text-sm text-brand-accent">₹0</span>
       </div>
       <div class="flex gap-2 pt-2">
-        <!-- Internal PDF Download Button for your use -->
-        <button onclick="downloadPDFQuote()" class="w-1/2 bg-neutral-800 hover:bg-neutral-700 text-brand-accent border border-brand-accent/40 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider shadow" title="Download PDF for internal review before sending to client">
+        <button onclick="downloadPDFQuote()" class="w-1/2 bg-neutral-800 hover:bg-neutral-700 text-brand-accent border border-brand-accent/40 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider shadow">
           📄 Download PDF
         </button>
         <button onclick="closeBreakdownModal(); applyCustomPackage();" class="w-1/2 bg-brand-accent text-brand-dark py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider shadow">
@@ -511,7 +510,7 @@
     </div>
   </div>
 
-  <!-- HIDDEN CLEAN WHITE PDF TEMPLATE -->
+  <!-- CLEAN WHITE PDF TEMPLATE FOR DIRECT html2pdf DOWNLOADING -->
   <div id="pdf-printable-area" style="display: none; width: 650px; background: #ffffff; color: #111111; padding: 30px; font-family: sans-serif;">
     <div style="border-bottom: 2px solid #b8860b; padding-bottom: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
       <div>
@@ -728,18 +727,10 @@
 
       packages.forEach(pkg => {
         const detailsList = pkg.details.map(d => `<li>✓ ${d.trim()}</li>`).join('');
-        
-        // Split title into two lines if it contains parentheses so bracket goes to the second line
-        let formattedTitle = pkg.name;
-        if(pkg.name.includes('(')) {
-          const parts = pkg.name.split('(');
-          formattedTitle = `<span class="block">${parts[0].trim()}</span><span class="block text-brand-accent text-xs mt-0.5">(${parts[1].trim()}</span>`;
-        }
-
         container.innerHTML += `
           <div class="glass p-4 rounded-2xl border ${pkg.badge ? 'border-brand-accent/40' : 'border-neutral-800'} relative">
             ${pkg.badge ? `<div class="absolute top-3 right-3 bg-brand-accent/20 text-brand-accent text-[9px] px-2 py-0.5 rounded-full font-bold uppercase">${pkg.badge}</div>` : ''}
-            <h4 class="font-bold text-sm text-white pr-20 leading-tight">${formattedTitle}</h4>
+            <h4 class="font-bold text-sm text-white">${pkg.name}</h4>
             <div class="text-lg font-extrabold text-brand-accent my-1">${pkg.price}</div>
             <ul class="text-xs text-neutral-300 space-y-1 my-2">${detailsList}</ul>
             <button onclick="selectPackage('${pkg.name}', '${pkg.price}')" class="w-full bg-brand-accent text-brand-dark py-2 rounded-xl text-xs font-bold uppercase tracking-wider">Select Package</button>
@@ -1017,7 +1008,7 @@
       document.getElementById('pdf-total-span').innerText = document.getElementById('custom-total-price').innerText;
       document.getElementById('pdf-date-span').innerText = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
 
-      // Temporarily reveal template for internal PDF download
+      // Temporarily reveal printable layout for html2pdf conversion
       const printableArea = document.getElementById('pdf-printable-area');
       printableArea.style.display = 'block';
 
@@ -1030,7 +1021,7 @@
       };
 
       html2pdf().from(printableArea).set(opt).save().then(() => {
-        printableArea.style.display = 'none';
+        printableArea.style.display = 'none'; // Hide again post-download
       });
     }
 
