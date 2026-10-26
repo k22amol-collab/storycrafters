@@ -50,7 +50,7 @@
     </div>
 
     <!-- LOADING SPINNER -->
-    <div id="loader" class="text-center py-10 text-brand-accent text-xs">Loading photos from Google Drive...</div>
+    <div id="loader" class="text-center py-10 text-brand-accent text-xs">Loading photos...</div>
 
     <!-- PHOTO GRID -->
     <div class="grid grid-cols-2 gap-2.5 hidden" id="photo-grid"></div>
@@ -360,11 +360,11 @@
     </div>
   </section>
 
-  <!-- CLIENT INQUIRY & BOOKING FORM -->
+  <!-- CLIENT INQUIRY & FLEXIBLE EVENT DATES FORM -->
   <section id="inquiry-section" class="px-4 py-2 max-w-md mx-auto mb-4">
     <div class="glass p-4 rounded-2xl border border-brand-accent/30 space-y-3">
-      <h4 class="font-bold text-sm text-brand-accent uppercase tracking-wider">Book Your Date / Inquire</h4>
-      <p class="text-[11px] text-brand-muted">Fill in your details below. This saves your booking request and opens WhatsApp instantly.</p>
+      <h4 class="font-bold text-sm text-brand-accent uppercase tracking-wider">Book Your Dates / Inquire</h4>
+      <p class="text-[11px] text-brand-muted">Provide your details and event dates below. Leave any unfinalized dates blank.</p>
       
       <div class="space-y-2.5">
         <div>
@@ -376,20 +376,33 @@
           <input type="tel" id="client-phone" placeholder="e.g. +91 98220 00000" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-accent">
         </div>
         
-        <!-- Multi-Day Event Dates -->
-        <div class="grid grid-cols-2 gap-2">
-          <div>
-            <label class="block text-[10px] uppercase tracking-wider text-neutral-400 mb-1">Primary Event Date</label>
-            <input type="date" id="client-date" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-accent">
+        <!-- EVENT NAMES & DATES (Engagement, Haldi, Wedding, Reception) -->
+        <div class="space-y-2 pt-1 border-t border-neutral-800">
+          <label class="block text-[10px] uppercase tracking-wider text-brand-accent font-bold">Event Dates (Optional / As Finalized)</label>
+          
+          <div class="flex items-center justify-between bg-neutral-900/90 p-2 rounded-xl border border-neutral-800 text-xs">
+            <span class="text-neutral-300 font-medium">💍 Engagement Date:</span>
+            <input type="date" id="date-engagement" class="bg-neutral-800 text-white rounded px-2 py-1 text-xs border border-neutral-700">
           </div>
-          <div>
-            <label class="block text-[10px] uppercase tracking-wider text-neutral-400 mb-1">Additional Date (Opt.)</label>
-            <input type="date" id="client-date-secondary" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-accent">
+
+          <div class="flex items-center justify-between bg-neutral-900/90 p-2 rounded-xl border border-neutral-800 text-xs">
+            <span class="text-neutral-300 font-medium">🟡 Haldi Date:</span>
+            <input type="date" id="date-haldi" class="bg-neutral-800 text-white rounded px-2 py-1 text-xs border border-neutral-700">
+          </div>
+
+          <div class="flex items-center justify-between bg-neutral-900/90 p-2 rounded-xl border border-neutral-800 text-xs">
+            <span class="text-neutral-300 font-medium">⭐ Wedding Date:</span>
+            <input type="date" id="date-wedding" class="bg-neutral-800 text-white rounded px-2 py-1 text-xs border border-neutral-700">
+          </div>
+
+          <div class="flex items-center justify-between bg-neutral-900/90 p-2 rounded-xl border border-neutral-800 text-xs">
+            <span class="text-neutral-300 font-medium">🥂 Reception Date:</span>
+            <input type="date" id="date-reception" class="bg-neutral-800 text-white rounded px-2 py-1 text-xs border border-neutral-700">
           </div>
         </div>
 
         <!-- Venue Quick Select & Custom Input -->
-        <div>
+        <div class="pt-1">
           <label class="block text-[10px] uppercase tracking-wider text-neutral-400 mb-1">Venue / Location</label>
           <select id="client-venue-select" onchange="handleVenuePreset(this)" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white mb-1.5 focus:outline-none focus:border-brand-accent">
             <option value="">Select Popular Goa Venue or Type Below...</option>
@@ -410,7 +423,7 @@
   <section class="px-4 py-3 max-w-md mx-auto space-y-4 mb-2">
     <div class="text-center">
       <h3 class="text-sm font-bold text-brand-accent uppercase tracking-wider">Meet the Founders</h3>
-      <p class="text-[11px] text-brand-muted mt-1">Founded in 2021 by Pranav and Amol with over 5 years of experience each[cite: 2].</p>
+      <p class="text-[11px] text-brand-muted mt-1">Founded in 2021 by Pranav and Amol with over 5 years of experience each.</p>
     </div>
 
     <!-- Pranav Card -->
@@ -420,8 +433,8 @@
       </div>
       <div>
         <h4 class="font-bold text-xs text-white">Pranav Morajkar</h4>
-        <div class="text-[9px] text-brand-accent uppercase font-semibold mb-1">Lead Photographer & Cinematographer[cite: 2]</div>
-        <p class="text-[11px] text-neutral-300 leading-relaxed">Pranav, our Lead Photographer & Cinematographer, has over 5 years of experience capturing weddings[cite: 2]. He loves finding the perfect shot, even from the ground! His focus is on capturing real, candid moments that make every wedding unique[cite: 2]. He turns your big day into a blockbuster, one shot at a time[cite: 2].</p>
+        <div class="text-[9px] text-brand-accent uppercase font-semibold mb-1">Lead Photographer & Cinematographer</div>
+        <p class="text-[11px] text-neutral-300 leading-relaxed">Pranav, our Lead Photographer & Cinematographer, has over 5 years of experience capturing weddings. He loves finding the perfect shot, even from the ground! His focus is on capturing real, candid moments that make every wedding unique. He turns your big day into a blockbuster, one shot at a time.</p>
       </div>
     </div>
 
@@ -432,8 +445,8 @@
       </div>
       <div>
         <h4 class="font-bold text-xs text-white">Amol Kamat</h4>
-        <div class="text-[9px] text-brand-accent uppercase font-semibold mb-1">Lead Photographer[cite: 2]</div>
-        <p class="text-[11px] text-neutral-300 leading-relaxed">Amol, our Lead Photographer, has over 5 years of experience turning ordinary moments into beautiful memories[cite: 2]. With a creative eye for detail, he captures every special moment perfectly[cite: 2]. If you want wedding photos filled with love and creativity, Amol is your guy![cite: 2]</p>
+        <div class="text-[9px] text-brand-accent uppercase font-semibold mb-1">Lead Photographer</div>
+        <p class="text-[11px] text-neutral-300 leading-relaxed">Amol, our Lead Photographer, has over 5 years of experience turning ordinary moments into beautiful memories. With a creative eye for detail, he captures every special moment perfectly. If you want wedding photos filled with love and creativity, Amol is your guy!</p>
       </div>
     </div>
   </section>
@@ -510,7 +523,7 @@
     </div>
   </div>
 
-  <!-- CLEAN WHITE PDF TEMPLATE FOR DIRECT html2pdf DOWNLOADING -->
+  <!-- HIDDEN PDF TEMPLATE FOR DIRECT DOWNLOAD -->
   <div id="pdf-printable-area" style="display: none; width: 650px; background: #ffffff; color: #111111; padding: 30px; font-family: sans-serif;">
     <div style="border-bottom: 2px solid #b8860b; padding-bottom: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
       <div>
@@ -548,6 +561,25 @@
     let isExpanded = false;
     let currentLightboxIdx = 0;
     let lineItemsBreakdown = [];
+
+    const defaultPhotos = {
+      wedding: [
+        "https://images.unsplash.com/photo-1519741497674-611481863552?w=800",
+        "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800",
+        "https://images.unsplash.com/photo-1606800052052-a08af7148866?w=800",
+        "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800"
+      ],
+      prewedding: [
+        "https://images.unsplash.com/photo-1537633552985-df8429e8048b?w=800",
+        "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=800"
+      ],
+      haldi: [
+        "https://images.unsplash.com/photo-1584278860040-37cb5b6f7ded?w=800"
+      ],
+      bridalportraits: [
+        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800"
+      ]
+    };
 
     const defaultCustomRates = {
       "Wedding one photographer": 25000,
@@ -587,8 +619,14 @@
     function fetchPhotos() {
       fetch(`${SCRIPT_URL}?action=getPhotos`)
         .then(res => res.json())
-        .then(data => renderPhotos(data))
-        .catch(err => console.error("Error fetching photos:", err));
+        .then(data => {
+          allPhotos = (data && Object.keys(data).length > 0 && Object.values(data).some(arr => arr.length > 0)) ? data : defaultPhotos;
+          renderPhotos();
+        })
+        .catch(err => {
+          allPhotos = defaultPhotos;
+          renderPhotos();
+        });
     }
 
     function fetchPackages() {
@@ -606,14 +644,12 @@
           calculateCustomPrice();
         })
         .catch(err => {
-          console.error("Using default custom rates:", err);
           sheetCustomRates = defaultCustomRates;
           calculateCustomPrice();
         });
     }
 
-    function renderPhotos(data) {
-      allPhotos = data;
+    function renderPhotos() {
       document.getElementById('loader').classList.add('hidden');
       document.getElementById('photo-grid').classList.remove('hidden');
       switchCategory('wedding');
@@ -642,10 +678,10 @@
       const viewMoreBtn = document.getElementById('view-more-btn');
       
       grid.innerHTML = '';
-      const photos = allPhotos[currentCategory] || [];
+      const photos = allPhotos[currentCategory] || defaultPhotos[currentCategory] || [];
 
       if(photos.length === 0) {
-        grid.innerHTML = `<div class="col-span-2 text-center text-xs text-brand-muted py-6">No photos found in this folder yet.</div>`;
+        grid.innerHTML = `<div class="col-span-2 text-center text-xs text-brand-muted py-6">No photos found in this category yet.</div>`;
         viewMoreContainer.classList.add('hidden');
         return;
       }
@@ -653,10 +689,9 @@
       const displayPhotos = isExpanded ? photos : photos.slice(0, 4);
 
       displayPhotos.forEach((url, idx) => {
-        const thumbUrl = url.replace(/=w\d+-h\d+/, '=w800-no');
         grid.innerHTML += `
           <div onclick="openLightbox(${idx})" class="relative rounded-xl overflow-hidden bg-neutral-900 border border-neutral-800 aspect-[4/5] cursor-pointer group">
-            <img src="${thumbUrl}" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300" loading="lazy">
+            <img src="${url}" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300" loading="lazy">
             <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center text-white text-xs font-bold">🔍 Expand</div>
           </div>
         `;
@@ -675,10 +710,9 @@
       renderCategoryGrid();
     }
 
-    // --- LIGHTBOX CONTROLS ---
     function openLightbox(idx) {
       currentLightboxIdx = idx;
-      const photos = allPhotos[currentCategory] || [];
+      const photos = allPhotos[currentCategory] || defaultPhotos[currentCategory] || [];
       if(photos.length > 0) {
         document.getElementById('lightbox-img').src = photos[currentLightboxIdx];
         document.getElementById('lightbox-modal').classList.remove('hidden');
@@ -690,14 +724,14 @@
     }
 
     function prevPhoto() {
-      const photos = allPhotos[currentCategory] || [];
+      const photos = allPhotos[currentCategory] || defaultPhotos[currentCategory] || [];
       if(photos.length === 0) return;
       currentLightboxIdx = (currentLightboxIdx - 1 + photos.length) % photos.length;
       document.getElementById('lightbox-img').src = photos[currentLightboxIdx];
     }
 
     function nextPhoto() {
-      const photos = allPhotos[currentCategory] || [];
+      const photos = allPhotos[currentCategory] || defaultPhotos[currentCategory] || [];
       if(photos.length === 0) return;
       currentLightboxIdx = (currentLightboxIdx + 1) % photos.length;
       document.getElementById('lightbox-img').src = photos[currentLightboxIdx];
@@ -706,16 +740,6 @@
     function toggleTooltip(id) {
       const el = document.getElementById(id);
       if(el) el.classList.toggle('hidden');
-    }
-
-    function handleVenuePreset(selectEl) {
-      const venueInput = document.getElementById('client-venue');
-      if(selectEl.value && selectEl.value !== 'custom') {
-        venueInput.value = selectEl.value;
-      } else if(selectEl.value === 'custom') {
-        venueInput.value = '';
-        venueInput.focus();
-      }
     }
 
     function renderPackages(packages) {
@@ -727,10 +751,16 @@
 
       packages.forEach(pkg => {
         const detailsList = pkg.details.map(d => `<li>✓ ${d.trim()}</li>`).join('');
+        let formattedTitle = pkg.name;
+        if(pkg.name.includes('(')) {
+          const parts = pkg.name.split('(');
+          formattedTitle = `<span class="block">${parts[0].trim()}</span><span class="block text-brand-accent text-xs mt-0.5">(${parts[1].trim()}</span>`;
+        }
+
         container.innerHTML += `
           <div class="glass p-4 rounded-2xl border ${pkg.badge ? 'border-brand-accent/40' : 'border-neutral-800'} relative">
             ${pkg.badge ? `<div class="absolute top-3 right-3 bg-brand-accent/20 text-brand-accent text-[9px] px-2 py-0.5 rounded-full font-bold uppercase">${pkg.badge}</div>` : ''}
-            <h4 class="font-bold text-sm text-white">${pkg.name}</h4>
+            <h4 class="font-bold text-sm text-white pr-20 leading-tight">${formattedTitle}</h4>
             <div class="text-lg font-extrabold text-brand-accent my-1">${pkg.price}</div>
             <ul class="text-xs text-neutral-300 space-y-1 my-2">${detailsList}</ul>
             <button onclick="selectPackage('${pkg.name}', '${pkg.price}')" class="w-full bg-brand-accent text-brand-dark py-2 rounded-xl text-xs font-bold uppercase tracking-wider">Select Package</button>
@@ -749,17 +779,9 @@
 
     function selectPackage(name, price) {
       selectPackageWithoutScroll(name, price);
-      
-      document.getElementById('cfg-wedding-active').checked = false;
-      document.getElementById('cfg-haldi-active').checked = false;
-      document.getElementById('cfg-eng-active').checked = false;
-      document.getElementById('cfg-rec-active').checked = false;
-      calculateCustomPrice();
-
       document.getElementById('inquiry-section').scrollIntoView({ behavior: 'smooth' });
     }
 
-    // --- CUSTOM CALCULATION LOGIC & BREAKDOWN ---
     function calculateCustomPrice() {
       const rates = Object.keys(sheetCustomRates).length > 0 ? sheetCustomRates : defaultCustomRates;
       const albumRate = rates["Album"] || 250;
@@ -768,182 +790,153 @@
       lineItemsBreakdown = [];
       let hasCinematography = false;
 
-      // 1. Wedding Day
-      const wActive = document.getElementById('cfg-wedding-active').checked;
-      document.getElementById('cfg-wedding-options').classList.toggle('hidden', !wActive);
+      // 1. Wedding
+      const wActive = document.getElementById('cfg-wedding-active')?.checked;
+      document.getElementById('cfg-wedding-options')?.classList.toggle('hidden', !wActive);
       if(wActive) {
         const photo = document.getElementById('cfg-wedding-photo').value;
         const cine = document.getElementById('cfg-wedding-cine').value;
         const groom = document.getElementById('cfg-wedding-groom').checked;
         const bride = document.getElementById('cfg-wedding-bride').checked;
         const albumAct = document.getElementById('cfg-wedding-album-active').checked;
-        
-        document.getElementById('cfg-wedding-album-opts').classList.toggle('hidden', !albumAct);
+        document.getElementById('cfg-wedding-album-opts')?.classList.toggle('hidden', !albumAct);
 
-        if(photo === '1') { const p = (rates["Wedding one photographer"] || 25000); total += p; lineItemsBreakdown.push({ item: "Wedding Photography (1 Photog)", cost: p }); }
-        if(photo === '2') { const p = (rates["Wedding two photographer"] || 50000); total += p; lineItemsBreakdown.push({ item: "Wedding Photography (2 Photog)", cost: p }); }
+        if(photo === '1') { const p = rates["Wedding one photographer"] || 25000; total += p; lineItemsBreakdown.push({ item: "Wedding Photo (1 Photog)", cost: p }); }
+        if(photo === '2') { const p = rates["Wedding two photographer"] || 50000; total += p; lineItemsBreakdown.push({ item: "Wedding Photo (2 Photog)", cost: p }); }
 
         if(cine !== 'none') {
           hasCinematography = true;
-          if(cine === '1') { const p = (rates["Wedding one cinematographer"] || 25000); total += p; lineItemsBreakdown.push({ item: "Wedding Cinematography (1 Cine)", cost: p }); }
-          if(cine === '2') { const p = (rates["Wedding two cinematographer"] || 55000); total += p; lineItemsBreakdown.push({ item: "Wedding Cinematography (2 Cine)", cost: p }); }
+          if(cine === '1') { const p = rates["Wedding one cinematographer"] || 25000; total += p; lineItemsBreakdown.push({ item: "Wedding Cine (1 Cine)", cost: p }); }
+          if(cine === '2') { const p = rates["Wedding two cinematographer"] || 55000; total += p; lineItemsBreakdown.push({ item: "Wedding Cine (2 Cine)", cost: p }); }
         }
 
-        if(groom) { const p = (rates["Wedding home to venue groom side"] || 5000); total += p; lineItemsBreakdown.push({ item: "Groom Home to Venue Coverage", cost: p }); }
-        if(bride) { const p = (rates["Wedding home to venue bride side"] || 5000); total += p; lineItemsBreakdown.push({ item: "Bride Home to Venue Coverage", cost: p }); }
+        if(groom) { const p = rates["Wedding home to venue groom side"] || 5000; total += p; lineItemsBreakdown.push({ item: "Groom Home Coverage", cost: p }); }
+        if(bride) { const p = rates["Wedding home to venue bride side"] || 5000; total += p; lineItemsBreakdown.push({ item: "Bride Home Coverage", cost: p }); }
 
-        let albumText = "";
         if(albumAct) {
           const sheets = parseInt(document.getElementById('cfg-wedding-album-sheets').value) || 0;
-          const p = (sheets * albumRate);
+          const p = sheets * albumRate;
           total += p;
-          albumText = ` + ${sheets}s Album`;
           lineItemsBreakdown.push({ item: `Wedding Album (${sheets} spreads)`, cost: p });
         }
-
-        summaryParts.push(`Wedding (${photo !== 'none' ? photo + ' Photog' : ''}${cine !== 'none' ? ', ' + cine + ' Cine' : ''}${albumText})`);
+        summaryParts.push("Wedding");
       }
 
-      // 2. Haldi Ceremony
-      const hActive = document.getElementById('cfg-haldi-active').checked;
-      document.getElementById('cfg-haldi-options').classList.toggle('hidden', !hActive);
+      // 2. Haldi
+      const hActive = document.getElementById('cfg-haldi-active')?.checked;
+      document.getElementById('cfg-haldi-options')?.classList.toggle('hidden', !hActive);
       if(hActive) {
         const groomSide = document.getElementById('cfg-haldi-groom').checked;
         const brideSide = document.getElementById('cfg-haldi-bride').checked;
         const photoVal = document.getElementById('cfg-haldi-photo').value;
         const cineVal = document.getElementById('cfg-haldi-cine').value;
         const albumAct = document.getElementById('cfg-haldi-album-active').checked;
+        document.getElementById('cfg-haldi-album-opts')?.classList.toggle('hidden', !albumAct);
 
-        document.getElementById('cfg-haldi-album-opts').classList.toggle('hidden', !albumAct);
-
-        let haldiParts = [];
         let sidesCount = (groomSide ? 1 : 0) + (brideSide ? 1 : 0);
         if(sidesCount === 0) sidesCount = 1;
 
         if(photoVal !== 'none') {
           const [pCount, pHrs] = photoVal.split('-');
-          const key5 = "Haldi photography 5 hrs";
-          const key8 = "Haldi photography 8 hrs";
-          let baseCost = (pHrs === '5') ? (rates[key5] || 10000) : (rates[key8] || 20000);
+          let baseCost = (pHrs === '5') ? (rates["Haldi photography 5 hrs"] || 10000) : (rates["Haldi photography 8 hrs"] || 20000);
           if(pCount === '2') baseCost *= 1.8;
           const finalCost = baseCost * sidesCount;
           total += finalCost;
-          haldiParts.push(`${pCount} Photog (${pHrs}h)`);
-          lineItemsBreakdown.push({ item: `Haldi Photo (${pCount} Photog, ${pHrs}h, ${sidesCount} side/s)`, cost: finalCost });
+          lineItemsBreakdown.push({ item: `Haldi Photo (${pCount} Photog, ${pHrs}h)`, cost: finalCost });
         }
 
         if(cineVal !== 'none') {
           hasCinematography = true;
           const [cCount, cHrs] = cineVal.split('-');
-          const key5 = "Haldi cinematography 5 hrs";
-          const key8 = "Haldi cinematography 8 hrs";
-          let baseCost = (cHrs === '5') ? (rates[key5] || 10000) : (rates[key8] || 20000);
+          let baseCost = (cHrs === '5') ? (rates["Haldi cinematography 5 hrs"] || 10000) : (rates["Haldi cinematography 8 hrs"] || 20000);
           if(cCount === '2') baseCost *= 1.8;
           const finalCost = baseCost * sidesCount;
           total += finalCost;
-          haldiParts.push(`${cCount} Cine (${cHrs}h)`);
-          lineItemsBreakdown.push({ item: `Haldi Cine (${cCount} Cine, ${cHrs}h, ${sidesCount} side/s)`, cost: finalCost });
+          lineItemsBreakdown.push({ item: `Haldi Cine (${cCount} Cine, ${cHrs}h)`, cost: finalCost });
         }
 
-        let albumText = "";
         if(albumAct) {
           const sheets = parseInt(document.getElementById('cfg-haldi-album-sheets').value) || 0;
-          const p = (sheets * albumRate);
+          const p = sheets * albumRate;
           total += p;
-          albumText = ` + ${sheets}s Album`;
           lineItemsBreakdown.push({ item: `Haldi Album (${sheets} spreads)`, cost: p });
         }
-
-        if(haldiParts.length > 0) {
-          summaryParts.push(`Haldi (${haldiParts.join(', ')}${albumText})`);
-        }
+        summaryParts.push("Haldi");
       }
 
-      // 3. Engagement Ceremony
-      const eActive = document.getElementById('cfg-eng-active').checked;
-      document.getElementById('cfg-eng-options').classList.toggle('hidden', !eActive);
+      // 3. Engagement
+      const eActive = document.getElementById('cfg-eng-active')?.checked;
+      document.getElementById('cfg-eng-options')?.classList.toggle('hidden', !eActive);
       if(eActive) {
         const photo = document.getElementById('cfg-eng-photo').value;
         const cine = document.getElementById('cfg-eng-cine').value;
         const albumAct = document.getElementById('cfg-eng-album-active').checked;
+        document.getElementById('cfg-eng-album-opts')?.classList.toggle('hidden', !albumAct);
 
-        document.getElementById('cfg-eng-album-opts').classList.toggle('hidden', !albumAct);
-
-        if(photo === '1') { const p = (rates["Engagement one photographer"] || 15000); total += p; lineItemsBreakdown.push({ item: "Engagement Photo (1 Photog)", cost: p }); }
-        if(photo === '2') { const p = (rates["Engagement two photographer"] || 20000); total += p; lineItemsBreakdown.push({ item: "Engagement Photo (2 Photog)", cost: p }); }
+        if(photo === '1') { const p = rates["Engagement one photographer"] || 15000; total += p; lineItemsBreakdown.push({ item: "Engagement Photo (1 Photog)", cost: p }); }
+        if(photo === '2') { const p = rates["Engagement two photographer"] || 20000; total += p; lineItemsBreakdown.push({ item: "Engagement Photo (2 Photog)", cost: p }); }
 
         if(cine !== 'none') {
           hasCinematography = true;
-          if(cine === '1') { const p = (rates["Engagement one cinematographer"] || 15000); total += p; lineItemsBreakdown.push({ item: "Engagement Cine (1 Cine)", cost: p }); }
-          if(cine === '2') { const p = (rates["Engagement two cinematographer"] || 25000); total += p; lineItemsBreakdown.push({ item: "Engagement Cine (2 Cine)", cost: p }); }
+          if(cine === '1') { const p = rates["Engagement one cinematographer"] || 15000; total += p; lineItemsBreakdown.push({ item: "Engagement Cine (1 Cine)", cost: p }); }
+          if(cine === '2') { const p = rates["Engagement two cinematographer"] || 25000; total += p; lineItemsBreakdown.push({ item: "Engagement Cine (2 Cine)", cost: p }); }
         }
 
-        let albumText = "";
         if(albumAct) {
           const sheets = parseInt(document.getElementById('cfg-eng-album-sheets').value) || 0;
-          const p = (sheets * albumRate);
+          const p = sheets * albumRate;
           total += p;
-          albumText = ` + ${sheets}s Album`;
           lineItemsBreakdown.push({ item: `Engagement Album (${sheets} spreads)`, cost: p });
         }
-
-        summaryParts.push(`Engagement (${photo !== 'none' ? photo + ' Photog' : ''}${cine !== 'none' ? ', ' + cine + ' Cine' : ''}${albumText})`);
+        summaryParts.push("Engagement");
       }
 
-      // 4. Reception Ceremony
-      const rActive = document.getElementById('cfg-rec-active').checked;
-      document.getElementById('cfg-rec-options').classList.toggle('hidden', !rActive);
+      // 4. Reception
+      const rActive = document.getElementById('cfg-rec-active')?.checked;
+      document.getElementById('cfg-rec-options')?.classList.toggle('hidden', !rActive);
       if(rActive) {
         const photo = document.getElementById('cfg-rec-photo').value;
         const cine = document.getElementById('cfg-rec-cine').value;
         const albumAct = document.getElementById('cfg-rec-album-active').checked;
+        document.getElementById('cfg-rec-album-opts')?.classList.toggle('hidden', !albumAct);
 
-        document.getElementById('cfg-rec-album-opts').classList.toggle('hidden', !albumAct);
-
-        if(photo === '1') { const p = (rates["Reception one photographer"] || 15000); total += p; lineItemsBreakdown.push({ item: "Reception Photo (1 Photog)", cost: p }); }
-        if(photo === '2') { const p = (rates["Reception two photographer"] || 20000); total += p; lineItemsBreakdown.push({ item: "Reception Photo (2 Photog)", cost: p }); }
+        if(photo === '1') { const p = rates["Reception one photographer"] || 15000; total += p; lineItemsBreakdown.push({ item: "Reception Photo (1 Photog)", cost: p }); }
+        if(photo === '2') { const p = rates["Reception two photographer"] || 20000; total += p; lineItemsBreakdown.push({ item: "Reception Photo (2 Photog)", cost: p }); }
 
         if(cine !== 'none') {
           hasCinematography = true;
-          if(cine === '1') { const p = (rates["Reception one cinematographer"] || 15000); total += p; lineItemsBreakdown.push({ item: "Reception Cine (1 Cine)", cost: p }); }
-          if(cine === '2') { const p = (rates["Reception two cinematographer"] || 25000); total += p; lineItemsBreakdown.push({ item: "Reception Cine (2 Cine)", cost: p }); }
+          if(cine === '1') { const p = rates["Reception one cinematographer"] || 15000; total += p; lineItemsBreakdown.push({ item: "Reception Cine (1 Cine)", cost: p }); }
+          if(cine === '2') { const p = rates["Reception two cinematographer"] || 25000; total += p; lineItemsBreakdown.push({ item: "Reception Cine (2 Cine)", cost: p }); }
         }
 
-        let albumText = "";
         if(albumAct) {
           const sheets = parseInt(document.getElementById('cfg-rec-album-sheets').value) || 0;
-          const p = (sheets * albumRate);
+          const p = sheets * albumRate;
           total += p;
-          albumText = ` + ${sheets}s Album`;
           lineItemsBreakdown.push({ item: `Reception Album (${sheets} spreads)`, cost: p });
         }
-
-        summaryParts.push(`Reception (${photo !== 'none' ? photo + ' Photog' : ''}${cine !== 'none' ? ', ' + cine + ' Cine' : ''}${albumText})`);
+        summaryParts.push("Reception");
       }
 
-      // 5. CINEMATIC VIDEO DURATION & ADD-ONS
+      // 5. Cinematic Film Duration & Add-ons Section
       const videoSection = document.getElementById('cfg-video-duration-section');
       if(hasCinematography) {
         videoSection.classList.remove('hidden');
         const videoCost = parseInt(document.getElementById('cfg-video-duration').value) || 0;
         if(videoCost > 0) {
           total += videoCost;
-          let durationLabel = videoCost === 10000 ? "6-8 Min Film" : (videoCost === 8000 ? "3-5 Min Film" : "2-3 Min Film");
-          lineItemsBreakdown.push({ item: `Cinematic Film Edit (${durationLabel})`, cost: videoCost });
+          let dLabel = videoCost === 10000 ? "6-8 Min Film" : (videoCost === 8000 ? "3-5 Min Film" : "2-3 Min Film");
+          lineItemsBreakdown.push({ item: `Cinematic Film (${dLabel})`, cost: videoCost });
         }
-
-        // Check Drone
         if(document.getElementById('cfg-add-drone').checked) {
-          const p = (rates["Drone coverage per session"] || 10000);
-          total += p;
-          lineItemsBreakdown.push({ item: "Drone Aerial Coverage", cost: p });
+          let droneCost = rates["Drone coverage per session"] || 10000;
+          total += droneCost;
+          lineItemsBreakdown.push({ item: "Drone Aerial Coverage", cost: droneCost });
         }
-
-        // Check Trailer
         const trailerVal = parseInt(document.getElementById('cfg-add-trailer').value) || 0;
         if(trailerVal > 0) {
           total += trailerVal;
-          lineItemsBreakdown.push({ item: `Teaser Trailer (${trailerVal === 4000 ? '1-2m' : '2-3m'})`, cost: trailerVal });
+          lineItemsBreakdown.push({ item: "Cinematic Teaser / Trailer", cost: trailerVal });
         }
       } else {
         videoSection.classList.add('hidden');
@@ -953,7 +946,6 @@
       document.getElementById('custom-total-price').innerText = formattedTotal;
       document.getElementById('sticky-total-price').innerText = formattedTotal;
 
-      // Show/Hide Floating Mobile Quote Bar
       const floatingBar = document.getElementById('floating-custom-bar');
       if(total > 0) {
         floatingBar.classList.remove('hidden');
@@ -961,34 +953,24 @@
         floatingBar.classList.add('hidden');
       }
 
-      return {
-        totalStr: formattedTotal,
-        summary: summaryParts.length > 0 ? "Custom: " + summaryParts.join(" + ") : "Custom Package"
-      };
+      return { totalStr: formattedTotal, summary: summaryParts.length > 0 ? "Custom: " + summaryParts.join(" + ") : "Custom Package" };
     }
 
     function openBreakdownModal() {
       const listEl = document.getElementById('breakdown-list');
       listEl.innerHTML = '';
       if(lineItemsBreakdown.length === 0) {
-        listEl.innerHTML = `<div class="text-neutral-400 py-4 text-center">No coverage options selected yet.</div>`;
+        listEl.innerHTML = `<div class="text-neutral-400 py-2 text-center">No options selected yet.</div>`;
       } else {
         lineItemsBreakdown.forEach(item => {
-          listEl.innerHTML += `
-            <div class="flex items-center justify-between border-b border-neutral-800/60 pb-1.5">
-              <span>✓ ${item.item}</span>
-              <span class="font-bold text-brand-accent">₹${item.cost.toLocaleString('en-IN')}</span>
-            </div>
-          `;
+          listEl.innerHTML += `<div class="flex justify-between border-b border-neutral-800/60 pb-1.5"><span>✓ ${item.item}</span><span class="font-bold text-brand-accent">₹${item.cost.toLocaleString('en-IN')}</span></div>`;
         });
       }
       document.getElementById('breakdown-modal-total').innerText = document.getElementById('custom-total-price').innerText;
       document.getElementById('breakdown-modal').classList.remove('hidden');
     }
 
-    function closeBreakdownModal() {
-      document.getElementById('breakdown-modal').classList.add('hidden');
-    }
+    function closeBreakdownModal() { document.getElementById('breakdown-modal').classList.add('hidden'); }
 
     function downloadPDFQuote() {
       const pdfList = document.getElementById('pdf-items-list');
@@ -1008,7 +990,6 @@
       document.getElementById('pdf-total-span').innerText = document.getElementById('custom-total-price').innerText;
       document.getElementById('pdf-date-span').innerText = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
 
-      // Temporarily reveal printable layout for html2pdf conversion
       const printableArea = document.getElementById('pdf-printable-area');
       printableArea.style.display = 'block';
 
@@ -1021,40 +1002,55 @@
       };
 
       html2pdf().from(printableArea).set(opt).save().then(() => {
-        printableArea.style.display = 'none'; // Hide again post-download
+        printableArea.style.display = 'none';
       });
     }
 
     function applyCustomPackage() {
       const calc = calculateCustomPrice();
       if(calc.totalStr === "₹0") {
-        alert("Please select at least one ceremony to build your custom package.");
+        alert("Please select at least one event coverage option.");
         return;
       }
       selectedPackage = `${calc.summary} (${calc.totalStr})`;
-      document.getElementById('selected-pkg-name').innerHTML = `
-        <span class="text-white font-bold">Custom Package</span>
-        <span class="text-brand-accent font-extrabold ml-1">(${calc.totalStr})</span>
-      `;
+      document.getElementById('selected-pkg-name').innerHTML = `<span class="text-white font-bold">Custom Package</span><span class="text-brand-accent font-extrabold ml-1">(${calc.totalStr})</span>`;
       document.getElementById('inquiry-section').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function handleVenuePreset(selectEl) {
+      const venueInput = document.getElementById('client-venue');
+      if(selectEl.value && selectEl.value !== 'custom') {
+        venueInput.value = selectEl.value;
+      } else if(selectEl.value === 'custom') {
+        venueInput.value = '';
+        venueInput.focus();
+      }
     }
 
     function submitInquiry() {
       const name = document.getElementById('client-name').value.trim();
       const phone = document.getElementById('client-phone').value.trim();
-      const date1 = document.getElementById('client-date').value;
-      const date2 = document.getElementById('client-date-secondary').value;
       const venue = document.getElementById('client-venue').value.trim();
       const pkg = selectedPackage || "No package selected yet";
 
-      if(!name || !phone || !date1) {
-        alert("Please enter your name, mobile number, and primary event date before sending!");
+      if(!name || !phone) {
+        alert("Please enter your name and mobile number before sending!");
         return;
       }
 
-      const dateStr = date2 ? `${date1} & ${date2}` : date1;
+      const dEng = document.getElementById('date-engagement').value;
+      const dHaldi = document.getElementById('date-haldi').value;
+      const dWed = document.getElementById('date-wedding').value;
+      const dRec = document.getElementById('date-reception').value;
 
-      // Save inquiry to Google Sheet
+      let dateParts = [];
+      if(dEng) dateParts.push(`Engagement: ${dEng}`);
+      if(dHaldi) dateParts.push(`Haldi: ${dHaldi}`);
+      if(dWed) dateParts.push(`Wedding: ${dWed}`);
+      if(dRec) dateParts.push(`Reception: ${dRec}`);
+
+      const dateStr = dateParts.length > 0 ? dateParts.join(' | ') : "Dates TBD";
+
       fetch(SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
@@ -1063,10 +1059,8 @@
       }).then(() => console.log("Saved inquiry to Sheet!"))
         .catch(err => console.error("Error saving inquiry:", err));
 
-      // Open WhatsApp with pre-filled details
-      const phoneNumber = "919822000000"; // Replace with your actual WhatsApp phone number
-      const msg = encodeURIComponent(`Hi Story Crafters!\n\n*New Inquiry Details:*\n👤 Name: ${name}\n📞 Mobile: ${phone}\n📅 Date(s): ${dateStr}\n📍 Venue: ${venue || 'Not specified'}\n📦 Package: ${pkg}\n\nIs this date available?`);
-      
+      const phoneNumber = "919822000000";
+      const msg = encodeURIComponent(`Hi Story Crafters!\n\n*New Inquiry Details:*\n👤 Name: ${name}\n📞 Mobile: ${phone}\n📅 Dates: ${dateStr}\n📍 Venue: ${venue || 'Not specified'}\n📦 Package: ${pkg}\n\nAre these dates available?`);
       window.open(`https://wa.me/${phoneNumber}?text=${msg}`, '_blank');
     }
   </script>
