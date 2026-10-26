@@ -524,7 +524,9 @@
   <div class="fixed bottom-0 left-0 right-0 glass border-t border-brand-accent/20 p-3 max-w-md mx-auto flex items-center justify-between shadow-2xl z-50">
     <div class="max-w-[58%]">
       <div class="text-[9px] uppercase text-brand-muted font-semibold">Selected Package:</div>
-      <div id="selected-pkg-name" class="text-xs font-bold text-white truncate">Select a Package</div>
+      <div id="selected-pkg-name">
+        <div class="text-xs font-bold text-white truncate">Select a Package</div>
+      </div>
     </div>
     <button onclick="submitInquiry()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3.5 py-2 rounded-xl text-xs font-bold shadow-lg transition-all shrink-0">
       Save & WhatsApp Us
@@ -816,10 +818,11 @@
     }
 
     function selectPackageWithoutScroll(name, price) {
-      selectedPackage = `${name} (${price})`;
+      let cleanName = name.split('(')[0].trim();
+      selectedPackage = `${cleanName} (${price})`;
       document.getElementById('selected-pkg-name').innerHTML = `
-        <span class="text-white">${name}</span>
-        <span class="text-brand-accent font-extrabold ml-1">(${price})</span>
+        <div class="text-xs font-bold text-white truncate">${cleanName}</div>
+        <div class="text-xs font-extrabold text-brand-accent">${price}</div>
       `;
     }
 
@@ -1086,7 +1089,10 @@
         return;
       }
       selectedPackage = `${calc.summary} (${calc.totalStr})`;
-      document.getElementById('selected-pkg-name').innerHTML = `<span class="text-white font-bold">Custom Package</span><span class="text-brand-accent font-extrabold ml-1">(${calc.totalStr})</span>`;
+      document.getElementById('selected-pkg-name').innerHTML = `
+        <div class="text-xs font-bold text-white truncate">${calc.summary}</div>
+        <div class="text-xs font-extrabold text-brand-accent">${calc.totalStr}</div>
+      `;
       document.getElementById('inquiry-section').scrollIntoView({ behavior: 'smooth' });
     }
 
