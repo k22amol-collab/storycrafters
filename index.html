@@ -5,7 +5,7 @@
   <title>Story Crafters | Portfolio & Rates</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- html2pdf library for direct PDF downloading -->
+  <!-- html2pdf library kept for internal proposal generation -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script>
     tailwind.config = {
@@ -484,7 +484,7 @@
     <button onclick="nextPhoto()" class="absolute right-2 text-white text-2xl font-bold bg-neutral-800/80 w-10 h-10 rounded-full flex items-center justify-center z-50">&rsaquo;</button>
   </div>
 
-  <!-- ITEMIZED BREAKDOWN MODAL -->
+  <!-- ITEMIZED BREAKDOWN MODAL (Internal PDF download available here for you) -->
   <div id="breakdown-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
     <div class="glass w-full max-w-sm rounded-2xl p-5 border border-brand-accent/40 space-y-4 shadow-2xl text-white">
       <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
@@ -500,7 +500,8 @@
         <span id="breakdown-modal-total" class="font-extrabold text-sm text-brand-accent">₹0</span>
       </div>
       <div class="flex gap-2 pt-2">
-        <button onclick="downloadPDFQuote()" class="w-1/2 bg-neutral-800 hover:bg-neutral-700 text-brand-accent border border-brand-accent/40 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider shadow">
+        <!-- Internal PDF Download Button for your use -->
+        <button onclick="downloadPDFQuote()" class="w-1/2 bg-neutral-800 hover:bg-neutral-700 text-brand-accent border border-brand-accent/40 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider shadow" title="Download PDF for internal review before sending to client">
           📄 Download PDF
         </button>
         <button onclick="closeBreakdownModal(); applyCustomPackage();" class="w-1/2 bg-brand-accent text-brand-dark py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider shadow">
@@ -510,7 +511,7 @@
     </div>
   </div>
 
-  <!-- CLEAN WHITE PDF TEMPLATE FOR DIRECT html2pdf DOWNLOADING -->
+  <!-- HIDDEN CLEAN WHITE PDF TEMPLATE -->
   <div id="pdf-printable-area" style="display: none; width: 650px; background: #ffffff; color: #111111; padding: 30px; font-family: sans-serif;">
     <div style="border-bottom: 2px solid #b8860b; padding-bottom: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
       <div>
@@ -727,10 +728,18 @@
 
       packages.forEach(pkg => {
         const detailsList = pkg.details.map(d => `<li>✓ ${d.trim()}</li>`).join('');
+        
+        // Split title into two lines if it contains parentheses so bracket goes to the second line
+        let formattedTitle = pkg.name;
+        if(pkg.name.includes('(')) {
+          const parts = pkg.name.split('(');
+          formattedTitle = `<span class="block">${parts[0].trim()}</span><span class="block text-brand-accent text-xs mt-0.5">(${parts[1].trim()}</span>`;
+        }
+
         container.innerHTML += `
           <div class="glass p-4 rounded-2xl border ${pkg.badge ? 'border-brand-accent/40' : 'border-neutral-800'} relative">
             ${pkg.badge ? `<div class="absolute top-3 right-3 bg-brand-accent/20 text-brand-accent text-[9px] px-2 py-0.5 rounded-full font-bold uppercase">${pkg.badge}</div>` : ''}
-            <h4 class="font-bold text-sm text-white">${pkg.name}</h4>
+            <h4 class="font-bold text-sm text-white pr-20 leading-tight">${formattedTitle}</h4>
             <div class="text-lg font-extrabold text-brand-accent my-1">${pkg.price}</div>
             <ul class="text-xs text-neutral-300 space-y-1 my-2">${detailsList}</ul>
             <button onclick="selectPackage('${pkg.name}', '${pkg.price}')" class="w-full bg-brand-accent text-brand-dark py-2 rounded-xl text-xs font-bold uppercase tracking-wider">Select Package</button>
@@ -1008,7 +1017,7 @@
       document.getElementById('pdf-total-span').innerText = document.getElementById('custom-total-price').innerText;
       document.getElementById('pdf-date-span').innerText = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
 
-      // Temporarily reveal printable layout for html2pdf conversion
+      // Temporarily reveal template for internal PDF download
       const printableArea = document.getElementById('pdf-printable-area');
       printableArea.style.display = 'block';
 
@@ -1021,7 +1030,7 @@
       };
 
       html2pdf().from(printableArea).set(opt).save().then(() => {
-        printableArea.style.display = 'none'; // Hide again post-download
+        printableArea.style.display = 'none';
       });
     }
 
