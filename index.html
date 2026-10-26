@@ -82,6 +82,43 @@
         <p class="text-[11px] text-brand-muted">Select specific coverage and album options per event to calculate your total quote.</p>
       </div>
 
+      <!-- 0. PRE-WEDDING SHOOT -->
+      <div class="bg-neutral-900/90 p-3 rounded-xl border border-neutral-800 space-y-2">
+        <label class="flex items-center gap-2 cursor-pointer">
+          <input type="checkbox" id="cfg-prewedding-active" onchange="calculateCustomPrice()" class="accent-amber-500 w-4 h-4">
+          <span class="text-xs font-bold text-white">Pre-Wedding Shoot</span>
+        </label>
+        
+        <div id="cfg-prewedding-options" class="pl-6 space-y-2 text-xs hidden">
+          <div class="flex items-center justify-between">
+            <span class="text-neutral-300">Photography:</span>
+            <select id="cfg-prewedding-photo" onchange="calculateCustomPrice()" class="bg-neutral-800 text-white rounded px-2 py-1 text-xs border border-neutral-700">
+              <option value="none">None</option>
+              <option value="1" selected>1 Photographer</option>
+              <option value="2">2 Photographers</option>
+            </select>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-neutral-300">Cinematography:</span>
+            <select id="cfg-prewedding-cine" onchange="calculateCustomPrice()" class="bg-neutral-800 text-white rounded px-2 py-1 text-xs border border-neutral-700">
+              <option value="none">None</option>
+              <option value="1">1 Cinematographer</option>
+              <option value="2">2 Cinematographers</option>
+            </select>
+          </div>
+          <div class="pt-2 border-t border-neutral-800 space-y-1">
+            <label class="flex items-center gap-2 cursor-pointer text-brand-accent">
+              <input type="checkbox" id="cfg-prewedding-album-active" onchange="calculateCustomPrice()" class="accent-amber-500 w-3.5 h-3.5">
+              <span class="font-semibold">Add Pre-Wedding Album</span>
+            </label>
+            <div id="cfg-prewedding-album-opts" class="flex items-center justify-between text-neutral-300 pl-5 hidden">
+              <span>Album Sheets/Spreads:</span>
+              <input type="number" id="cfg-prewedding-album-sheets" value="20" min="1" oninput="calculateCustomPrice()" class="bg-neutral-800 text-white w-16 rounded px-2 py-1 text-xs border border-neutral-700 text-center">
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- 1. MAIN WEDDING DAY -->
       <div class="bg-neutral-900/90 p-3 rounded-xl border border-neutral-800 space-y-2">
         <label class="flex items-center gap-2 cursor-pointer">
@@ -376,10 +413,15 @@
           <input type="tel" id="client-phone" placeholder="e.g. +91 98220 00000" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-accent">
         </div>
         
-        <!-- EVENT NAMES & DATES (Engagement, Haldi, Wedding, Reception) -->
+        <!-- EVENT NAMES & DATES -->
         <div class="space-y-2 pt-1 border-t border-neutral-800">
           <label class="block text-[10px] uppercase tracking-wider text-brand-accent font-bold">Event Dates (Optional / As Finalized)</label>
           
+          <div class="flex items-center justify-between bg-neutral-900/90 p-2 rounded-xl border border-neutral-800 text-xs">
+            <span class="text-neutral-300 font-medium">📸 Pre-Wedding Date:</span>
+            <input type="date" id="date-prewedding" class="bg-neutral-800 text-white rounded px-2 py-1 text-xs border border-neutral-700">
+          </div>
+
           <div class="flex items-center justify-between bg-neutral-900/90 p-2 rounded-xl border border-neutral-800 text-xs">
             <span class="text-neutral-300 font-medium">💍 Engagement Date:</span>
             <input type="date" id="date-engagement" class="bg-neutral-800 text-white rounded px-2 py-1 text-xs border border-neutral-700">
@@ -582,6 +624,10 @@
     };
 
     const defaultCustomRates = {
+      "Prewedding one photographer": 15000,
+      "Prewedding two photographer": 25000,
+      "Prewedding one cinematographer": 15000,
+      "Prewedding two cinematographer": 25000,
       "Wedding one photographer": 25000,
       "Wedding two photographer": 50000,
       "Wedding one cinematographer": 25000,
@@ -789,6 +835,33 @@
       let summaryParts = [];
       lineItemsBreakdown = [];
       let hasCinematography = false;
+
+      // 0. Pre-Wedding
+      const pwActive = document.getElementById('cfg-prewedding-active')?.checked;
+      document.getElementById('cfg-prewedding-options')?.classList.toggle('hidden', !pwActive);
+      if(pwActive) {
+        const photo = document.getElementById('cfg-prewedding-photo').value;
+        const cine = document.getElementById('cfg-prewedding-cine').value;
+        const albumAct = document.getElementById('cfg-prewedding-album-active').checked;
+        document.getElementById('cfg-prewedding-album-opts')?.classList.toggle('hidden', !albumAct);
+
+        if(photo === '1') { const p = rates["Prewedding one photographer"] || 15000; total += p; lineItemsBreakdown.push({ item: "Pre-Wedding Photo (1 Photog)", cost: p }); }
+        if(photo === '2') { const p = rates["Prewedding two photographer"] || 25000; total += p; lineItemsBreakdown.push({ item: "Pre-Wedding Photo (2 Photog)", cost: p }); }
+
+        if(cine !== 'none') {
+          hasCinematography = true;
+          if(cine === '1') { const p = rates["Prewedding one cinematographer"] || 15000; total += p; lineItemsBreakdown.push({ item: "Pre-Wedding Cine (1 Cine)", cost: p }); }
+          if(cine === '2') { const p = rates["Prewedding two cinematographer"] || 25000; total += p; lineItemsBreakdown.push({ item: "Pre-Wedding Cine (2 Cine)", cost: p }); }
+        }
+
+        if(albumAct) {
+          const sheets = parseInt(document.getElementById('cfg-prewedding-album-sheets').value) || 0;
+          const p = sheets * albumRate;
+          total += p;
+          lineItemsBreakdown.push({ item: `Pre-Wedding Album (${sheets} spreads)`, cost: p });
+        }
+        summaryParts.push("Pre-Wedding");
+      }
 
       // 1. Wedding
       const wActive = document.getElementById('cfg-wedding-active')?.checked;
@@ -1038,12 +1111,14 @@
         return;
       }
 
+      const dPre = document.getElementById('date-prewedding').value;
       const dEng = document.getElementById('date-engagement').value;
       const dHaldi = document.getElementById('date-haldi').value;
       const dWed = document.getElementById('date-wedding').value;
       const dRec = document.getElementById('date-reception').value;
 
       let dateParts = [];
+      if(dPre) dateParts.push(`Pre-Wedding: ${dPre}`);
       if(dEng) dateParts.push(`Engagement: ${dEng}`);
       if(dHaldi) dateParts.push(`Haldi: ${dHaldi}`);
       if(dWed) dateParts.push(`Wedding: ${dWed}`);
