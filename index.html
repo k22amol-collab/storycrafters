@@ -818,12 +818,17 @@
     }
 
     function resetCustomBuilder() {
-      // Uncheck all main custom event checkboxes
-      ['cfg-prewedding-active', 'cfg-wedding-active', 'cfg-haldi-active', 'cfg-eng-active', 'cfg-rec-active', 'cfg-add-drone'].forEach(id => {
+      // Uncheck all custom event checkboxes & add-ons
+      ['cfg-prewedding-active', 'cfg-wedding-active', 'cfg-haldi-active', 'cfg-eng-active', 'cfg-rec-active', 'cfg-add-drone', 'cfg-prewedding-album-active', 'cfg-wedding-album-active', 'cfg-haldi-album-active', 'cfg-eng-album-active', 'cfg-rec-album-active'].forEach(id => {
         const el = document.getElementById(id);
         if(el) el.checked = false;
       });
-      // Hide floating bar and reset prices
+      const vDur = document.getElementById('cfg-video-duration');
+      if(vDur) vDur.value = "0";
+      const tDur = document.getElementById('cfg-add-trailer');
+      if(tDur) tDur.value = "0";
+
+      // Hide floating bar and reset prices to ₹0
       document.getElementById('floating-custom-bar').classList.add('hidden');
       document.getElementById('custom-total-price').innerText = "₹0";
       document.getElementById('sticky-total-price').innerText = "₹0";
@@ -831,7 +836,7 @@
     }
 
     function onCustomChange() {
-      // When custom builder is touched, clear any standard package selection in the bottom bar
+      // Recalculate custom price when custom builder is touched
       calculateCustomPrice();
     }
 
@@ -1046,6 +1051,14 @@
       const floatingBar = document.getElementById('floating-custom-bar');
       if(total > 0) {
         floatingBar.classList.remove('hidden');
+        
+        // Mutually exclusive: update bottom bar to show custom package selection instead of standard package
+        const customSummary = summaryParts.length > 0 ? "Custom: " + summaryParts.join(" + ") : "Custom Package";
+        selectedPackage = `${customSummary} (${formattedTotal})`;
+        document.getElementById('selected-pkg-name').innerHTML = `
+          <div class="text-xs font-bold text-white truncate">Custom Package</div>
+          <div class="text-xs font-extrabold text-brand-accent">${formattedTotal}</div>
+        `;
       } else {
         floatingBar.classList.add('hidden');
       }
